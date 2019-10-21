@@ -5,6 +5,10 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.filter.Filter;
 import ch.qos.logback.core.spi.FilterReply;
 
+/**
+ * @author haoxp
+ * @date 2019-10-21 18:20
+ */
 public class LessThanOrEqualToFilter extends Filter<ILoggingEvent> {
 
     Level level;

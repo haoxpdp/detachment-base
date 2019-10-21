@@ -11,7 +11,7 @@
                 %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
             </Pattern>
         </encoder>
-        <filter class="com.haoxp.detach_base.log.filter.LessThanOrEqualToFilter">
+        <filter class="cn.detachment.frame.log.filter.LessThanOrEqualToFilter">
             <level>INFO</level>
         </filter>
     </appender>
@@ -41,7 +41,7 @@
                 %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
             </Pattern>
         </encoder>
-        <filter class="com.haoxp.detach_base.log.filter.LessThanOrEqualToFilter">
+        <filter class="cn.detachment.frame.log.filter.LessThanOrEqualToFilter">
             <level>ERROR</level>
         </filter>
     </appender>
