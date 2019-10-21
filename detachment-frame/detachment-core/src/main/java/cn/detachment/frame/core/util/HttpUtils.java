@@ -1,7 +1,7 @@
 package cn.detachment.frame.core.util;
 
+import cn.detachment.frame.core.exception.ServiceException;
 import com.alibaba.fastjson.JSONObject;
-import com.haoxp.detach_base.common.exception.ServiceException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
