@@ -16,6 +16,7 @@
     <modules>
         <module>detachment-log</module>
         <module>detachment-core</module>
+        <module>detachment-redis</module>
     </modules>
 
     <properties>
