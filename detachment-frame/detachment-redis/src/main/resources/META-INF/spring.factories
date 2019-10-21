@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.detachment.frame.redis.config.LockConfig,\
+  cn.detachment.frame.redis.config.RedisConfig
