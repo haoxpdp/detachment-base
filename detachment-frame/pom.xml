@@ -43,6 +43,11 @@
                 <artifactId>spring-cloud-starter-sleuth</artifactId>
                 <version>${sleuth.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcomponents-client</artifactId>
+                <version>4.5.5</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
