@@ -12,7 +12,7 @@
     <description>detachment basic, utils</description>
 
     <modules>
-        <module>detachment-builder</module>
+        <module>detachment-frame</module>
     </modules>
 
     <developers>
