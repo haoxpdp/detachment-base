@@ -32,7 +32,9 @@ public class RedisInterceptor implements MethodInterceptor {
         this.redisLock = redisLock;
     }
 
-    private static final String prefix_lock = "redis_lock_";
+    private static final String PREFIX_LOCK = "redis_lock_";
+
+    private static final String IP_ADDRESS = IpUtil.getIp();
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -51,7 +53,7 @@ public class RedisInterceptor implements MethodInterceptor {
         while ((SystemClock.INSTANCE.currentTimeMillis() - start) < lockInfo.getTimeOut()) {
             if (redisLock.lock(lockInfo)) {
                 try {
-                    logger.debug("lock {} - {} success!",lockKey,lockInfo.getValue());
+                    logger.debug("lock {} - {} success!", lockKey, lockInfo.getValue());
                     return invocation.proceed();
                 } catch (Exception e) {
                     throw new RedisLockExecutionException(e);
@@ -67,17 +69,17 @@ public class RedisInterceptor implements MethodInterceptor {
         throw new RedisLockException("try to redis lock failed");
     }
 
-    protected String generateValue(String key) {
+    private String generateValue(String key) {
         return String.format("%s : %s - %s", key, key.hashCode(), UUID.randomUUID());
     }
 
-    protected String generateKeyName(MethodInvocation invocation) {
+    private String generateKeyName(MethodInvocation invocation) {
         StringBuilder key = new StringBuilder();
         Method method = invocation.getMethod();
         String className = method.getDeclaringClass().getName();
         String methodName = method.getName();
-        key.append(prefix_lock)
-                .append(IpUtil.getIp())
+        key.append(PREFIX_LOCK)
+                .append(IP_ADDRESS)
                 .append("_")
                 .append(className)
                 .append("_")
