@@ -24,6 +24,10 @@
             <artifactId>detachment-log</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
