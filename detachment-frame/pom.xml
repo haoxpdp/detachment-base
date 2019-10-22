@@ -17,6 +17,7 @@
         <module>detachment-log</module>
         <module>detachment-core</module>
         <module>detachment-redis</module>
+        <module>detachment-mysql</module>
     </modules>
 
     <properties>
@@ -24,6 +25,7 @@
         <lombok.version>1.18.8</lombok.version>
         <fastJson.version>1.2.58</fastJson.version>
         <httpClient.version>4.5.5</httpClient.version>
+        <mybatis-plus.version>3.1.0</mybatis-plus.version>
     </properties>
 
 
@@ -48,6 +50,16 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpcomponents-client</artifactId>
                 <version>${httpClient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
