@@ -1,11 +1,14 @@
 package cn.detachment.frame.redis.example;
 
 import cn.detachment.frame.redis.example.service.LockTestService;
+import cn.detachment.frame.redis.example.service.RedisService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -26,6 +29,9 @@ public class AppTest {
     @Resource
     private LockTestService lockTestService;
 
+    @Resource
+    private RedisService redisService;
+
     @Test
     public void testLock() throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
@@ -37,5 +43,12 @@ public class AppTest {
             Thread.sleep(1000);
         }
         logger.info("result {}", lockTestService.getNano());
+    }
+
+    @Test
+    public void testRedis() {
+        redisService.testRedisSet();
+        logger.info(redisService.testRedisGetAndRemove());
+        logger.info("has key {} ", redisService.testHasKey());
     }
 }
