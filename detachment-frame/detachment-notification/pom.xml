@@ -9,7 +9,7 @@
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>detachment-mysql</artifactId>
+    <artifactId>detachment-notification</artifactId>
 
     <properties>
     </properties>
@@ -19,14 +19,6 @@
             <groupId>cn.detachment</groupId>
             <artifactId>detachment-core</artifactId>
             <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-core</artifactId>
         </dependency>
     </dependencies>
 

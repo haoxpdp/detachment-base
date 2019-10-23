@@ -18,6 +18,8 @@
         <module>detachment-core</module>
         <module>detachment-redis</module>
         <module>detachment-mysql</module>
+        <module>detachment-web</module>
+        <module>detachment-notification</module>
     </modules>
 
     <properties>
