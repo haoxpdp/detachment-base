@@ -48,6 +48,9 @@ public class HttpUtils {
     private static final String UTF8 = "UTF-8";
     private static final String POST = "POST";
     private static final String GET = "GET";
+    private static final int HTTP_SUCCESS = 200;
+    private static final int HTTP_REDIRECT = 300;
+    private static final int HTTP_FAILED = 400;
     private static PoolingHttpClientConnectionManager cm;
     private static CloseableHttpClient httpClient;
 
@@ -67,23 +70,12 @@ public class HttpUtils {
         }
     }
 
-    /**
-     * post基础方法
-     *
-     * @param url
-     * @param header
-     * @param param
-     * @param config
-     * @return
-     */
     public static String post(String url, Map<String, String> header, Map<String, String> param, RequestConfig config) {
         RequestBuilder requestBuilder = RequestBuilder.post(url);
         try {
-            ArrayList<NameValuePair> list = new ArrayList();
+            ArrayList<BasicNameValuePair> list = new ArrayList<>();
             if (!CollectionUtils.isEmpty(param)) {
-                param.forEach((key, value) -> {
-                    list.add(new BasicNameValuePair(key, value));
-                });
+                param.forEach((key, value) -> list.add(new BasicNameValuePair(key, value)));
             }
             requestBuilder.setEntity(new UrlEncodedFormEntity(list, UTF8));
         } catch (UnsupportedEncodingException e) {
@@ -105,15 +97,6 @@ public class HttpUtils {
         return post(url, null, null, null);
     }
 
-    /**
-     * get基础方法
-     *
-     * @param url
-     * @param header
-     * @param param
-     * @param config
-     * @return
-     */
     public static String get(String url, Map<String, String> header, Map<String, String> param, RequestConfig config, String charSet) {
         return get(url, header, param, config, charSet, null);
     }
@@ -129,7 +112,7 @@ public class HttpUtils {
     public static String get(String url, Map<String, String> header, Map<String, String> param, RequestConfig config, String charSet, OperatorResponse operatorResponse) {
         // 如果有参数，生成并拼接在url后
         if (!CollectionUtils.isEmpty(param)) {
-            ArrayList<NameValuePair> list = new ArrayList<NameValuePair>();
+            ArrayList<NameValuePair> list = new ArrayList<>();
             param.forEach((key, value) -> {
                 list.add(new BasicNameValuePair(key, value));
             });
@@ -170,17 +153,11 @@ public class HttpUtils {
      * 基础post发送json数据<br/>
      * 若params是String类型，则直接发送。<br/>
      * 否则，调用fastJson的toJSONString()转化成json再发送。
-     *
-     * @param url
-     * @param header
-     * @param params
-     * @param config
-     * @return
      */
     public static String postJson(String url, Map<String, String> header, Object params, RequestConfig config) {
         RequestBuilder requestBuilder = RequestBuilder.post(url);
         if (params != null) {
-            String jsonStr = null;
+            String jsonStr;
             if (params instanceof String) {
                 jsonStr = (String) params;
             } else {
@@ -235,18 +212,16 @@ public class HttpUtils {
                 logger.info(String.format("response <<<%s>>>", responseEntity));
 
                 int status = response.getStatusLine().getStatusCode();
-                if (status >= 200 && status < 300) {
+                if (status >= HTTP_SUCCESS && status < HTTP_REDIRECT) {
                     return responseEntity;
                 } else {
                     throw new HttpResponseException(status, "Unexpected response status: " + status);
                 }
             }
-
         };
 
         try {
-            String responseBody = httpClient.execute(request, responseHandler);
-            return responseBody;
+            return httpClient.execute(request, responseHandler);
         } catch (HttpResponseException e) {
             throw new ServiceException(500, e.getMessage(), e);
         } catch (ConnectTimeoutException e) {
@@ -262,6 +237,13 @@ public class HttpUtils {
         return httpClient;
     }
 
+    /**
+     * OperatorResponse
+     * 自定义操作httpClient返回结果
+     *
+     * @author haoxp
+     * @date 19/10/23 11:41
+     */
     public interface OperatorResponse {
         String operator(HttpResponse response) throws IOException;
     }
