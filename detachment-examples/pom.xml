@@ -15,9 +15,11 @@
 
     <modules>
         <module>detachment-redis-example</module>
+        <module>detachment-rocketmq-example</module>
     </modules>
 
     <properties>
+        <detachment.version>1.0.0</detachment.version>
     </properties>
 
     <dependencies>
@@ -33,7 +35,12 @@
             <dependency>
                 <groupId>cn.detachment</groupId>
                 <artifactId>detachment-redis</artifactId>
-                <version>1.0.0</version>
+                <version>${detachment.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>detachment-core</artifactId>
+                <version>${detachment.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
