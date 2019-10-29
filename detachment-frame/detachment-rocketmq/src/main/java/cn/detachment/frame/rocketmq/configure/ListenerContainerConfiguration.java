@@ -72,12 +72,15 @@ public class ListenerContainerConfiguration implements ApplicationContextAware, 
         String consumerGroup = this.environment.resolvePlaceholders(annotation.consumerGroup());
         String topic = this.environment.resolvePlaceholders(annotation.topic());
 
-        boolean listenEnable = (boolean) rocketMQProperties.getConsumer()
-                .getListeners()
-                .getOrDefault(consumerGroup, Collections.EMPTY_MAP)
+        Map<String, Map<String, Boolean>> maps = rocketMQProperties
+                .getConsumer()
+                .getListeners();
+
+        boolean listenEnable = (boolean)
+                maps.getOrDefault(consumerGroup, Collections.EMPTY_MAP)
                 .getOrDefault(topic, true);
 
-        if (listenEnable) {
+        if (!listenEnable) {
             logger.warn(
                     "Consumer Listener (group:{},topic:{}) is not enabled by configuration, will ignore initialization.",
                     consumerGroup, topic);
@@ -129,6 +132,7 @@ public class ListenerContainerConfiguration implements ApplicationContextAware, 
         if (!StringUtils.isEmpty(accessChannel)) {
             container.setAccessChannel(AccessChannel.valueOf(accessChannel));
         }
+        container.setApplicationContext(applicationContext);
         container.setRocketmqMessageListener(annotation);
         container.setRocketmqListener((RocketmqListener) bean);
         container.setObjectMapper(objectMapper);

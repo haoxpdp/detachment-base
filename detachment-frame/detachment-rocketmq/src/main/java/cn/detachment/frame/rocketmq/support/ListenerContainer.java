@@ -53,6 +53,8 @@ public class ListenerContainer implements InitializingBean,
     @Setter
     private long suspendCurrentQueueTimeMillis = 1000;
 
+    @Getter
+    @Setter
     private ApplicationContext applicationContext;
 
     /**
@@ -156,7 +158,7 @@ public class ListenerContainer implements InitializingBean,
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-
+        this.applicationContext = applicationContext;
     }
 
     @Override
