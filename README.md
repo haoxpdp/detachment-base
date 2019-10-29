@@ -1,13 +1,29 @@
 # detachment base
 
-## java开发通用模块
+## core 
+* [X] 通用工具封装
 
-### core 
+## web
 
-### mysql
 
-### redis
+## mysql
+* [X] 分布式id生产
+* [X] 乐观锁
 
-### mq
+## redis
+* [ ] redis通用方法封装
+* [X] redis分布式锁
+* [ ] redis布隆过滤器
 
-### log
+## mq
+### rocketmq
+* [ ] msg listener 注解
+
+## log
+### logback
+* [X] spring logback
+* [X] sleuth
+
+## monitor
+
+## swagger
