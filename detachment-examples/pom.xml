@@ -42,6 +42,16 @@
                 <artifactId>detachment-core</artifactId>
                 <version>${detachment.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>log</artifactId>
+                <version>${detachment.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>detachment-rocketmq</artifactId>
+                <version>${detachment.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -20,6 +20,7 @@
         <module>detachment-mysql</module>
         <module>detachment-web</module>
         <module>detachment-notification</module>
+        <module>detachment-rocketmq</module>
     </modules>
 
     <properties>
@@ -28,6 +29,8 @@
         <fastJson.version>1.2.58</fastJson.version>
         <httpClient.version>4.5.5</httpClient.version>
         <mybatis-plus.version>3.1.0</mybatis-plus.version>
+        <rocketmq.version>4.5.1</rocketmq.version>
+        <jackson.version>2.9.7</jackson.version>
     </properties>
 
 
@@ -62,6 +65,31 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-core</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-common</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-acl</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-remoting</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

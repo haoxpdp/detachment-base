@@ -5,16 +5,11 @@
 
     <parent>
         <groupId>cn.detachment</groupId>
-        <artifactId>detachment-examples</artifactId>
+        <artifactId>detachment-rocketmq-example</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>detachment-rocketmq-example</artifactId>
-
-    <modules>
-        <module>detachment-rocketmq-consumer-example</module>
-        <module>detachment-rocketmq-producer-example</module>
-    </modules>
+    <artifactId>detachment-rocketmq-producer-example</artifactId>
 
     <properties>
     </properties>
