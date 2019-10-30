@@ -1,7 +1,7 @@
 package cn.detachment.example.rocketmq.consumer.listener;
 
-import cn.detachment.frame.rocketmq.annotation.RocketMQMessageListener;
-import cn.detachment.frame.rocketmq.core.RocketmqListener;
+import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
+import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Service;
 
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RocketMQMessageListener(topic = "topicTest", consumerGroup = "rocketmq-consume-demo")
-public class TestTopicListener implements RocketmqListener<String> {
+public class TestTopicListener implements RocketMQListener<String> {
     @Override
     public void onMessage(String message) {
         System.out.println("topicTest receive msg --> " + message);
