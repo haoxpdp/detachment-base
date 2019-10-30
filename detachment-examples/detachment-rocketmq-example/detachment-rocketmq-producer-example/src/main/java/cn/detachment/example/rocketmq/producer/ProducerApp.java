@@ -27,5 +27,6 @@ public class ProducerApp implements CommandLineRunner {
     public void run(String... args) throws Exception {
         SendResult result = rocketMQTemplate.syncSend("topicTest","hello world");
         System.out.println(String.format("%s --- %s",result.getSendStatus(),result.getMsgId()));
+
     }
 }
