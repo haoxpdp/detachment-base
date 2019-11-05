@@ -16,6 +16,7 @@
     <modules>
         <module>detachment-redis-example</module>
         <module>detachment-rocketmq-example</module>
+        <module>detachment-core-example</module>
     </modules>
 
     <properties>
