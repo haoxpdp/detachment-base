@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <artifactId>detachment-rocketmq-example</artifactId>
-
+    <packaging>pom</packaging>
     <modules>
         <module>detachment-rocketmq-consumer-example</module>
         <module>detachment-rocketmq-producer-example</module>
