@@ -13,6 +13,10 @@ public class DownManager implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
+    public void addDownTask(){
+
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
