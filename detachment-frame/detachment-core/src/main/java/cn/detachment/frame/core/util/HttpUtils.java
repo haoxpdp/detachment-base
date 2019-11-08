@@ -54,6 +54,8 @@ public class HttpUtils {
     private static PoolingHttpClientConnectionManager cm;
     private static CloseableHttpClient httpClient;
 
+    private static final String REDIRECT_HEADER = "location";
+
     static {
         try {
             cm = new PoolingHttpClientConnectionManager();
@@ -102,11 +104,11 @@ public class HttpUtils {
     }
 
     public static void getFile(String url, OperatorResponse operatorResponse) {
-        get(url, null, null, null, "utf-8", operatorResponse);
+        get(url, null, null, null, UTF8, operatorResponse);
     }
 
     public static void getFile(String url, Map<String, String> header, OperatorResponse operatorResponse) {
-        get(url, header, null, null, "utf-8", operatorResponse);
+        get(url, header, null, null, UTF8, operatorResponse);
     }
 
     public static String get(String url, Map<String, String> header, Map<String, String> param, RequestConfig config, String charSet, OperatorResponse operatorResponse) {
@@ -181,8 +183,8 @@ public class HttpUtils {
 
     public static String httpRequest(RequestBuilder requestBuilder, Map<String, String> header, RequestConfig config, String charSet, OperatorResponse operatorResponse) throws ServiceException {
 
-        logger.info("uri:" + requestBuilder.getUri());
-        logger.info("header:" + header);
+        logger.debug("uri:" + requestBuilder.getUri());
+        logger.debug("header:" + header);
         if (!CollectionUtils.isEmpty(header)) {
             header.forEach((key, value) -> {
                 if (StringUtils.hasText(key)) {
@@ -214,10 +216,10 @@ public class HttpUtils {
 
                 if (status >= HTTP_SUCCESS && status < HTTP_REDIRECT) {
                     return responseEntity;
-                } else if (status >= 300 && status <= 400) {
+                } else if (status >= HTTP_REDIRECT && status < HTTP_FAILED) {
                     Header[] headers = response.getAllHeaders();
                     for (Header h : response.getAllHeaders()) {
-                        if (h.getName().equalsIgnoreCase("location")) {
+                        if (h.getName().equalsIgnoreCase(REDIRECT_HEADER)) {
                             requestBuilder.setUri(h.getValue());
                             return httpRequest(requestBuilder, null, config, charSet, operatorResponse);
                         }
