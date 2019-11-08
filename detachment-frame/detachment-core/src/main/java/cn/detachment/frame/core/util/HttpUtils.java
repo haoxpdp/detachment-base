@@ -210,11 +210,21 @@ public class HttpUtils {
                 String responseEntity = entity != null ? EntityUtils.toString(entity, Charset.forName(charSet)) : null;
 
                 logger.info(String.format("response <<<%s>>>", responseEntity));
-
                 int status = response.getStatusLine().getStatusCode();
+
                 if (status >= HTTP_SUCCESS && status < HTTP_REDIRECT) {
                     return responseEntity;
+                } else if (status >= 300 && status <= 400) {
+                    Header[] headers = response.getAllHeaders();
+                    for (Header h : response.getAllHeaders()) {
+                        if (h.getName().equalsIgnoreCase("location")) {
+                            requestBuilder.setUri(h.getValue());
+                            return httpRequest(requestBuilder, null, config, charSet, operatorResponse);
+                        }
+                    }
+                    throw new HttpResponseException(status, "Unexpected response status: " + status);
                 } else {
+
                     throw new HttpResponseException(status, "Unexpected response status: " + status);
                 }
             }
