@@ -183,8 +183,8 @@ public class HttpUtils {
 
     public static String httpRequest(RequestBuilder requestBuilder, Map<String, String> header, RequestConfig config, String charSet, OperatorResponse operatorResponse) throws ServiceException {
 
-        logger.debug("uri:" + requestBuilder.getUri());
-        logger.debug("header:" + header);
+        logger.info("uri:" + requestBuilder.getUri());
+        logger.info("header:" + header);
         if (!CollectionUtils.isEmpty(header)) {
             header.forEach((key, value) -> {
                 if (StringUtils.hasText(key)) {
