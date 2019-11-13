@@ -16,6 +16,14 @@
         <module>detachment-examples</module>
     </modules>
 
+    <licenses>
+        <license>
+            <name>The ApacheSoftware License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <developers>
         <developer>
             <name>haoxp</name>
@@ -23,7 +31,12 @@
             <url>https://www.haoxpdp.com</url>
         </developer>
     </developers>
-
+    <scm>
+        <tag>master</tag>
+        <connection>https://github.com/haoxpdp/detachment-base</connection>
+        <developerConnection>https://github.com/haoxpdp/</developerConnection>
+        <url>https://github.com/haoxpdp/detachment-base.git</url>
+    </scm>
     <properties>
         <main.basedir>${basedir}</main.basedir>
 
@@ -110,4 +123,24 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>sonatype</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>
