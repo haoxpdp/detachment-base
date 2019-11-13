@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.detachment</groupId>
         <artifactId>detachment-rocketmq-example</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <artifactId>detachment-rocketmq-producer-example</artifactId>
