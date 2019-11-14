@@ -10,7 +10,7 @@
 
     <name>detachment-base</name>
     <description>detachment basic, utils</description>
-
+    <url>https://github.com/haoxpdp/detachment-base.git</url>
     <modules>
         <module>detachment-frame</module>
         <module>detachment-examples</module>
