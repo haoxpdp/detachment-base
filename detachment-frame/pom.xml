@@ -21,6 +21,7 @@
         <module>detachment-web</module>
         <module>detachment-notification</module>
         <module>detachment-rocketmq</module>
+        <module>detachment-starter</module>
     </modules>
 
     <properties>
