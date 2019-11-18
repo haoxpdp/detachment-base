@@ -30,6 +30,7 @@ public class LessThanOrEqualToFilter extends Filter<ILoggingEvent> {
         this.level = Level.toLevel(level);
     }
 
+    @Override
     public void start() {
         if (this.level != null) {
             super.start();
