@@ -17,6 +17,7 @@
         <module>detachment-redis-example</module>
         <module>detachment-rocketmq-example</module>
         <module>detachment-core-example</module>
+        <module>detachment-web-example</module>
     </modules>
 
     <dependencies>
@@ -47,6 +48,31 @@
             <dependency>
                 <groupId>cn.detachment</groupId>
                 <artifactId>detachment-rocketmq</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>detachment-redis</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>detachment-core</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>log</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>detachment-rocketmq</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>detachment-web</artifactId>
                 <version>1.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
