@@ -1,4 +1,4 @@
-package cn.detachment.core.example;
+package cn.detachment.example.core;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

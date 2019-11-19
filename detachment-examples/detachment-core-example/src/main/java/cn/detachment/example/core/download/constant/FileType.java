@@ -1,4 +1,4 @@
-package cn.detachment.core.example.download.constant;
+package cn.detachment.example.core.download.constant;
 
 /**
  * @author haoxp

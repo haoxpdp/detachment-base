@@ -1,4 +1,4 @@
-package cn.detachment.core.example.download.util;
+package cn.detachment.example.core.download.util;
 
 import java.net.MalformedURLException;
 import java.net.URL;

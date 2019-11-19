@@ -1,4 +1,4 @@
-package cn.detachment.core.example.download;
+package cn.detachment.example.core.download;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

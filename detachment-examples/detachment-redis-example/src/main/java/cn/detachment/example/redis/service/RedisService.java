@@ -1,4 +1,4 @@
-package cn.detachment.frame.redis.example.service;
+package cn.detachment.example.redis.service;
 
 import cn.detachment.frame.redis.util.RedisTool;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package cn.detachment.core.example.download;
+package cn.detachment.example.core.download;
 
 import lombok.Data;
 

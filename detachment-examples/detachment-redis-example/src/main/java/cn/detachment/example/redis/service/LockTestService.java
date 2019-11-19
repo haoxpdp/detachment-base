@@ -1,4 +1,4 @@
-package cn.detachment.frame.redis.example.service;
+package cn.detachment.example.redis.service;
 
 import cn.detachment.frame.redis.annotation.DetachLock;
 import org.springframework.stereotype.Service;
