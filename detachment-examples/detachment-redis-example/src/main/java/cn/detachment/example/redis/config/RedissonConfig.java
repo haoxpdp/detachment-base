@@ -17,14 +17,8 @@ import java.io.IOException;
  * @version v1.0
  * @date 19/11/20 7:40
  */
-@Configuration
+//@Configuration
 public class RedissonConfig {
-
-    @Value("${spring.redis.host}")
-    private String host;
-
-    @Value("${spring.redis.port}")
-    private String port;
 
     @Bean(destroyMethod = "shutdown")
     public RedissonClient redissonClient() throws IOException {

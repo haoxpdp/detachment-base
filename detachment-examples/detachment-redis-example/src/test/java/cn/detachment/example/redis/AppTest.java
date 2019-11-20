@@ -52,36 +52,4 @@ public class AppTest {
         logger.info(redisService.testRedisGetAndRemove());
         logger.info("has key {} ", redisService.testHasKey());
     }
-
-    private static Integer nano = 0;
-
-    @Resource
-    private RedissonClient redissonClient;
-
-    @Test
-    public void testRedissonLock() throws InterruptedException {
-        String lockN = "testLock";
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 10000; i++) {
-            executorService.execute(() -> {
-                RLock rLock = redissonClient.getLock(lockN);
-                try {
-                    boolean res = rLock.tryLock(100,5, TimeUnit.SECONDS);
-                    if (res){
-                        nano ++;
-                        rLock.unlock();
-                    }else {
-                        logger.error("加锁失败！");
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-        executorService.shutdown();
-        while (!executorService.isTerminated()) {
-            Thread.sleep(1000);
-        }
-        logger.info("nano {} ",nano);
-    }
 }

@@ -13,3 +13,6 @@ spring:
         min-idle: 0
   profiles:
     active: dev
+detachmetn:
+  redisson-lock:
+    enable: false
