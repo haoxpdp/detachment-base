@@ -4,10 +4,13 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
 import org.redisson.config.TransportMode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.io.IOException;
 
 /**
  * @author haoxp
@@ -24,14 +27,8 @@ public class RedissonConfig {
     private String port;
 
     @Bean(destroyMethod = "shutdown")
-    public RedissonClient redissonClient() {
-        Config config = new Config();
-        config.setTransportMode(TransportMode.NIO);
-        config.setCodec(JsonJacksonCodec.INSTANCE);
-        config.useSingleServer()
-                .setAddress("redis://" + host + ":" + port)
-                .setPassword(null)
-                .setDatabase(0);
+    public RedissonClient redissonClient() throws IOException {
+        Config config = Config.fromYAML(RedissonConfig.class.getClassLoader().getResource("redisson.yml"));
         return Redisson.create(config);
     }
 
