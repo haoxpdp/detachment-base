@@ -36,11 +36,10 @@
             <artifactId>spring-context</artifactId>
         </dependency>
 
-        <!-- redisson自动化配置 -->
+        <!-- redisson -->
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>3.11.3</version>
         </dependency>
     </dependencies>
 

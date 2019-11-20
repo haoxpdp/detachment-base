@@ -32,6 +32,7 @@
         <mybatis-plus.version>3.1.0</mybatis-plus.version>
         <rocketmq.version>4.5.1</rocketmq.version>
         <jackson.version>2.9.10.1</jackson.version>
+        <redisson.version>3.11.3</redisson.version>
     </properties>
 
 
@@ -96,6 +97,11 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

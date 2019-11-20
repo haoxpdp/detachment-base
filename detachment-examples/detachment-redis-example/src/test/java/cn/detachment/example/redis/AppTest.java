@@ -4,6 +4,7 @@ import cn.detachment.example.redis.service.LockTestService;
 import cn.detachment.example.redis.service.RedisService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class AppTest {
     @Resource
     private RedisService redisService;
 
+    @Resource
+    private RedissonClient redissonClient;
+
     @Test
     public void testLock() throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
@@ -52,4 +56,26 @@ public class AppTest {
         logger.info(redisService.testRedisGetAndRemove());
         logger.info("has key {} ", redisService.testHasKey());
     }
+
+    @Test
+    public void testBloomFilter() {
+//        RClusteredBloomFilter<String> bloomFilter = redissonClient.getClusteredBloomFilter("sample");
+//// 采用以下参数创建布隆过滤器
+//// expectedInsertions = 255000000
+//// falseProbability = 0.03
+//        bloomFilter.tryInit(255000000L, 0.03);
+//        bloomFilter.add(new SomeObject("field1Value", "field2Value"));
+//        bloomFilter.add(new SomeObject("field5Value", "field8Value"));
+//        bloomFilter.contains(new SomeObject("field1Value", "field8Value"));
+
+        RBloomFilter<String> rBloomFilter = redissonClient.getBloomFilter("smaple");
+        if (rBloomFilter.tryInit(255000000L, 0.03)){
+            rBloomFilter.add("www.haoxpdp.com");
+            rBloomFilter.add("www.detachment.cn");
+            logger.info("containes {} ",rBloomFilter.contains("www.haoxpdp.com"));
+        }
+
+        logger.info("container detachment {}",redissonClient.getBloomFilter("smaple").contains("www.detachment.cn"));
+    }
+
 }
