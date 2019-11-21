@@ -211,7 +211,7 @@ public class HttpUtils {
                 HttpEntity entity = response.getEntity();
                 String responseEntity = entity != null ? EntityUtils.toString(entity, Charset.forName(charSet)) : null;
 
-                logger.info(String.format("response <<<%s>>>", responseEntity));
+                logger.info(String.format("response <<< %s >>>", responseEntity));
                 int status = response.getStatusLine().getStatusCode();
 
                 if (status >= HTTP_SUCCESS && status < HTTP_REDIRECT) {
@@ -237,9 +237,9 @@ public class HttpUtils {
         } catch (HttpResponseException e) {
             throw new ServiceException(500, e.getMessage(), e);
         } catch (ConnectTimeoutException e) {
-            throw new ServiceException(500, "请求超时", e);
+            throw new ServiceException(500, "request timeout", e);
         } catch (SocketTimeoutException e) {
-            throw new ServiceException(500, "响应超时", e);
+            throw new ServiceException(500, "response timeout", e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
