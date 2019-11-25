@@ -18,6 +18,7 @@
         <module>detachment-rocketmq-example</module>
         <module>detachment-core-example</module>
         <module>detachment-web-example</module>
+        <module>detachment-es-example</module>
     </modules>
 
     <dependencies>
