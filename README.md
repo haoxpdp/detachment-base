@@ -9,4 +9,7 @@ detachment base encapsulates the universal tool, like distributed lock,httpClien
 * es 7.x (current 7.4)
 
 ### reference documentation
-* [es](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.4/java-rest-high-getting-started-initialization.html)
+* [mysql-plus](https://mp.baomidou.com/)
+* [redisson](https://github.com/redisson/redisson/wiki)
+* [es rest-client](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.4/java-rest-high-getting-started-initialization.html)
+* [es reference](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
