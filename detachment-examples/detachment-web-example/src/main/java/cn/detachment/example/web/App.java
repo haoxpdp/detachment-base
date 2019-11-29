@@ -1,13 +1,19 @@
 package cn.detachment.example.web;
 
+import cn.detachment.example.web.service.TestService;
 import cn.detachment.frame.core.bean.Result;
 import cn.detachment.frame.core.factory.ResultFactory;
+import cn.detachment.frame.core.util.TraceIDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.concurrent.*;
 
 /**
  * @author haoxp
@@ -25,9 +31,31 @@ public class App {
         SpringApplication.run(App.class, args);
     }
 
+    public static final String THREAD_POOL = "ThreadTraceID";
+
+    @Resource
+    private TestService testService;
+
     @RequestMapping("/test")
     public Result testApi() {
         logger.info("test");
+
+        testService.testLog();
+
+        ExecutorService pool = new ThreadPoolExecutor(10, 10, 3000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue());
+
+        for (int i = 0; i < 10; i++) {
+            final int tmp = i;
+            logger.info(MDC.get("X-B3-SpanId"));
+            pool.execute(() -> {
+                MDC.put(THREAD_POOL, Long.toString(TraceIDUtil.incrementAndGet()));
+
+                Logger logger1 = LoggerFactory.getLogger(App.class);
+                logger1.info("{} --> {}", Thread.currentThread(), tmp);
+                MDC.remove(THREAD_POOL);
+            });
+        }
+        pool.shutdown();
         return ResultFactory.buildSuccess();
     }
 

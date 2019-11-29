@@ -6,7 +6,7 @@
     <springProfile name="dev">
         <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
-                <Pattern>%-70.120(%date{HH:mm:ss.SSS} [${INSTANCE_ID},%X{X-B3-SpanId:-},%X{X-B3-TraceId:-}] %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
+                <Pattern>%-70.120(%date{HH:mm:ss.SSS} [${INSTANCE_ID},%X{X-B3-SpanId:-},%X{X-B3-TraceId:-},%X{ThreadTraceID}] %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
                 </Pattern>
             </encoder>
         </appender>
