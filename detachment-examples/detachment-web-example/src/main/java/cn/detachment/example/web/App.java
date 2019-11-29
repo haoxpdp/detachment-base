@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,17 +37,24 @@ public class App {
     @Resource
     private TestService testService;
 
+    @Bean
+    public ExecutorService pool(){
+        return new ThreadPoolExecutor(10, 10, 3000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue());
+    }
+
+    @Resource
+    private ExecutorService pool;
+
     @RequestMapping("/test")
     public Result testApi() {
         logger.info("test");
 
         testService.testLog();
 
-        ExecutorService pool = new ThreadPoolExecutor(10, 10, 3000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue());
+
 
         for (int i = 0; i < 10; i++) {
             final int tmp = i;
-            logger.info(MDC.get("X-B3-SpanId"));
             pool.execute(() -> {
                 MDC.put(THREAD_POOL, Long.toString(TraceIDUtil.incrementAndGet()));
 
@@ -55,7 +63,6 @@ public class App {
                 MDC.remove(THREAD_POOL);
             });
         }
-        pool.shutdown();
         return ResultFactory.buildSuccess();
     }
 
