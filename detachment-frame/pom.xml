@@ -22,6 +22,7 @@
         <module>detachment-notification</module>
         <module>detachment-rocketmq</module>
         <module>detachment-starter</module>
+        <module>detachment-es</module>
     </modules>
 
     <properties>
@@ -33,6 +34,7 @@
         <rocketmq.version>4.5.1</rocketmq.version>
         <jackson.version>2.9.10.1</jackson.version>
         <redisson.version>3.11.3</redisson.version>
+        <es.version>7.4.2</es.version>
     </properties>
 
 
@@ -102,6 +104,11 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${es.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

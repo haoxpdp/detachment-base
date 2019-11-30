@@ -8,6 +8,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ *
+ * @author haoxp
+ */
 public class RedissonLock implements RedisLock {
 
     private static final Logger logger = LoggerFactory.getLogger(RedissonLock.class);

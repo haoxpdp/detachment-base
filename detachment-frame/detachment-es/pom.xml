@@ -5,19 +5,16 @@
 
     <parent>
         <groupId>cn.detachment</groupId>
-        <artifactId>detachment-examples</artifactId>
+        <artifactId>detachment-frame</artifactId>
         <version>1.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>detachment-es-example</artifactId>
+    <artifactId>detachment-es</artifactId>
 
     <properties>
     </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>cn.detachment</groupId>
-            <artifactId>detachment-core</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
