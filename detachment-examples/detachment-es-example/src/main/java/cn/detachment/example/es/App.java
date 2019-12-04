@@ -36,7 +36,7 @@ public class App implements CommandLineRunner {
         String index = "free-man";
         SearchRequest searchRequest = new SearchRequest(index);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+        searchSourceBuilder.query(QueryBuilders.termQuery("down","asdfasdf"));
         searchRequest.source(searchSourceBuilder);
         RequestOptions options = RequestOptions.DEFAULT;
         SearchResponse response =esClient.search(searchRequest,options);
