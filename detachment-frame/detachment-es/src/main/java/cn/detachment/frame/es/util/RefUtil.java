@@ -20,23 +20,29 @@ public class RefUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(RefUtil.class);
 
-    public static <T> String getFiledName(FiledFunction<T,?> filedFunction){
+    public static final String PREFIX_GET = "get";
+
+    public static final String PREFIX_IS = "is";
+
+    public static <T> String getFiledName(FiledFunction<T, ?> filedFunction) {
         SerializedLambda lambda = getSerializedLambda(filedFunction);
         String methodName = lambda.getImplMethodName();
         String prefix = null;
-        if (methodName.startsWith("get")){
-            prefix = "get";
+        if (methodName.startsWith(PREFIX_GET)) {
+            prefix = PREFIX_GET;
+        } else if (methodName.startsWith(PREFIX_IS)) {
+            prefix = PREFIX_IS;
         }
-        if (prefix == null){
-            logger.warn("invalid method name : {}",methodName);
+        if (prefix == null) {
+            logger.warn("invalid method name : {}", methodName);
         }
-        return toLowerCaseFirstOne(methodName.replace(prefix,""));
+        return toLowerCaseFirstOne(methodName.replace(prefix, ""));
     }
 
     public static SerializedLambda getSerializedLambda(Serializable fn) {
         WeakReference<SerializedLambda> lambdaWeakReference = CLASS_LAMDBA_CACHE.get(fn.getClass());
         SerializedLambda lambda = null;
-        if(lambdaWeakReference == null) {
+        if (lambdaWeakReference == null) {
             try {
                 Method method = fn.getClass().getDeclaredMethod("writeReplace");
                 method.setAccessible(Boolean.TRUE);
@@ -45,14 +51,14 @@ public class RefUtil {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             lambda = lambdaWeakReference.get();
         }
         return lambda;
     }
 
-    public static String toLowerCaseFirstOne(String str){
-        return str.substring(0,1).toLowerCase() +
-        str.substring(1);
+    public static String toLowerCaseFirstOne(String str) {
+        return str.substring(0, 1).toLowerCase() +
+                str.substring(1);
     }
 }
