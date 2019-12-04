@@ -211,7 +211,6 @@ public class HttpUtils {
                 HttpEntity entity = response.getEntity();
                 String responseEntity = entity != null ? EntityUtils.toString(entity, Charset.forName(charSet)) : null;
 
-                logger.info(String.format("response <<< %s >>>", responseEntity));
                 int status = response.getStatusLine().getStatusCode();
 
                 if (status >= HTTP_SUCCESS && status < HTTP_REDIRECT) {
