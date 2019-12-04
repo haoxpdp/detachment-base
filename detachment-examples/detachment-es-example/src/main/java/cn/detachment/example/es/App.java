@@ -1,6 +1,8 @@
 package cn.detachment.example.es;
 
 
+import cn.detachment.example.es.bean.Person;
+import cn.detachment.example.es.util.DesSearchWrapper;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -33,13 +35,22 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String index = "free-man";
+        String index = "person";
+
+        DesSearchWrapper<Person> desSearchWrapper = new DesSearchWrapper<>(index);
+        SearchRequest searchRequest1 = desSearchWrapper
+                .termEq(Person::getAge,33)
+                .termEq(Person::getName,"ad")
+                .finish();
         SearchRequest searchRequest = new SearchRequest(index);
+
+
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.termQuery("down","asdfasdf"));
+        searchSourceBuilder.query(QueryBuilders.termQuery("age","33"));
+        searchSourceBuilder.query(QueryBuilders.termQuery("name","ad"));
         searchRequest.source(searchSourceBuilder);
         RequestOptions options = RequestOptions.DEFAULT;
-        SearchResponse response =esClient.search(searchRequest,options);
+        SearchResponse response =esClient.search(searchRequest1,options);
         SearchHit[] hits = response.getHits().getHits();
         for (SearchHit hit : hits){
             logger.info("hit : version {} , data {} ",hit.getScore(),hit.getSourceAsMap());
