@@ -1,6 +1,6 @@
 package cn.detachment.frame.es.util;
 
-import cn.detachment.example.es.constant.DesCondition;
+import cn.detachment.frame.es.constant.DesCondition;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;

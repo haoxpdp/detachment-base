@@ -2,7 +2,7 @@ package cn.detachment.example.es;
 
 
 import cn.detachment.example.es.bean.Person;
-import cn.detachment.example.es.util.DesSearchWrapper;
+import cn.detachment.frame.es.util.DesSearchWrapper;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;

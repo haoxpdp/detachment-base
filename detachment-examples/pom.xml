@@ -76,6 +76,11 @@
                 <artifactId>detachment-web</artifactId>
                 <version>1.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>cn.detachment</groupId>
+                <artifactId>detachment-es</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

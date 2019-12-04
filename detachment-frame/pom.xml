@@ -105,11 +105,6 @@
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
-                <version>${es.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
