@@ -17,13 +17,4 @@ public interface DesConditionCompare<Children,F extends Serializable> {
      */
     <V> Children termEq(F f, Object val);
 
-    /**
-     * termGe
-     *
-     * @param f
-     * @param val
-     * @param <V>
-     * @return
-     */
-    <V> Children termGe(F f, Object val);
 }

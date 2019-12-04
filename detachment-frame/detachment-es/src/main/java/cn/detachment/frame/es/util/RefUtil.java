@@ -52,11 +52,6 @@ public class RefUtil {
     }
 
     public static String toLowerCaseFirstOne(String str){
-        if (StringUtils.isEmpty(str)){
-            String[] errMmsgDes = new String[1];
-            errMmsgDes[0] = str;
-//            throw new InvalidArgumentException(errMmsgDes);
-        }
         return str.substring(0,1).toLowerCase() +
         str.substring(1);
     }

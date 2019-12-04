@@ -23,12 +23,6 @@ public class DesWrapper<T, F extends FiledFunction<T,?> ,Children extends DesWra
         return thisType;
     }
 
-    @Override
-    public <V> Children termGe(F f, Object val) {
-
-        return thisType;
-    }
-
     public Children addCondition(boolean condition, F field, DesCondition desCondition, Object val){
         return thisType;
     }
