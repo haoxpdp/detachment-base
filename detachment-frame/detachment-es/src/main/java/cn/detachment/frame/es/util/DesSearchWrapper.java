@@ -6,7 +6,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 /**
  * @author haoxp
  */
-public class DesSearchWrapper<T> extends DesWrapper<T,FiledFunction<T,?>,DesSearchWrapper<T>>{
+public class DesSearchWrapper<T> extends DesWrapper<T,FiledFunction<T,?>,DesSearchWrapper<T>> {
 
     private String index;
 
@@ -16,5 +16,6 @@ public class DesSearchWrapper<T> extends DesWrapper<T,FiledFunction<T,?>,DesSear
         searchRequest = new SearchRequest(index);
         searchSourceBuilder = new SearchSourceBuilder();
     }
+
 
 }

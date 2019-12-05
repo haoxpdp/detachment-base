@@ -2,7 +2,6 @@ package cn.detachment.frame.es.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;
@@ -16,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class RefUtil {
 
-    private static final Map<Class<?>, WeakReference<SerializedLambda>> CLASS_LAMDBA_CACHE = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, WeakReference<SerializedLambda>> CLASS_LAMBDA_CACHE = new ConcurrentHashMap<>();
 
     private static final Logger logger = LoggerFactory.getLogger(RefUtil.class);
 
@@ -40,14 +39,14 @@ public class RefUtil {
     }
 
     public static SerializedLambda getSerializedLambda(Serializable fn) {
-        WeakReference<SerializedLambda> lambdaWeakReference = CLASS_LAMDBA_CACHE.get(fn.getClass());
+        WeakReference<SerializedLambda> lambdaWeakReference = CLASS_LAMBDA_CACHE.get(fn.getClass());
         SerializedLambda lambda = null;
         if (lambdaWeakReference == null) {
             try {
                 Method method = fn.getClass().getDeclaredMethod("writeReplace");
                 method.setAccessible(Boolean.TRUE);
                 lambda = (SerializedLambda) method.invoke(fn);
-                CLASS_LAMDBA_CACHE.put(fn.getClass(), new WeakReference<>(lambda));
+                CLASS_LAMBDA_CACHE.put(fn.getClass(), new WeakReference<>(lambda));
             } catch (Exception e) {
                 e.printStackTrace();
             }
