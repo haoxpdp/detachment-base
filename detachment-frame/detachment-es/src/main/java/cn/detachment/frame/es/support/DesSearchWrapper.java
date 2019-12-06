@@ -1,5 +1,6 @@
-package cn.detachment.frame.es.util;
+package cn.detachment.frame.es.support;
 
+import cn.detachment.frame.es.condition.DesConditionWrapper;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -7,7 +8,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 /**
  * @author haoxp
  */
-public class DesSearchWrapper<T> extends DesWrapper<T, FiledFunction<T, ?>, DesSearchWrapper<T>, DesSearchWrapper<T>> {
+public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T, ?>, DesSearchWrapper<T>, DesSearchWrapper<T>> {
 
     private String index;
 

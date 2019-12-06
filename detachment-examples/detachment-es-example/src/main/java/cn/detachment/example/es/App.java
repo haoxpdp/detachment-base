@@ -2,13 +2,11 @@ package cn.detachment.example.es;
 
 
 import cn.detachment.example.es.bean.Person;
-import cn.detachment.frame.es.util.DesSearchWrapper;
+import cn.detachment.frame.es.support.DesSearchWrapper;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;

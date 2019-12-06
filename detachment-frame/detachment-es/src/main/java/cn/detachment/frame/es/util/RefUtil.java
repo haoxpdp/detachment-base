@@ -1,5 +1,6 @@
 package cn.detachment.frame.es.util;
 
+import cn.detachment.frame.es.support.FiledFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

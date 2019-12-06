@@ -1,4 +1,4 @@
-package cn.detachment.frame.es.util;
+package cn.detachment.frame.es.support;
 
 import org.elasticsearch.index.query.QueryBuilder;
 

@@ -1,4 +1,6 @@
-package cn.detachment.frame.es.util;
+package cn.detachment.frame.es.condition;
+
+import cn.detachment.frame.es.support.NestedCondition;
 
 import java.io.Serializable;
 
