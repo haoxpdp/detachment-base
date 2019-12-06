@@ -61,4 +61,14 @@ public interface DesConditionCompare<Children,F extends Serializable> {
      * @return
      */
     <V> QueryBuilder between(F f,Object v1,Object v2);
+
+    /**
+     * match-query
+     *
+     * @param f
+     * @param val
+     * @param <V>
+     * @return
+     */
+    <V> QueryBuilder match(F f,Object val);
 }

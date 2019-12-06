@@ -12,8 +12,8 @@ import org.springframework.util.CollectionUtils;
  * @author haoxp
  */
 @SuppressWarnings({"serial", "unchecked"})
-public abstract class DesWrapper<T, F extends FiledFunction<T, ?>, Children extends DesWrapper<T, F, Children,Param>,Param> implements DesConditionCompare<Children, F>
-        ,Nested<Children,Param> {
+public abstract class DesWrapper<T, F extends FiledFunction<T, ?>, Children extends DesWrapper<T, F, Children, Param>, Param> implements DesConditionCompare<Children, F>
+        , Nested<Children, Param> {
 
     protected SearchRequest searchRequest;
 
@@ -25,37 +25,37 @@ public abstract class DesWrapper<T, F extends FiledFunction<T, ?>, Children exte
 
     @Override
     public <V> QueryBuilder termEq(F f, String value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f),value);
+        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
     }
 
     @Override
     public <V> QueryBuilder termEq(F f, int value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f),value);
+        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
     }
 
     @Override
     public <V> QueryBuilder termEq(F f, long value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f),value);
+        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
     }
 
     @Override
     public <V> QueryBuilder termEq(F f, float value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f),value);
+        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
     }
 
     @Override
     public <V> QueryBuilder termEq(F f, double value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f),value);
+        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
     }
 
     @Override
     public <V> QueryBuilder termEq(F f, boolean value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f),value);
+        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
     }
 
     @Override
     public <V> QueryBuilder termEq(F f, Object value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f),value);
+        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
     }
 
     @Override
@@ -82,6 +82,12 @@ public abstract class DesWrapper<T, F extends FiledFunction<T, ?>, Children exte
     public <V> QueryBuilder between(F f, Object v1, Object v2) {
         return QueryBuilders.rangeQuery(RefUtil.getFiledName(f)).from(v1).to(v2);
     }
+
+    @Override
+    public <V> QueryBuilder match(F f, Object val) {
+        return QueryBuilders.matchQuery(RefUtil.getFiledName(f), val);
+    }
+
 
     private void addCondition() {
         if (boolQueryBuilder == null) {
@@ -120,7 +126,7 @@ public abstract class DesWrapper<T, F extends FiledFunction<T, ?>, Children exte
         return searchRequest.source(searchSourceBuilder);
     }
 
-    private BoolQueryBuilder boolQueryBuilderInstance(){
+    private BoolQueryBuilder boolQueryBuilderInstance() {
         return QueryBuilders.boolQuery();
     }
 }
