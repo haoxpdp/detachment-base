@@ -1,5 +1,6 @@
 package cn.detachment.frame.es.util;
 
+import org.elasticsearch.index.query.QueryBuilder;
 import java.io.Serializable;
 
 /**
@@ -7,15 +8,13 @@ import java.io.Serializable;
  */
 public interface DesConditionCompare<Children,F extends Serializable> {
 
-    /**
-     * termEq
-     *
-     * @param f
-     * @param val
-     * @param <V>
-     * @return
-     */
-    <V> Children termEq(F f, Object val);
+    <V> QueryBuilder termEq(F f, String value);
+    <V> QueryBuilder termEq(F f, int value);
+    <V> QueryBuilder termEq(F f, long value);
+    <V> QueryBuilder termEq(F f, float value);
+    <V> QueryBuilder termEq(F f, double value);
+    <V> QueryBuilder termEq(F f, boolean value);
+    <V> QueryBuilder termEq(F f, Object value);
 
     /**
      * >=
@@ -24,7 +23,7 @@ public interface DesConditionCompare<Children,F extends Serializable> {
      * @param <V>
      * @return
      */
-    <V> Children ge(F f,Object val);
+    <V> QueryBuilder ge(F f,Object val);
 
     /**
      * >
@@ -33,7 +32,7 @@ public interface DesConditionCompare<Children,F extends Serializable> {
      * @param <V>
      * @return
      */
-    <V> Children gt(F f,Object val);
+    <V> QueryBuilder gt(F f,Object val);
 
     /**
      * <=
@@ -42,7 +41,7 @@ public interface DesConditionCompare<Children,F extends Serializable> {
      * @param <V>
      * @return
      */
-    <V> Children le(F f,Object val);
+    <V> QueryBuilder le(F f,Object val);
 
     /**
      * <
@@ -51,7 +50,7 @@ public interface DesConditionCompare<Children,F extends Serializable> {
      * @param <V>
      * @return
      */
-    <V> Children lt(F f,Object val);
+    <V> QueryBuilder lt(F f,Object val);
 
     /**
      * from v1 - v2
@@ -61,5 +60,5 @@ public interface DesConditionCompare<Children,F extends Serializable> {
      * @param <V>
      * @return
      */
-    <V> Children between(F f,Object v1,Object v2);
+    <V> QueryBuilder between(F f,Object v1,Object v2);
 }

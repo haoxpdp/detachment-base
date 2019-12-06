@@ -6,8 +6,30 @@ import java.io.Serializable;
  * @param <Children>
  * @author haoxp
  */
-public interface Nested<Children> extends Serializable {
+public interface Nested<Children,Param> extends Serializable {
 
-    Children or(Children children);
+    /**
+     * 内嵌or方法
+     *
+     * @param func
+     * @return
+     */
+    Children should(NestedCondition<Param> func);
 
+    /**
+     * 内嵌must
+     *
+     * @param func
+     * @return
+     */
+    Children must(NestedCondition<Param> func);
+
+
+    /**
+     * 内嵌mustNot
+     *
+     * @param func
+     * @return
+     */
+    Children mustNot(NestedCondition<Param> func);
 }

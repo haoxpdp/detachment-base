@@ -8,6 +8,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -39,18 +40,22 @@ public class App implements CommandLineRunner {
     public void run(String... args) throws Exception {
         String index = "person";
 
-        DesSearchWrapper<Person> desSearchWrapper = new DesSearchWrapper<>(index);
-        DesSearchWrapper wrapper = new DesSearchWrapper<>(index);
 
+        DesSearchWrapper<Person> desSearchWrapper = new DesSearchWrapper<>(index);
         SearchRequest searchRequest1 = desSearchWrapper
-                .or(new DesSearchWrapper<>(index))
+                .must(c -> c.between(Person::getAge,11,33))
+                .mustNot(c -> c.termEq(Person::getId,3))
                 .orderBy(Person::getAge, SortOrder.DESC)
                 .finish();
 
+
         SearchRequest searchRequest = new SearchRequest(index);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.termQuery("age","33"));
-        searchSourceBuilder.query(QueryBuilders.termQuery("name","ad"));
+        searchSourceBuilder.query(
+                QueryBuilders.boolQuery()
+                        .must(QueryBuilders.rangeQuery("age").from(11).to(33))
+                        .mustNot(QueryBuilders.termQuery("id",3))
+        ).sort("age",SortOrder.DESC);
         searchRequest.source(searchSourceBuilder);
 
         RequestOptions options = RequestOptions.DEFAULT;
