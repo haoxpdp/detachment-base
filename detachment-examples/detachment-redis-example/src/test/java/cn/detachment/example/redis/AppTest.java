@@ -78,4 +78,12 @@ public class AppTest {
         logger.info("container detachment {}",redissonClient.getBloomFilter("smaple").contains("www.detachment.cn"));
     }
 
+    @Test
+    public void testExist(){
+        String index = "lijingrui_html_bloom_key";
+        String val = "https://www.sustech.edu.cn/?page_id=363&amp;lang=zh";
+        RBloomFilter<String> rBloomFilter = redissonClient.getBloomFilter(index);
+        logger.info("exists : {}",rBloomFilter.contains(val));
+
+    }
 }

@@ -2,11 +2,7 @@ package cn.detachment.example.redis.config;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
-import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
-import org.redisson.config.SingleServerConfig;
-import org.redisson.config.TransportMode;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,7 +13,7 @@ import java.io.IOException;
  * @version v1.0
  * @date 19/11/20 7:40
  */
-//@Configuration
+@Configuration
 public class RedissonConfig {
 
     @Bean(destroyMethod = "shutdown")
