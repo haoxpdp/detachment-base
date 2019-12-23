@@ -36,12 +36,20 @@ public abstract class DetachmentService<M extends DetachmentMapper<T>, T extends
         return this.retBool(this.baseMapper.insert(entity));
     }
 
-    public int updateWithVersionByPrimaryKey(Integer version, T record) {
-        Assert.notNull(version, "version must not be null!");
+    public boolean updateWithVersionById(T record) {
         Assert.notNull(record, "record must not be null!");
+        int version = record.getOptimistic();
+        record.setOptimistic(version + 1);
         QueryWrapper<T> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(T::getOptimistic, version)
+        queryWrapper
+                .lambda()
+                .eq(T::getOptimistic, version)
                 .eq(T::getId, record.getId());
-        return baseMapper.update(record, queryWrapper);
+        int updateCnt = baseMapper.update(record, queryWrapper);
+        if (updateCnt > 0) {
+            return true;
+        }
+        logger.warn("update with optimistic lock failed {} ", record);
+        return false;
     }
 }
