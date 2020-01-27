@@ -6,7 +6,7 @@ package cn.detachment.frame.core.exception;
  * @date 19/9/15 22:40
  */
 import cn.detachment.frame.core.bean.Result;
-import cn.detachment.frame.core.constant.ResCode;
+import cn.detachment.frame.core.constant.HttpCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,15 +39,15 @@ public class ServiceException extends RuntimeException {
 
     public ServiceException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
-        this.code = ResCode.SERVER_ERROR;
+        this.code = HttpCode.SERVER_ERROR;
     }
 
     public static ServiceException UnknownException(String message, Throwable cause) {
-        return new ServiceException(ResCode.SERVER_ERROR, message, cause);
+        return new ServiceException(HttpCode.SERVER_ERROR, message, cause);
     }
 
     public static ServiceException BadRequsetException(String message, Throwable cause) {
-        return new ServiceException(ResCode.BAD_REQUEST, message, cause);
+        return new ServiceException(HttpCode.BAD_REQUEST, message, cause);
     }
 
     public int getCode() {

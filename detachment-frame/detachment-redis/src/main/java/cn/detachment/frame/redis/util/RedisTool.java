@@ -2,7 +2,6 @@ package cn.detachment.frame.redis.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.ObjectUtils;
 
@@ -79,12 +78,10 @@ public class RedisTool {
             return true;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return false;
         }
+        return false;
     }
 
-    public void lock() {
-        redisTemplate.execute((RedisCallback<Object>) connection -> null);
-    }
+
 
 }

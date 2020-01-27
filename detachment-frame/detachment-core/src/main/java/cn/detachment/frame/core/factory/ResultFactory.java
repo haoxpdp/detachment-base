@@ -1,7 +1,7 @@
 package cn.detachment.frame.core.factory;
 
 import cn.detachment.frame.core.bean.Result;
-import cn.detachment.frame.core.constant.ResCode;
+import cn.detachment.frame.core.constant.HttpCode;
 
 /**
  * @author haoxpdp
@@ -13,11 +13,11 @@ public class ResultFactory {
     }
 
     public static <T> Result<T> buildSuccess(T t, String msg) {
-        return new Result<T>(ResCode.SUCCESS, t, msg);
+        return new Result<T>(HttpCode.SUCCESS, t, msg);
     }
 
     public static <T> Result<T> serverError(String msg) {
-        return new Result<>(ResCode.SERVER_ERROR, msg);
+        return new Result<>(HttpCode.SERVER_ERROR, msg);
     }
 
     public static Result buildSuccess() {
@@ -33,6 +33,6 @@ public class ResultFactory {
     }
 
     public static <T> Result<T> paramError(T t, String msg) {
-        return buildError(ResCode.PARAM_ERROR, t, msg);
+        return buildError(HttpCode.PARAM_ERROR, t, msg);
     }
 }
