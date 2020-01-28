@@ -57,6 +57,7 @@ public class HttpUtil {
     }
 
     //get方法
+
     public static String get(CloseableHttpClient client, String url, OperatorResponse operatorResponse) {
         return get(client, url, null, operatorResponse);
     }
@@ -69,6 +70,10 @@ public class HttpUtil {
     public static String get(CloseableHttpClient client, String url, final Map<String, String> params,
                              RequestConfig requestConfig, OperatorResponse operatorResponse) {
         return get(client, url, null, params, requestConfig, UTF8, operatorResponse);
+    }
+
+    public static String get(CloseableHttpClient client, String url) {
+        return get(client, url, null, null);
     }
 
     public static String get(CloseableHttpClient client, String url, final Map<String, String> params) {

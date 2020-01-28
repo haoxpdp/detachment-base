@@ -10,7 +10,9 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.LayeredConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -21,6 +23,8 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
 import java.io.InterruptedIOException;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * httpClientCreator
@@ -120,5 +124,9 @@ public class HttpClientFactory extends HttpClientBuilder {
         HttpHost proxy = new HttpHost(hostIp, port, "http");
         DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
         return (HttpClientFactory) this.setRoutePlanner(routePlanner);
+    }
+
+    public HttpClientFactory ssl() {
+        return (HttpClientFactory) this.setSSLSocketFactory(new SSLUtil().getSSLConnectionSocketFactory(SSLVersion.SSLv3));
     }
 }
