@@ -47,25 +47,6 @@ public class HttpClientFactory extends HttpClientBuilder {
      */
     private boolean isPool = false;
 
-//    private static PoolingHttpClientConnectionManager cm;
-//    private static CloseableHttpClient httpClient;
-//
-//    static {
-//        try {
-//            cm = new PoolingHttpClientConnectionManager();
-//            cm.setMaxTotal(200);
-//            cm.setDefaultMaxPerRoute(cm.getMaxTotal());
-//            cm.setValidateAfterInactivity(2000);
-//            HttpClientBuilder httpClientBuilder = HttpClients.custom();
-//            RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(130000).setConnectTimeout(100000).setConnectionRequestTimeout(120000).build();
-//            httpClientBuilder.setDefaultRequestConfig(defaultRequestConfig);
-//            httpClientBuilder.setRetryHandler(new StandardHttpRequestRetryHandler());
-//            httpClient = httpClientBuilder.setConnectionManager(cm).setConnectionManagerShared(true).build();
-//        } catch (Exception e) {
-//            logger.error(e.getMessage(), e);
-//        }
-//    }
-
     public HttpClientFactory retry(final int retryTimes) {
         return retry(retryTimes, true);
     }

@@ -1,4 +1,4 @@
-package cn.detachment.frame.core.http;
+package cn.detachment.frame.core.exception;
 
 import javax.net.ssl.SSLException;
 
