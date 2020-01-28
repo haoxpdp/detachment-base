@@ -25,8 +25,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -102,6 +104,31 @@ public class HttpUtil {
     }
 
     //post方法
+
+    public static String post(final CloseableHttpClient client, final String url,
+                              final Map<String, String> params) {
+        return post(client, url, params, UTF8);
+    }
+
+    public static String post(final CloseableHttpClient client, final String url, final Map<String, String> params, final String charSet) {
+        return post(client, url, null, params, null, charSet);
+    }
+
+    public static String post(final CloseableHttpClient client, final String url, final Map<String, String> headers,
+                              final Map<String, String> params, final RequestConfig requestConfig, String charSet) {
+        try {
+            RequestBuilder requestBuilder = RequestBuilder.post(url);
+            List<NameValuePair> pairs = new ArrayList<>();
+            if (!CollectionUtils.isEmpty(params)) {
+                params.forEach((k, v) -> pairs.add(new BasicNameValuePair(k, v)));
+            }
+            requestBuilder.setEntity(new UrlEncodedFormEntity(pairs, charSet));
+            return httpRequest(client, requestBuilder, headers, requestConfig, charSet);
+        } catch (UnsupportedEncodingException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+    }
 
     // postJSON方法
 
