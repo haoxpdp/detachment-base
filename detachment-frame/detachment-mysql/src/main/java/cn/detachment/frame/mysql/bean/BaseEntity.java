@@ -1,5 +1,7 @@
 package cn.detachment.frame.mysql.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @JSONField(serializeUsing = ToStringSerializer.class)
     protected Long id;
 
     protected Integer optimistic;
