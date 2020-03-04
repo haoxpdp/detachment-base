@@ -32,7 +32,7 @@
         <httpClient.version>4.5.5</httpClient.version>
         <mybatis-plus.version>3.1.0</mybatis-plus.version>
         <rocketmq.version>4.5.1</rocketmq.version>
-        <jackson.version>2.9.10.1</jackson.version>
+        <jackson.version>2.9.10.3</jackson.version>
         <redisson.version>3.11.3</redisson.version>
         <es.version>7.4.2</es.version>
     </properties>
