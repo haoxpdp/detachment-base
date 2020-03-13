@@ -60,7 +60,7 @@ public abstract class AbstractLogAop {
 
         Method targetMethod = getTargetMethod(point, targetCls);
 
-        logParams(targetMethod, logger, point);
+        logParams(targetCls, targetMethod, logger, point.getArgs());
 
         Exception exception = null;
         try {
@@ -83,7 +83,7 @@ public abstract class AbstractLogAop {
 
         Object logValue = getLogVal(point, returnValue);
 
-        logResponse(targetMethod, logger, point, end - start, logValue);
+        logResponse(targetCls, targetMethod, logger, end - start, logValue);
 
         if (exception != null) {
             throw exception;
@@ -102,31 +102,31 @@ public abstract class AbstractLogAop {
         return returnValue;
     }
 
-    private void logParams(Method method, Logger logger, ProceedingJoinPoint point) {
+    private void logParams(Class<?> targetCls, Method method, Logger logger, Object logVal) {
         if (method.isAnnotationPresent(IgnoreLog.class)) {
             IgnoreLog annotation = method.getAnnotation(IgnoreLog.class);
             if (annotation.ignoreParams()) {
-                logger.info("{} #{} begin ", point.getSignature().getDeclaringTypeName(), point.getSignature().getName());
+                logger.info("{}.{} begin ", targetCls.getSimpleName(), method.getName());
                 return;
             }
         }
-        logger.info("{} #{} begin --- ({}) ",
-                point.getSignature().getDeclaringTypeName(), point.getSignature().getName(), point.getArgs());
+        logger.info("{}.{} begin --- ({}) ",
+                targetCls.getSimpleName(), method.getName(), logVal);
     }
 
-    private void logResponse(Method method, Logger logger, ProceedingJoinPoint point, Long executeTime, Object logValue) {
+    private void logResponse(Class<?> targetCls, Method method, Logger logger, Long executeTime, Object logValue) {
         if (method.isAnnotationPresent(IgnoreLog.class)) {
             IgnoreLog annotation = method.getAnnotation(IgnoreLog.class);
             if (annotation.ignoreResponse()) {
-                logger.info("{} #{} end {}",
-                        point.getSignature().getDeclaringTypeName(),
-                        point.getSignature().getName(), executeTime);
+                logger.info("{}.{} end {}",
+                        targetCls.getSimpleName(),
+                        method.getName(), executeTime);
                 return;
             }
         }
-        logger.info("{} #{} end {} --- {}",
-                point.getSignature().getDeclaringTypeName(),
-                point.getSignature().getName(), executeTime, logValue);
+        logger.info("{}.{} end {} --- {}",
+                targetCls.getSimpleName(),
+                method.getName(), executeTime, logValue);
     }
 
 
