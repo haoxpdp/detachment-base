@@ -20,7 +20,7 @@ import java.util.List;
  */
 public abstract class AbstractLogAop {
 
-    abstract void pintCut();
+    public abstract void pintCut();
 
     /**
      * initExcludeList
@@ -31,7 +31,7 @@ public abstract class AbstractLogAop {
      * @author haoxp
      * @date 19/10/14 14:30
      */
-    abstract List<String> initExcludeList();
+    public abstract List<String> initExcludeList();
 
     private List<String> excludeName = initExcludeList();
 
