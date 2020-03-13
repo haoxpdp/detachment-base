@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.detachment</groupId>
         <artifactId>detachment-frame</artifactId>
-        <version>1.03-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <artifactId>detachment-mysql</artifactId>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>cn.detachment</groupId>
             <artifactId>detachment-core</artifactId>
-            <version>1.03-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
