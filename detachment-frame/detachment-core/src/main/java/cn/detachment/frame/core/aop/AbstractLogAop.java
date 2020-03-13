@@ -1,12 +1,16 @@
 package cn.detachment.frame.core.aop;
 
+import cn.detachment.frame.core.annoation.IgnoreLog;
 import cn.detachment.frame.core.factory.ResultFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.reflect.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -50,10 +54,13 @@ public abstract class AbstractLogAop {
         Long start = System.currentTimeMillis();
         Object returnValue = null;
 
-        Logger logger = LoggerFactory.getLogger(point.getSignature().getDeclaringType());
+        Class<?> targetCls = point.getTarget().getClass();
 
-        logger.info("{}.{} begin --- ({}) ",
-                point.getSignature().getDeclaringTypeName(), point.getSignature().getName(), point.getArgs());
+        Logger logger = LoggerFactory.getLogger(targetCls);
+
+        Method targetMethod = getTargetMethod(point, targetCls);
+
+        logParams(targetMethod, logger, point);
 
         Exception exception = null;
         try {
@@ -74,24 +81,61 @@ public abstract class AbstractLogAop {
 
         Long end = System.currentTimeMillis();
 
-        Object logValue = returnValue;
+        Object logValue = getLogVal(point, returnValue);
 
-        if (!CollectionUtils.isEmpty(excludeName)) {
-            for (int i = 0; i < excludeName.size(); i++) {
-                if (point.getSignature().getName().startsWith(excludeName.get(i))) {
-                    logValue = "";
-                    break;
-                }
-            }
-        }
-
-        logger.info("{}.{} end {} --- {}",
-                point.getSignature().getDeclaringTypeName(),
-                point.getSignature().getName(), end - start, logValue);
+        logResponse(targetMethod, logger, point, end - start, logValue);
 
         if (exception != null) {
             throw exception;
         }
         return returnValue;
+    }
+
+    private Object getLogVal(ProceedingJoinPoint point, Object returnValue) {
+        if (!CollectionUtils.isEmpty(excludeName)) {
+            for (int i = 0; i < excludeName.size(); i++) {
+                if (point.getSignature().getName().startsWith(excludeName.get(i))) {
+                    return "";
+                }
+            }
+        }
+        return returnValue;
+    }
+
+    private void logParams(Method method, Logger logger, ProceedingJoinPoint point) {
+        if (method.isAnnotationPresent(IgnoreLog.class)) {
+            IgnoreLog annotation = method.getAnnotation(IgnoreLog.class);
+            if (annotation.ignoreParams()) {
+                logger.info("{} #{} begin ", point.getSignature().getDeclaringTypeName(), point.getSignature().getName());
+                return;
+            }
+        }
+        logger.info("{} #{} begin --- ({}) ",
+                point.getSignature().getDeclaringTypeName(), point.getSignature().getName(), point.getArgs());
+    }
+
+    private void logResponse(Method method, Logger logger, ProceedingJoinPoint point, Long executeTime, Object logValue) {
+        if (method.isAnnotationPresent(IgnoreLog.class)) {
+            IgnoreLog annotation = method.getAnnotation(IgnoreLog.class);
+            if (annotation.ignoreResponse()) {
+                logger.info("{} #{} end {}",
+                        point.getSignature().getDeclaringTypeName(),
+                        point.getSignature().getName(), executeTime);
+                return;
+            }
+        }
+        logger.info("{} #{} end {} --- {}",
+                point.getSignature().getDeclaringTypeName(),
+                point.getSignature().getName(), executeTime, logValue);
+    }
+
+
+    private Method getTargetMethod(ProceedingJoinPoint point, Class<?> targetCls) throws NoSuchMethodException {
+        MethodSignature ms = (MethodSignature) point.getSignature();
+
+        Method targetMethod = targetCls.getDeclaredMethod(ms.getName(), ms.getParameterTypes());
+
+        return targetMethod;
+
     }
 }
