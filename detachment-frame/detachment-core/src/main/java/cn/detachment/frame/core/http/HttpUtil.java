@@ -69,7 +69,7 @@ public class HttpUtil {
         return get(client, url, null, requestConfig, operatorResponse);
     }
 
-    public static String get(CloseableHttpClient client, String url, final Map<String, String> params,
+    public static String get(CloseableHttpClient client, String url, final Map<String, Object> params,
                              RequestConfig requestConfig, OperatorResponse operatorResponse) {
         return get(client, url, null, params, requestConfig, UTF8, operatorResponse);
     }
@@ -78,20 +78,20 @@ public class HttpUtil {
         return get(client, url, null, null);
     }
 
-    public static String get(CloseableHttpClient client, String url, final Map<String, String> params) {
+    public static String get(CloseableHttpClient client, String url, final Map<String, Object> params) {
         return get(client, url, null, params, null, UTF8);
     }
 
-    public static String get(CloseableHttpClient client, String url, final Map<String, String> header, final Map<String, String> params,
+    public static String get(CloseableHttpClient client, String url, final Map<String, String> header, final Map<String, Object> params,
                              RequestConfig requestConfig, final String character) {
         return get(client, url, header, params, requestConfig, character, null);
     }
 
-    public static String get(CloseableHttpClient client, String url, final Map<String, String> header, final Map<String, String> params,
+    public static String get(CloseableHttpClient client, String url, final Map<String, String> header, final Map<String, Object> params,
                              RequestConfig requestConfig, final String character, OperatorResponse operatorResponse) {
         if (!CollectionUtils.isEmpty(params)) {
             List<NameValuePair> list = params.entrySet().stream()
-                    .map(e -> new BasicNameValuePair(e.getKey(), e.getValue())).collect(Collectors.toList());
+                    .map(e -> new BasicNameValuePair(e.getKey(), String.valueOf(e.getValue()))).collect(Collectors.toList());
             try {
                 String paramStr = EntityUtils.toString(new UrlEncodedFormEntity(list, Charset.forName(character)));
                 url = url + "?" + paramStr;
