@@ -114,7 +114,7 @@
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
-                    <!-- mvn versions:set -DnewVersion=1.0.2-SNAPSHOT -->
+                    <!-- mvn versions:set -DnewVersion=1.0.3-RELEASE -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>versions-maven-plugin</artifactId>

@@ -31,6 +31,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.detachment.frame.core.constant.CharSetEnum.UTF8;
@@ -91,6 +92,7 @@ public class HttpUtil {
                              RequestConfig requestConfig, final String character, OperatorResponse operatorResponse) {
         if (!CollectionUtils.isEmpty(params)) {
             List<NameValuePair> list = params.entrySet().stream()
+                    .filter(e -> Objects.nonNull(e.getValue()))
                     .map(e -> new BasicNameValuePair(e.getKey(), String.valueOf(e.getValue()))).collect(Collectors.toList());
             try {
                 String paramStr = EntityUtils.toString(new UrlEncodedFormEntity(list, Charset.forName(character)));
