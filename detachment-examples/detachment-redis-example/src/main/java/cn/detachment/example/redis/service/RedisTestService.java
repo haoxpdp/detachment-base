@@ -13,9 +13,9 @@ import javax.annotation.Resource;
  * @date 19/10/22 9:16
  */
 @Service
-public class RedisService {
+public class RedisTestService {
 
-    private static Logger logger = LoggerFactory.getLogger(RedisService.class);
+    private static Logger logger = LoggerFactory.getLogger(RedisTestService.class);
 
     @Resource
     private RedisTool redisTool;

@@ -1,11 +1,10 @@
 package cn.detachment.example.redis;
 
 import cn.detachment.example.redis.service.LockTestService;
-import cn.detachment.example.redis.service.RedisService;
+import cn.detachment.example.redis.service.RedisTestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.redisson.api.RBloomFilter;
-import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author haoxp
@@ -32,7 +30,7 @@ public class AppTest {
     private LockTestService lockTestService;
 
     @Resource
-    private RedisService redisService;
+    private RedisTestService redisService;
 
     @Resource
     private RedissonClient redissonClient;
