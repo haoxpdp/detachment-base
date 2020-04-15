@@ -2,10 +2,7 @@ package cn.detachment.frame.core.http;
 
 import cn.detachment.frame.core.exception.ServiceException;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
@@ -15,6 +12,9 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -24,6 +24,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
@@ -108,21 +109,23 @@ public class HttpUtil {
     //post方法
 
     public static String post(final CloseableHttpClient client, final String url,
-                              final Map<String, String> params) {
+                              final Map<String, Object> params) {
         return post(client, url, params, UTF8);
     }
 
-    public static String post(final CloseableHttpClient client, final String url, final Map<String, String> params, final String charSet) {
+    public static String post(final CloseableHttpClient client, final String url, final Map<String, Object> params, final String charSet) {
         return post(client, url, null, params, null, charSet);
     }
 
     public static String post(final CloseableHttpClient client, final String url, final Map<String, String> headers,
-                              final Map<String, String> params, final RequestConfig requestConfig, String charSet) {
+                              final Map<String, Object> params, final RequestConfig requestConfig, String charSet) {
         try {
             RequestBuilder requestBuilder = RequestBuilder.post(url);
             List<NameValuePair> pairs = new ArrayList<>();
             if (!CollectionUtils.isEmpty(params)) {
-                params.forEach((k, v) -> pairs.add(new BasicNameValuePair(k, v)));
+                params.entrySet().stream()
+                        .filter(e -> Objects.nonNull(e.getValue()))
+                        .forEach(e -> pairs.add(new BasicNameValuePair(e.getKey(), String.valueOf(e.getValue()))));
             }
             requestBuilder.setEntity(new UrlEncodedFormEntity(pairs, charSet));
             return httpRequest(client, requestBuilder, headers, requestConfig, charSet);
@@ -153,6 +156,25 @@ public class HttpUtil {
         StringEntity entity = new StringEntity(jsonStr, ContentType.APPLICATION_JSON);
         requestBuilder.setEntity(entity);
         return httpRequest(client, requestBuilder, header, requestConfig, charSet, null);
+    }
+
+    public static String postFile(CloseableHttpClient client, String uri, Map<String, Objects> param, Map<String, File> files) {
+        return postFile(client, uri, null, param, files, defaultCfg);
+    }
+
+    public static String postFile(CloseableHttpClient client, String uri, final Map<String, String> header,
+                                  Map<String, Objects> param, Map<String, File> files, RequestConfig requestConfig) {
+        RequestBuilder requestBuilder = RequestBuilder.post(uri);
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        if (!CollectionUtils.isEmpty(param)) {
+            param.entrySet().stream()
+                    .filter(e -> StringUtils.isEmpty(String.valueOf(e.getValue())))
+                    .forEach(e -> builder.addPart(e.getKey(), new StringBody(String.valueOf(e.getValue()), ContentType.TEXT_PLAIN)));
+        }
+        if (!CollectionUtils.isEmpty(files)) {
+            files.forEach((k, v) -> builder.addPart(k, new FileBody(v)));
+        }
+        return httpRequest(client, requestBuilder, header, requestConfig, "utf-8");
     }
 
     private static String transferJSONToString(Object json) {
