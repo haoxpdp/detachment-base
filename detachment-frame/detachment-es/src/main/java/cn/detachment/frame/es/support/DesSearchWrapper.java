@@ -40,4 +40,11 @@ public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T,
         boolQueryBuilder.mustNot(func.condition(param));
         return thisType;
     }
+
+    @Override
+    public DesSearchWrapper<T> filter(NestedCondition<DesSearchWrapper<T>> func) {
+        DesSearchWrapper<T> param = new DesSearchWrapper<>(index);
+        boolQueryBuilder.filter(func.condition(param));
+        return thisType;
+    }
 }

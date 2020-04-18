@@ -34,4 +34,14 @@ public interface Nested<Children,Param> extends Serializable {
      * @return
      */
     Children mustNot(NestedCondition<Param> func);
+
+    /**
+     * filter
+     * 过滤器
+     *
+     * @param func func
+     * @return Children
+     * @author haoxp
+     */
+    Children filter(NestedCondition<Param> func);
 }
