@@ -29,10 +29,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static cn.detachment.frame.core.constant.CharSetEnum.UTF8;
@@ -53,9 +50,9 @@ public class HttpUtil {
 
     static {
         defaultCfg = RequestConfig.custom()
-                .setSocketTimeout(130000)
-                .setConnectTimeout(100000)
-                .setConnectionRequestTimeout(120000)
+                .setSocketTimeout(1300000)
+                .setConnectTimeout(1000000)
+                .setConnectionRequestTimeout(1200000)
                 .build();
 
     }
@@ -171,9 +168,11 @@ public class HttpUtil {
                     .filter(e -> StringUtils.isEmpty(String.valueOf(e.getValue())))
                     .forEach(e -> builder.addPart(e.getKey(), new StringBody(String.valueOf(e.getValue()), ContentType.TEXT_PLAIN)));
         }
+
         if (!CollectionUtils.isEmpty(files)) {
             files.forEach((k, v) -> builder.addPart(k, new FileBody(v)));
         }
+        requestBuilder.setEntity(builder.build());
         return httpRequest(client, requestBuilder, header, requestConfig, "utf-8");
     }
 
@@ -279,6 +278,10 @@ public class HttpUtil {
                     .filter(e -> StringUtils.hasText(e.getKey()))
                     .forEach(e -> requestBuilder.addHeader(e.getKey(), e.getValue()));
         }
+        HttpEntity entity = requestBuilder.getEntity();
+        requestBuilder.addHeader(entity.getContentEncoding());
+        requestBuilder.addHeader(entity.getContentType());
+//        requestBuilder.addHeader("Content-Length", String.valueOf(entity.getContentLength()));
     }
 
     private static void inflateConfig(RequestBuilder requestBuilder, RequestConfig requestConfig) {
@@ -299,4 +302,27 @@ public class HttpUtil {
         String operator(HttpResponse response) throws IOException;
     }
 
+
+    public static void main(String[] args) {
+        String url = "https://d.pcs.baidu.com/rest/2.0/pcs/superfile2?";
+        Map<String, Object> param = new HashMap<>();
+        param.put("path", "/1.pdf");
+        param.put("type", "tmpfile");
+        param.put("method", "upload");
+        param.put("BDUSS", "pansec_DCb740ccc5511e5e8fedcff06b081203-%2B7lIHst03cf%2FUARZks3PLx4t39UySTMct0Cd3D05X%2FTjh4AHf3CgpXWeH%2BnlLRmqxE6aZB3QtJGEU1SG2u0W9ri4fFoulRdt4LZgqa6%2B79pF24yDLUym9prjxxHAfhI770xeHH56NdHpUlqHWrisj%2B2MH149SzbywEL03ngt9DofuLrZRt8ewGmkAMoZiT9FAC6bVySlwdLq4sbcHDvIZysPLZz1B5nGyIp3lOMT9Mv8IlT40X9XX0z2lSzEi0U1t1ux%2F3gFQ0cFwbjtvHIvhA%3D%3D");
+        param.put("app_id", 250528);
+        param.put("uploadid", "P1-MTAuOTIuMTQyLjU0OjE1ODcwNTIzNDI6MjQ4MTUwOTMyMjgwMTc1NDU4MA==");
+        for (int i = 0; i < 3; i++) {
+            param.put("partseq", i);
+            String tmpUrl = url;
+            for (Map.Entry<String, Object> entry : param.entrySet()) {
+                tmpUrl = tmpUrl + entry.getKey() + "=" + entry.getValue() + "&";
+            }
+            tmpUrl = tmpUrl.substring(0, tmpUrl.length() - 1);
+            Map<String, File> file = new HashMap<>();
+            file.put("file", new File("H:\\Desktop\\tmp_UNIX网络编程卷2：进程间通信（第2版）\\" + i));
+            String res = HttpUtil.postFile(HttpClientFactory.newInstance().ssl().build(), tmpUrl, null, file);
+            logger.info("res {}", res);
+        }
+    }
 }

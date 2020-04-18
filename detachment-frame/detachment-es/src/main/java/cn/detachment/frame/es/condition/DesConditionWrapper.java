@@ -10,6 +10,8 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collection;
+
 /**
  * @author haoxp
  */
@@ -51,6 +53,34 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
 
     public QueryBuilder termEq(F f, Object value) {
         return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
+    }
+
+    public QueryBuilder termsQuery(F f, String... vs) {
+        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
+    }
+
+    public QueryBuilder termsQuery(F f, long... vs) {
+        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
+    }
+
+    public QueryBuilder termsQuery(F f, int... vs) {
+        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
+    }
+
+    public QueryBuilder termsQuery(F f, double... vs) {
+        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
+    }
+
+    public QueryBuilder termsQuery(F f, float... vs) {
+        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
+    }
+
+    public QueryBuilder termsQuery(F f, Object... vs) {
+        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
+    }
+
+    public QueryBuilder termsQuery(F f, Collection<?> values) {
+        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), values);
     }
 
     public QueryBuilder ge(F f, Object val) {
@@ -98,7 +128,7 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
         return thisType;
     }
 
-    public SearchRequest finish() {
+    public SearchRequest finishQuery() {
         /**
          * 无条件时返回全部结果
          */
@@ -110,6 +140,22 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
             searchSourceBuilder.query(QueryBuilders.matchAllQuery());
         } else {
             searchSourceBuilder.query(boolQueryBuilder);
+        }
+        return searchRequest.source(searchSourceBuilder);
+    }
+
+    public SearchRequest finishFilter() {
+        /**
+         * 无条件时返回全部结果
+         */
+        if (this.searchSourceBuilder.query() == null
+                && CollectionUtils.isEmpty(boolQueryBuilder.must())
+                && CollectionUtils.isEmpty(boolQueryBuilder.mustNot())
+                && CollectionUtils.isEmpty(boolQueryBuilder.filter())
+                && CollectionUtils.isEmpty(boolQueryBuilder.should())) {
+            searchSourceBuilder.postFilter(QueryBuilders.matchAllQuery());
+        } else {
+            searchSourceBuilder.postFilter(boolQueryBuilder);
         }
         return searchRequest.source(searchSourceBuilder);
     }

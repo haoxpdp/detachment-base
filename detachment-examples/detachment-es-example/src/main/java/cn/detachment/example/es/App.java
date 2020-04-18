@@ -44,7 +44,7 @@ public class App implements CommandLineRunner {
                 .must(c -> c.between(Person::getAge,11,33))
                 .mustNot(c -> c.termEq(Person::getId,3))
                 .orderBy(Person::getAge, SortOrder.DESC)
-                .finish();
+                .finishQuery();
 
 
         SearchRequest searchRequest = new SearchRequest(index);
@@ -53,6 +53,7 @@ public class App implements CommandLineRunner {
                 QueryBuilders.boolQuery()
                         .must(QueryBuilders.rangeQuery("age").from(11).to(33))
                         .mustNot(QueryBuilders.termQuery("id",3))
+
         ).sort("age",SortOrder.DESC);
         searchRequest.source(searchSourceBuilder);
 

@@ -9,6 +9,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 
 /**
  * @author haoxp
@@ -30,11 +34,26 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        MailInfo mailInfo = new MailInfo();
-        mailInfo.addReceiver("haoxpdp@outlook.com");
-        mailInfo.setContent("test");
-        mailInfo.setFrom("haoxpdp@qq.com");
-        mailInfo.setSubject("test");
-        mailUtil.sendMsg(mailInfo);
+
+        for (int i = 0; i < 3; i++) {
+            String path = "H:\\Desktop\\tmp_922275\\" + i;
+            System.out.println(path);
+            try (FileReader reader = new FileReader(path)) {
+                char[] cbuf = new char[1024 * 10];
+                int len = -1;
+                StringBuilder s = new StringBuilder();
+                while ((len = reader.read(cbuf)) != -1) {
+                    s.append(cbuf, 0, len);
+                    cbuf = new char[1024 * 10];
+                }
+                System.out.println();
+                MailInfo mailInfo = new MailInfo();
+                mailInfo.addReceiver("haoxpdp@outlook.com");
+                mailInfo.setSubject("test " + i);
+                mailInfo.setFrom("haoxpdp@qq.com");
+                mailInfo.setContent(s.toString());
+                mailUtil.sendMsg(mailInfo);
+            }
+        }
     }
 }
