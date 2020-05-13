@@ -11,12 +11,13 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
+import javax.mail.util.ByteArrayDataSource;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -72,16 +73,16 @@ public class MailUtilImpl implements MailUtil {
 
         // 设置附件
         if (!CollectionUtils.isEmpty(mailInfo.getAttachments())) {
-            fileAttachment(mailInfo.getAttachments()).stream().peek(part -> {
-                try {
-                    multipart.addBodyPart(part);
-                } catch (MessagingException e) {
-                    logger.error("add file attachment failed! " + e.getMessage(), e);
-                }
-            });
+            fileAttachment(mailInfo.getAttachments()).stream()
+                    .forEach(part -> {
+                        try {
+                            multipart.addBodyPart(part);
+                        } catch (MessagingException e) {
+                            logger.error("add file attachment failed! " + e.getMessage(), e);
+                        }
+                    });
         }
         mimeMessage.setContent(multipart);
-
         return mimeMessage;
     }
 
@@ -89,19 +90,22 @@ public class MailUtilImpl implements MailUtil {
         if (CollectionUtils.isEmpty(fp)) {
             return new ArrayList<>();
         }
-        return fp.stream().map(File::new).filter(File::exists)
-                .map(FileDataSource::new)
+        return fp.stream().map(File::new)
+                .filter(File::exists)
+                .map(file -> new DataHandler(new FileDataSource(file)))
                 .map(this::filePart)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
-    private BodyPart filePart(DataSource dataSource) {
+    private BodyPart filePart(DataHandler dataHandler) {
+
         BodyPart attachmentBodyPart = new MimeBodyPart();
         try {
-            attachmentBodyPart.setDataHandler(new DataHandler(dataSource));
+            attachmentBodyPart.setDataHandler(dataHandler);
+            attachmentBodyPart.setFileName(dataHandler.getName());
             return attachmentBodyPart;
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
         return null;

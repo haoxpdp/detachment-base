@@ -1,6 +1,7 @@
 package cn.detachment.frame.notification.beans;
 
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +46,11 @@ public class MailInfo {
         to.add(receiver);
     }
 
+    public void addAttachment(String path) {
+        if (attachments == null) {
+            attachments = new ArrayList<>();
+        }
+        attachments.add(path);
+    }
 
 }
