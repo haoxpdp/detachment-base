@@ -2,12 +2,15 @@ package cn.detachment.frame.es.condition;
 
 import cn.detachment.frame.es.support.FiledFunction;
 import cn.detachment.frame.es.util.RefUtil;
+import lombok.Getter;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
@@ -18,94 +21,16 @@ import java.util.Collection;
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Children extends DesConditionWrapper<T, F, Children, Param>, Param> implements Nested<Children, Param> {
 
+    private static Logger logger = LoggerFactory.getLogger(DesConditionWrapper.class);
+
     protected SearchRequest searchRequest;
 
     protected SearchSourceBuilder searchSourceBuilder;
 
+    @Getter
     protected BoolQueryBuilder boolQueryBuilder;
 
     protected final Children thisType = (Children) this;
-
-
-    public QueryBuilder termEq(F f, String value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
-    }
-
-    public QueryBuilder termEq(F f, int value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
-    }
-
-    public QueryBuilder termEq(F f, long value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
-    }
-
-    public QueryBuilder termEq(F f, float value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
-    }
-
-    public QueryBuilder termEq(F f, double value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
-    }
-
-    public QueryBuilder termEq(F f, boolean value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
-    }
-
-    public QueryBuilder termEq(F f, Object value) {
-        return QueryBuilders.termQuery(RefUtil.getFiledName(f), value);
-    }
-
-    public QueryBuilder termsQuery(F f, String... vs) {
-        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
-    }
-
-    public QueryBuilder termsQuery(F f, long... vs) {
-        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
-    }
-
-    public QueryBuilder termsQuery(F f, int... vs) {
-        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
-    }
-
-    public QueryBuilder termsQuery(F f, double... vs) {
-        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
-    }
-
-    public QueryBuilder termsQuery(F f, float... vs) {
-        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
-    }
-
-    public QueryBuilder termsQuery(F f, Object... vs) {
-        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), vs);
-    }
-
-    public QueryBuilder termsQuery(F f, Collection<?> values) {
-        return QueryBuilders.termsQuery(RefUtil.getFiledName(f), values);
-    }
-
-    public QueryBuilder ge(F f, Object val) {
-        return QueryBuilders.rangeQuery(RefUtil.getFiledName(f)).gte(val);
-    }
-
-    public QueryBuilder gt(F f, Object val) {
-        return QueryBuilders.rangeQuery(RefUtil.getFiledName(f)).gt(val);
-    }
-
-    public QueryBuilder le(F f, Object val) {
-        return QueryBuilders.rangeQuery(RefUtil.getFiledName(f)).lte(val);
-    }
-
-    public QueryBuilder lt(F f, Object val) {
-        return QueryBuilders.rangeQuery(RefUtil.getFiledName(f)).lt(val);
-    }
-
-    public QueryBuilder between(F f, Object v1, Object v2) {
-        return QueryBuilders.rangeQuery(RefUtil.getFiledName(f)).from(v1).to(v2);
-    }
-
-    public QueryBuilder match(F f, Object val) {
-        return QueryBuilders.matchQuery(RefUtil.getFiledName(f), val);
-    }
 
     private void addCondition() {
         if (boolQueryBuilder == null) {
@@ -141,6 +66,10 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
         } else {
             searchSourceBuilder.query(boolQueryBuilder);
         }
+        if (logger.isDebugEnabled()) {
+            logger.debug("es search dsl : {}", searchSourceBuilder.toString());
+        }
+        logger.info("es search dsl : {}", searchSourceBuilder.toString());
         return searchRequest.source(searchSourceBuilder);
     }
 
@@ -157,10 +86,15 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
         } else {
             searchSourceBuilder.postFilter(boolQueryBuilder);
         }
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("es search dsl : {}", searchSourceBuilder.toString());
+        }
         return searchRequest.source(searchSourceBuilder);
     }
 
     private BoolQueryBuilder boolQueryBuilderInstance() {
         return QueryBuilders.boolQuery();
     }
+
 }
