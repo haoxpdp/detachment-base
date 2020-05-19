@@ -13,18 +13,33 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
-      - name: Install Java and Maven
-        uses: actions/setup-java@v1
-        with:
-          java-version: 8
+      - name: import gpg
+        uses: crazy-max/ghaction-import-gpg@v2
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.gpg_key }}
+          PASSPHRASE: ${{ secrets.gpg_key_pwd }}
 
-      - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
+      - name: install mvn and config
+        uses: whelk-io/maven-settings-xml-action@v4
         with:
-          gpg_private_key: ${{ secrets.pgp_key }}
-          gpg_passphrase: ${{ secrets.gpg_key_pwd }}
-          nexus_username: ${{ secrets.mvn_user }}
-          nexus_password: ${{ secrets.mvn_pwd }}
-          server_id: "sonatype"
-          maven_args: "-Dmaven.test.skip=true -Dgpg.passphrase=19940330"
+          servers: '[{ "id": "sonatype", "username": "${{ secrets.mvn_user }}", "password": "${{ secrets.mvn_pwd }}" }]'
+      - name: deploy
+        run: clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=19940330
+
+#      - name: Install Java and Maven
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 8
+#
+
+#      - name: Release Maven package
+#        uses: samuelmeuli/action-maven-publish@v1
+#        with:
+#          gpg_private_key: ${{ secrets.pgp_key }}
+#          gpg_passphrase: ${{ secrets.gpg_key_pwd }}
+#          nexus_username: ${{ secrets.mvn_user }}
+#          nexus_password: ${{ secrets.mvn_pwd }}
+#          server_id: "sonatype"
+#          maven_args: "-Dmaven.test.skip=true -Dgpg.passphrase=19940330"
 #          access-token: ${{ secrets.razer_sercret }}
+
