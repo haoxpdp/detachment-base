@@ -25,6 +25,6 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_key_pwd }}
           nexus_username: ${{ secrets.mvn_user }}
           nexus_password: ${{ secrets.mvn_pwd }}
-          server-id: "sonatype"
+          server_id: "sonatype"
           maven_args: "-Dmaven.test.skip=true"
 #          access-token: ${{ secrets.razer_sercret }}
