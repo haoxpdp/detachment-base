@@ -24,7 +24,7 @@ jobs:
         with:
           servers: '[{ "id": "sonatype", "username": "${{ secrets.mvn_user }}", "password": "${{ secrets.mvn_pwd }}" }]'
       - name: deploy
-        run: clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=19940330
+        run: mvn clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=19940330
 
 #      - name: Install Java and Maven
 #        uses: actions/setup-java@v1
