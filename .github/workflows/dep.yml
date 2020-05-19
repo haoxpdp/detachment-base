@@ -24,5 +24,5 @@ jobs:
         with:
           servers: '[{ "id": "sonatype", "username": "${{ secrets.mvn_user }}", "password": "${{ secrets.mvn_pwd }}" }]'
       - name: deploy
-        run: mvn clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=${secrets.gpg_key_pwd}
+        run: mvn clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=${{secrets.gpg_key_pwd}}
 
