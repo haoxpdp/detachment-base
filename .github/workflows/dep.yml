@@ -24,22 +24,5 @@ jobs:
         with:
           servers: '[{ "id": "sonatype", "username": "${{ secrets.mvn_user }}", "password": "${{ secrets.mvn_pwd }}" }]'
       - name: deploy
-        run: mvn clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=19940330
-
-#      - name: Install Java and Maven
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: 8
-#
-
-#      - name: Release Maven package
-#        uses: samuelmeuli/action-maven-publish@v1
-#        with:
-#          gpg_private_key: ${{ secrets.pgp_key }}
-#          gpg_passphrase: ${{ secrets.gpg_key_pwd }}
-#          nexus_username: ${{ secrets.mvn_user }}
-#          nexus_password: ${{ secrets.mvn_pwd }}
-#          server_id: "sonatype"
-#          maven_args: "-Dmaven.test.skip=true -Dgpg.passphrase=19940330"
-#          access-token: ${{ secrets.razer_sercret }}
+        run: mvn clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=${secrets.gpg_key_pwd}
 
