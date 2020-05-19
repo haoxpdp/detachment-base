@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.detachment</groupId>
         <artifactId>detachment-frame</artifactId>
-        <version>1.0.5-RELEASE</version>
+        <version>1.0.6-RELEASE</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
 
@@ -21,30 +21,30 @@
             <dependency>
                 <groupId>cn.detachment</groupId>
                 <artifactId>detachment-core</artifactId>
-                <version>1.0.5-RELEASE</version>
+                <version>1.0.6-RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>cn.detachment</groupId>
                 <artifactId>detachment-mysql</artifactId>
-                <version>1.0.5-RELEASE</version>
+                <version>1.0.6-RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>cn.detachment</groupId>
                 <artifactId>detachment-redis</artifactId>
-                <version>1.0.5-RELEASE</version>
+                <version>1.0.6-RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>cn.detachment</groupId>
                 <artifactId>detachment-log</artifactId>
-                <version>1.0.5-RELEASE</version>
+                <version>1.0.6-RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>cn.detachment</groupId>
                 <artifactId>detachment-web</artifactId>
-                <version>1.0.5-RELEASE</version>
+                <version>1.0.6-RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

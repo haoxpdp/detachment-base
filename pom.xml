@@ -5,14 +5,14 @@
 
     <groupId>cn.detachment</groupId>
     <artifactId>base</artifactId>
-    <version>1.0.5-RELEASE</version>
+    <version>1.0.6-RELEASE</version>
     <packaging>pom</packaging>
 
     <name>detachment-base</name>
     <description>detachment basic, utils</description>
     <url>https://github.com/haoxpdp/detachment-base.git</url>
 
-    
+
     <modules>
         <module>detachment-frame</module>
     </modules>
