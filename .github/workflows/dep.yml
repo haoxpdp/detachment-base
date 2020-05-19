@@ -26,5 +26,5 @@ jobs:
           nexus_username: ${{ secrets.mvn_user }}
           nexus_password: ${{ secrets.mvn_pwd }}
           server-id: "sonatype"
-          maven_args: "-Dmaven.test.skip=true -P release"
+          maven_args: "-Dmaven.test.skip=true"
 #          access-token: ${{ secrets.razer_sercret }}

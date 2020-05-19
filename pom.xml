@@ -98,10 +98,10 @@
     </dependencyManagement>
     <profiles>
         <profile>
-            <id>release</id>
+            <id>deploy</id>
             <build>
                 <plugins>
-                    <!-- mvn clean deploy -Dmaven.test.skip=true -P release -->
+                    <!-- mvn clean deploy -Dmaven.test.skip=true -P deploy -->
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
