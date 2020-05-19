@@ -169,22 +169,22 @@
                         </executions>
                     </plugin>
 
-                    <!-- 生成asc 校验文件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <!-- 必须和配置中的gpg校验id一致 -->
-                                <id>release</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    &lt;!&ndash; 生成asc 校验文件 &ndash;&gt;-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-gpg-plugin</artifactId>-->
+<!--                        <version>1.5</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                &lt;!&ndash; 必须和配置中的gpg校验id一致 &ndash;&gt;-->
+<!--                                <id>release</id>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>sign</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
             <distributionManagement>
