@@ -1,0 +1,30 @@
+name: deploy
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Java and Maven
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Release Maven package
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.pgp_key }}
+          gpg_passphrase: ${{ secrets.gpg_key_pwd }}
+          nexus_username: ${{ secrets.mvn_user }}
+          nexus_password: ${{ secrets.mvn_pwd }}
+          server-id: "sonatype"
+          maven_args: "-Dmaven.test.skip=true -P release"
+#          access-token: ${{ secrets.razer_sercret }}
