@@ -19,6 +19,7 @@
         <module>mysql</module>
         <module>notification</module>
         <module>web</module>
+        <module>core</module>
     </modules>
 
     <licenses>
