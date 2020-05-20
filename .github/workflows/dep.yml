@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
+      - name: setup jdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11' # The JDK version to make available on the path.
+          java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
+          architecture: x64 # (x64 or x86) - defaults to x64
 
       - name: import gpg
         uses: crazy-max/ghaction-import-gpg@v2
@@ -24,5 +30,5 @@ jobs:
         with:
           servers: '[{ "id": "sonatype", "username": "${{ secrets.mvn_user }}", "password": "${{ secrets.mvn_pwd }}" }]'
       - name: deploy
-        run: mvn clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=${{secrets.gpg_key_pwd}}
+        run: mvn clean deploy --batch-mode  -P deploy -DskipTests -Dgpg.passphrase=${{secrets.gpg_key_pwd}} -X
 
