@@ -224,10 +224,10 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.5.1</version>
+                        <version>3.6.1</version>
                         <configuration>
-                            <source>1.8</source>
-                            <target>1.8</target>
+                            <source>11</source>
+                            <target>11</target>
                         </configuration>
                     </plugin>
                     <!-- Source -->
@@ -262,6 +262,9 @@
                                     <encoding>UTF-8</encoding>
                                     <docencoding>UTF-8</docencoding>
                                     <additionalparam>-Xdoclint:none</additionalparam>
+                                    <!-- 解决升级jdk11导致java-doc error -->
+                                    <!-- https://www.it1352.com/1608997.html -->
+                                    <source>8</source>
                                 </configuration>
                             </execution>
                         </executions>
