@@ -2,9 +2,9 @@ name: deploy
 
 on:
   push:
-    branches: [master,release]
+    branches: [snapshot,release]
   pull_request:
-    branches: [master,release]
+    branches: [snapshot,release]
 
 jobs:
   build:

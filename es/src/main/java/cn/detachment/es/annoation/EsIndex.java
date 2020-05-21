@@ -1,4 +1,5 @@
-package cn.detachment.es.support.annotation;
+package cn.detachment.es.annoation;
+
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,21 +7,26 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * detachment index name support
+ * 指定实体类对应得es索引名
  *
  * @author haoxp
  */
 @Target(value = ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DEsIndex {
+public @interface EsIndex {
 
     /**
-     * value
-     * es index name
-     * @param
-     * @return java.lang.String
-     * @author haoxp
-     * @date 20/5/15 11:49
+     * 索引名
+     *
+     * @return
      */
-    String value() default "";
+    String value();
+
+    /**
+     * 别名
+     *
+     * @return
+     */
+    String alias() default "";
+
 }
