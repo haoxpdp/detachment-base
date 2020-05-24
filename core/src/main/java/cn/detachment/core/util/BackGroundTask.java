@@ -3,6 +3,8 @@ package cn.detachment.core.util;
 import java.util.concurrent.*;
 
 /**
+ * 后台线程处理
+ *
  * @author haoxp
  * @version v1.0
  * @date 20/5/25 5:58
