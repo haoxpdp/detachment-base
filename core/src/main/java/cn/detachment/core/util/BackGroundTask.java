@@ -11,6 +11,13 @@ public abstract class BackGroundTask<V> implements Runnable, Future<V> {
 
     private final FutureTask<V> computation = new Computation();
 
+    // 显示线程
+    private ExecutorService executorService;
+
+    public <V> BackGroundTask(ExecutorService executorService) {
+        this.executorService = executorService;
+    }
+
     private class Computation extends FutureTask<V> {
         public Computation() {
             super(BackGroundTask.this::compute);
@@ -59,4 +66,11 @@ public abstract class BackGroundTask<V> implements Runnable, Future<V> {
     protected abstract V compute() throws Exception;
 
 
+    protected void setProgress(int current, int max) {
+        executorService.execute(() -> onProgress(current, max));
+    }
+
+    protected void onProgress(int current, int max) {
+
+    }
 }
