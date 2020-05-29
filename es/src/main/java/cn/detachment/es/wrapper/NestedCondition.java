@@ -1,4 +1,4 @@
-package cn.detachment.es.support;
+package cn.detachment.es.wrapper;
 
 import org.elasticsearch.index.query.QueryBuilder;
 

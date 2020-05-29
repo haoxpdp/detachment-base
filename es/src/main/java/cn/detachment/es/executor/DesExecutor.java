@@ -10,6 +10,6 @@ package cn.detachment.es.executor;
  * @param <T> 实体类
  * @author haoxp
  */
-public interface EsExecutor<T> {
+public interface DesExecutor<T> {
 
 }

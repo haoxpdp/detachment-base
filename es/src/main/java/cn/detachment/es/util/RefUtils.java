@@ -1,7 +1,7 @@
 package cn.detachment.es.util;
 
 
-import cn.detachment.es.support.FiledFunction;
+import cn.detachment.es.wrapper.FiledFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author haoxp
  */
-public class RefUtil {
+public class RefUtils {
 
     private static final Map<Class<?>, WeakReference<SerializedLambda>> CLASS_LAMBDA_CACHE = new ConcurrentHashMap<>();
 
-    private static final Logger logger = LoggerFactory.getLogger(RefUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(RefUtils.class);
 
     public static final String PREFIX_GET = "get";
 

@@ -1,7 +1,7 @@
 package cn.detachment.es.condition;
 
-import cn.detachment.es.support.FiledFunction;
-import cn.detachment.es.util.RefUtil;
+import cn.detachment.es.wrapper.FiledFunction;
+import cn.detachment.es.util.RefUtils;
 import lombok.Getter;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -41,12 +41,12 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
     }
 
     public Children orderBy(F f) {
-        this.searchSourceBuilder.sort(RefUtil.getFiledName(f));
+        this.searchSourceBuilder.sort(RefUtils.getFiledName(f));
         return thisType;
     }
 
     public Children orderBy(F f, SortOrder sortOrder) {
-        this.searchSourceBuilder.sort(RefUtil.getFiledName(f), sortOrder);
+        this.searchSourceBuilder.sort(RefUtils.getFiledName(f), sortOrder);
         return thisType;
     }
 
