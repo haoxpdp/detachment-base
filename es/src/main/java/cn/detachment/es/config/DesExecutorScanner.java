@@ -1,5 +1,6 @@
 package cn.detachment.es.config;
 
+import cn.detachment.es.exception.ScanClassException;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.SystemPropertyUtils;
+import org.yaml.snakeyaml.scanner.ScannerException;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -55,7 +57,15 @@ public class DesExecutorScanner {
         this.metadataReaderFactory = new CachingMetadataReaderFactory(resolver);
     }
 
-    public void doScan() {
+    public Set<Class<?>> getScanClass() {
+        if (scanClasses == null) {
+            return doScan();
+        }
+        return scanClasses;
+    }
+
+
+    public Set<Class<?>> doScan() {
         Set<Class<?>> classes = new HashSet<>();
         Assert.notEmpty(scanPackages, "scan packages must not empty!");
         for (String path : scanPackages) {
@@ -66,8 +76,7 @@ public class DesExecutorScanner {
             try {
                 resources = resolver.getResources(scanPackage);
             } catch (IOException e) {
-                logger.error("scan package io error " + e.getMessage(), e);
-                throw new BeanDefinitionValidationException("scan package error" + e.getMessage());
+                throw new ScanClassException("scan package error" + e.getMessage());
             }
             MetadataReader metadataReader;
             for (Resource r : resources) {
@@ -75,14 +84,19 @@ public class DesExecutorScanner {
                     try {
                         metadataReader = metadataReaderFactory.getMetadataReader(r);
                     } catch (IOException e) {
-                        logger.error(e.getMessage(), e);
-                        throw new BeanDefinitionValidationException("read meta data data error", e);
+                        throw new ScanClassException("read meta data data error", e);
                     }
-
-
+                    try {
+                        Class<?> api = Class.forName(metadataReader.getClassMetadata().getClassName());
+                        classes.add(api);
+                    } catch (ClassNotFoundException e) {
+                        throw new ScanClassException(e);
+                    }
                 }
             }
         }
+        this.scanClasses = classes;
+        return scanClasses;
     }
 
 }
