@@ -1,5 +1,7 @@
 package cn.detachment.es.support;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.elasticsearch.client.RestHighLevelClient;
 
 import java.util.Set;
@@ -11,17 +13,9 @@ import java.util.Set;
  */
 public abstract class ScanSupport {
 
-
-    protected RestHighLevelClient client;
-
-    /**
-     * set restClient
-     *
-     * @param client
-     */
-    public void setRestHighLevelClient(RestHighLevelClient client) {
-        this.client = client;
-    }
+    @Getter
+    @Setter
+    protected RestHighLevelClient esClient;
 
 
 }

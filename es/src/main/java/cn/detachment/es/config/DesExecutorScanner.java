@@ -10,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.parsing.BeanDefinitionParsingException;
-import org.springframework.beans.factory.support.AbstractBeanDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.support.BeanDefinitionValidationException;
-import org.springframework.beans.factory.support.GenericBeanDefinition;
+import org.springframework.beans.factory.support.*;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
@@ -54,6 +51,10 @@ public class DesExecutorScanner {
     private ResourcePatternResolver resolver;
 
     private MetadataReaderFactory metadataReaderFactory;
+
+    @Getter
+    @Setter
+    private BeanDefinitionRegistry registry;
 
     public DesExecutorScanner(String[] scanPackages) {
         this.scanPackages = scanPackages;
@@ -134,6 +135,7 @@ public class DesExecutorScanner {
             bd.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
             bd.setLazyInit(true);
             bd.getConstructorArgumentValues().addGenericArgumentValue(api);
+            registry.registerBeanDefinition(api.getSimpleName(), bd);
         }
     }
 

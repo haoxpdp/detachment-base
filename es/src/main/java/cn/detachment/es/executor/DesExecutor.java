@@ -11,5 +11,5 @@ package cn.detachment.es.executor;
  * @author haoxp
  */
 public interface DesExecutor<T> {
-
+    void test();
 }

@@ -9,15 +9,16 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternUtils;
 
 /**
  * @author haoxp
  */
-@Configuration
-public class DesConfiguration implements BeanDefinitionRegistryPostProcessor, BeanNameAware, ApplicationContextAware {
+public class DesConfiguration implements BeanDefinitionRegistryPostProcessor, BeanNameAware, ApplicationContextAware, ResourceLoaderAware {
 
     private static Logger logger = LoggerFactory.getLogger(DesConfiguration.class);
 
@@ -32,12 +33,16 @@ public class DesConfiguration implements BeanDefinitionRegistryPostProcessor, Be
 
     private boolean processProperty = false;
 
+    private ResourcePatternResolver resolver;
+
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         if (!processProperty) {
             processPropertiesPlaceHolder();
         }
-        DesExecutorScanner scanner = new DesExecutorScanner(scanPackages, (ResourcePatternResolver) registry);
+        DesExecutorScanner scanner = new DesExecutorScanner(scanPackages, resolver);
+        scanner.setRegistry(registry);
+        scanner.setEsClientName(esClientName);
         scanner.scan();
     }
 
@@ -65,5 +70,10 @@ public class DesConfiguration implements BeanDefinitionRegistryPostProcessor, Be
     @Override
     public void setBeanName(String name) {
         this.beanName = name;
+    }
+
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
     }
 }
