@@ -51,9 +51,6 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
     }
 
     public SearchRequest finishQuery() {
-        /**
-         * 无条件时返回全部结果
-         */
         if (this.searchSourceBuilder.query() == null
                 && CollectionUtils.isEmpty(boolQueryBuilder.must())
                 && CollectionUtils.isEmpty(boolQueryBuilder.mustNot())
@@ -71,9 +68,6 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
     }
 
     public SearchRequest finishFilter() {
-        /**
-         * 无条件时返回全部结果
-         */
         if (this.searchSourceBuilder.query() == null
                 && CollectionUtils.isEmpty(boolQueryBuilder.must())
                 && CollectionUtils.isEmpty(boolQueryBuilder.mustNot())

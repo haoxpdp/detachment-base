@@ -1,12 +1,19 @@
 package cn.detachment.es.config;
 
 import cn.detachment.es.exception.ScanClassException;
+import cn.detachment.es.executor.DesExecutor;
+import cn.detachment.es.factory.DesExecutorFactoryBean;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.parsing.BeanDefinitionParsingException;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionValidationException;
+import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
@@ -33,11 +40,17 @@ public class DesExecutorScanner {
     @Setter
     private String[] scanPackages;
 
+    /**
+     * 直接注入 esclient 注入失败
+     */
+    @Getter
+    @Setter
+    private String esClientName;
+
     @Getter
     @Setter
     private Set<Class<?>> scanClasses;
 
-    @Getter
     private ResourcePatternResolver resolver;
 
     private MetadataReaderFactory metadataReaderFactory;
@@ -57,6 +70,7 @@ public class DesExecutorScanner {
         this.metadataReaderFactory = new CachingMetadataReaderFactory(resolver);
     }
 
+
     public Set<Class<?>> getScanClass() {
         if (scanClasses == null) {
             return doScan();
@@ -65,6 +79,14 @@ public class DesExecutorScanner {
     }
 
 
+    /**
+     * doScan
+     * scan des executor class
+     *
+     * @return java.util.Set<java.lang.Class < ?>>
+     * @author haoxp
+     * @date 20/5/30 23:38
+     */
     public Set<Class<?>> doScan() {
         Set<Class<?>> classes = new HashSet<>();
         Assert.notEmpty(scanPackages, "scan packages must not empty!");
@@ -88,7 +110,9 @@ public class DesExecutorScanner {
                     }
                     try {
                         Class<?> api = Class.forName(metadataReader.getClassMetadata().getClassName());
-                        classes.add(api);
+                        if (DesExecutor.class.isAssignableFrom(api)) {
+                            classes.add(api);
+                        }
                     } catch (ClassNotFoundException e) {
                         throw new ScanClassException(e);
                     }
@@ -97,6 +121,20 @@ public class DesExecutorScanner {
         }
         this.scanClasses = classes;
         return scanClasses;
+    }
+
+    public void scan() {
+        doScan();
+        for (Class<?> api : this.scanClasses) {
+            BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(api);
+            GenericBeanDefinition bd = (GenericBeanDefinition) beanDefinitionBuilder.getBeanDefinition();
+            bd.setBeanClass(DesExecutorFactoryBean.class);
+            bd.setBeanClassName(DesExecutorFactoryBean.class.getName());
+            bd.getPropertyValues().addPropertyValue("esClient", new RuntimeBeanReference(esClientName));
+            bd.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
+            bd.setLazyInit(true);
+            bd.getConstructorArgumentValues().addGenericArgumentValue(api);
+        }
     }
 
 }
