@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * @author haoxp
@@ -54,6 +55,9 @@ public class DesConfiguration implements BeanDefinitionRegistryPostProcessor, Be
 
     public void processPropertiesPlaceHolder() {
         this.esClientName = getEnvironment().getProperty("desClientName");
+        if (StringUtils.isEmpty(esClientName)) {
+            this.esClientName = "esClientName";
+        }
         this.scanPackages = getEnvironment().getProperty("desBasePackage", String[].class);
         this.processProperty = true;
     }
