@@ -1,7 +1,6 @@
 package cn.detachment.es.factory;
 
 import cn.detachment.es.executor.DesExecutorProxy;
-import cn.detachment.es.support.ScanSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -28,7 +27,7 @@ public class DesExecutorFactoryBean<T> extends ScanSupport implements FactoryBea
 
 
     public T newInstance() {
-        DesExecutorProxy<T> proxy = new DesExecutorProxy(api, esClient);
+        DesExecutorProxy<T> proxy = new DesExecutorProxy<>(api, esClient);
         return (T) Proxy.newProxyInstance(api.getClassLoader(), new Class[]{api}, proxy);
     }
 

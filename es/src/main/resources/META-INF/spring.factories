@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.detachment.es.config.DesConfiguration
+  cn.detachment.es.config.DesConfiguration,\
+  cn.detachment.es.config.EsClientConfiguration

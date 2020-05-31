@@ -1,5 +1,6 @@
 package cn.detachment.es.config;
 
+import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -7,9 +8,11 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ResourceLoaderAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -36,6 +39,7 @@ public class DesConfiguration implements BeanDefinitionRegistryPostProcessor, Be
 
     private ResourcePatternResolver resolver;
 
+
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         if (!processProperty) {
@@ -54,11 +58,11 @@ public class DesConfiguration implements BeanDefinitionRegistryPostProcessor, Be
     }
 
     public void processPropertiesPlaceHolder() {
-        this.esClientName = getEnvironment().getProperty("desClientName");
+        this.esClientName = getEnvironment().getProperty("detach-es.esClientName");
         if (StringUtils.isEmpty(esClientName)) {
             this.esClientName = "esClientName";
         }
-        this.scanPackages = getEnvironment().getProperty("desBasePackage", String[].class);
+        this.scanPackages = getEnvironment().getProperty("detach-es.scanPackages", String[].class);
         this.processProperty = true;
     }
 
