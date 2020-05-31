@@ -1,6 +1,7 @@
 package cn.detachment.es.factory;
 
 import cn.detachment.es.executor.DesExecutorProxy;
+import cn.detachment.es.support.ScanSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;

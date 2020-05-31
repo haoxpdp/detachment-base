@@ -1,7 +1,6 @@
 package cn.detachment.es.config;
 
 import cn.detachment.es.factory.EsClientFactoryBean;
-import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,7 @@
 package cn.detachment.es.config;
 
-import lombok.Data;
 import org.apache.http.HttpHost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.util.CollectionUtils;
 
 /**
  * @author haoxp
