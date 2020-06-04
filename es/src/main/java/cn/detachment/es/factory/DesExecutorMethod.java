@@ -5,8 +5,11 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author haoxp
@@ -18,6 +21,8 @@ public class DesExecutorMethod {
     private Method method;
 
     private Class<?> entityClass;
+
+    private static Map<Class<?>, Field> fieldCache = new HashMap<>();
 
     private Type entityType;
 
@@ -36,6 +41,12 @@ public class DesExecutorMethod {
         private final Method method;
 
         private final Class<?> returnType;
+
+        private boolean returnsLong;
+
+        private boolean returnsArray;
+
+        private boolean returnsMap;
 
         MethodWrapper(Method method) {
             this.method = method;

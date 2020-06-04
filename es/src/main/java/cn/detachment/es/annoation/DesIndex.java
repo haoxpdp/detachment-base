@@ -16,14 +16,14 @@ import java.lang.annotation.Target;
 public @interface DesIndex {
 
     /**
-     * 索引名
+     * 搜索时 （索引名,别名）
      *
      * @return
      */
     String value();
 
     /**
-     * 别名
+     * 创建文档时 别名
      *
      * @return
      */
