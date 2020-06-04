@@ -132,6 +132,7 @@ public class DesExecutorScanner {
             bd.setBeanClass(DesExecutorFactoryBean.class);
             bd.setBeanClassName(DesExecutorFactoryBean.class.getName());
             bd.getPropertyValues().addPropertyValue("esClient", new RuntimeBeanReference(esClientName));
+            bd.getPropertyValues().addPropertyValue("esAdapter", new RuntimeBeanReference("esAdapter"));
             bd.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
             bd.setLazyInit(true);
             bd.getConstructorArgumentValues().addGenericArgumentValue(api);

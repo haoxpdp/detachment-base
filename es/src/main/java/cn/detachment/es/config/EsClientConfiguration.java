@@ -1,5 +1,7 @@
 package cn.detachment.es.config;
 
+import cn.detachment.es.adapter.DefaultEsAdapterFactory;
+import cn.detachment.es.adapter.EsAdapter;
 import cn.detachment.es.factory.EsClientFactoryBean;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
@@ -42,6 +44,11 @@ public class EsClientConfiguration implements ApplicationContextAware,
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+        registerEsClient(registry);
+        registerEsAdapter(registry);
+    }
+
+    private void registerEsClient(BeanDefinitionRegistry registry) {
         if (registry.isBeanNameInUse(esClientName)) {
             logger.info("{} has already been defined!", esClientName);
             return;
@@ -51,6 +58,18 @@ public class EsClientConfiguration implements ApplicationContextAware,
         bd.setBeanClass(EsClientFactoryBean.class);
         bd.setBeanClassName(EsClientFactoryBean.class.getName());
         registry.registerBeanDefinition(esClientName, bd);
+    }
+
+    private void registerEsAdapter(BeanDefinitionRegistry registry) {
+        if (registry.isBeanNameInUse("esAdapter")) {
+            logger.info("{} has already been defined!", esClientName);
+            return;
+        }
+        BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(EsAdapter.class);
+        GenericBeanDefinition bd = (GenericBeanDefinition) beanDefinitionBuilder.getBeanDefinition();
+        bd.setBeanClass(DefaultEsAdapterFactory.class);
+        bd.setBeanClassName(EsClientFactoryBean.class.getName());
+        registry.registerBeanDefinition("esAdapter", bd);
     }
 
     @Override

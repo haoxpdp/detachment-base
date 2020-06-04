@@ -67,4 +67,14 @@ public interface DesExecutor<T> {
      * @date 20/5/31 19:58
      */
     void insert(T t);
+
+    /**
+     * queryAll
+     *
+     * @param searchWrapper searchWrapper
+     * @return java.util.List<T>
+     * @author haoxp
+     * @date 20/6/4 17:15
+     */
+    List<T> queryAll(DesSearchWrapper<T> searchWrapper);
 }

@@ -1,6 +1,7 @@
 package cn.detachment.es.factory;
 
 import cn.detachment.es.executor.DesExecutorProxy;
+import cn.detachment.es.support.EsAdapterSupport;
 import cn.detachment.es.support.EsClientSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,7 @@ import java.lang.reflect.Proxy;
 /**
  * @author haoxp
  */
-public class DesExecutorFactoryBean<T> extends EsClientSupport implements FactoryBean<T> {
+public class DesExecutorFactoryBean<T> extends EsAdapterSupport implements FactoryBean<T> {
 
     private static Logger logger = LoggerFactory.getLogger(DesExecutorFactoryBean.class);
 
