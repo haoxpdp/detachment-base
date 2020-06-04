@@ -7,7 +7,7 @@ import org.elasticsearch.client.RestHighLevelClient;
  * @version v1.0
  * @date 20/5/30 23:47
  */
-public class ScanSupport {
+public class EsClientSupport {
 
     protected RestHighLevelClient esClient;
 
