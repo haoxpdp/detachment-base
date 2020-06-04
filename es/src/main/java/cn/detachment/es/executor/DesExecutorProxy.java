@@ -1,5 +1,6 @@
 package cn.detachment.es.executor;
 
+import cn.detachment.es.adapter.EsAdapter;
 import cn.detachment.es.annoation.DesIndex;
 import cn.detachment.es.factory.DesExecutorMethod;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -20,15 +21,18 @@ public class DesExecutorProxy<T> implements InvocationHandler {
 
     private final RestHighLevelClient client;
 
+    private final EsAdapter esAdapter;
+
     private Type entityType;
 
     private final Map<Method, DesExecutorMethod> methodCaches = new HashMap<>();
 
     private final DesIndex desIndex;
 
-    public DesExecutorProxy(Class<T> api, RestHighLevelClient client) {
+    public DesExecutorProxy(Class<T> api, RestHighLevelClient client, EsAdapter esAdapter) {
         this.api = api;
         this.client = client;
+        this.esAdapter = esAdapter;
 
         Type[] types = api.getGenericInterfaces();
         for (Type t : types) {
@@ -52,7 +56,7 @@ public class DesExecutorProxy<T> implements InvocationHandler {
             }
         }
         DesExecutorMethod desExecutorMethod = getMethod(method);
-        return desExecutorMethod.execute(args, client, desIndex);
+        return desExecutorMethod.execute(args, esAdapter, desIndex);
     }
 
     public DesExecutorMethod getMethod(Method method) {

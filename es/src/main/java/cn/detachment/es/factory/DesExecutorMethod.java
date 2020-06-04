@@ -1,5 +1,6 @@
 package cn.detachment.es.factory;
 
+import cn.detachment.es.adapter.EsAdapter;
 import cn.detachment.es.annoation.DesIndex;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class DesExecutorMethod {
         this.entityType = entityType;
     }
 
-    public Object execute(Object[] params, RestHighLevelClient client, DesIndex desIndex) {
+    public Object execute(Object[] params, EsAdapter esAdapter, DesIndex desIndex) {
         return null;
     }
 

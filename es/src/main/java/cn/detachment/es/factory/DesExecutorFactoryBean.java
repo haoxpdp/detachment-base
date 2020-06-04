@@ -29,7 +29,7 @@ public class DesExecutorFactoryBean<T> extends EsAdapterSupport implements Facto
 
 
     public T newInstance() {
-        DesExecutorProxy<T> proxy = new DesExecutorProxy<>(api, esClient);
+        DesExecutorProxy<T> proxy = new DesExecutorProxy<>(api, esClient, esAdapter);
         return (T) Proxy.newProxyInstance(api.getClassLoader(), new Class[]{api}, proxy);
     }
 
