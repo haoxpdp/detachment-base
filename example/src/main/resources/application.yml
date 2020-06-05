@@ -1,0 +1,7 @@
+detach-es:
+  properties:
+    userName: d_pwd:cGZnGozbVpIUWBXA+6fvkg==
+    password: d_pwd:erMdGYuG/wiCxTwF/yTO9M3A38zgu73zFhdD8u+n3dc=
+    http-host-string: d_pwd:dGApyEbSkEhEJQYI7DVvQJI26KLKeJfOw3g8hpucbcg=
+  esClientName: d_pwd:8WQ/AcrYQkBXjFge+d9s5g==
+  scanPackages: cn.detachment.web.executor

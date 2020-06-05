@@ -18,6 +18,11 @@
     <dependencies>
         <dependency>
             <groupId>cn.detachment</groupId>
+            <artifactId>web</artifactId>
+            <version>1.0.7-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.detachment</groupId>
             <artifactId>detach-es</artifactId>
             <version>1.0.7-SNAPSHOT</version>
         </dependency>
