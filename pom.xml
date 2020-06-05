@@ -20,6 +20,7 @@
         <module>notification</module>
         <module>web</module>
         <module>core</module>
+        <module>example</module>
     </modules>
 
     <licenses>
