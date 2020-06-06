@@ -55,11 +55,11 @@ public class DesConfiguration implements BeanDefinitionRegistryPostProcessor, Be
     }
 
     public void processPropertiesPlaceHolder() {
-        this.esClientName = getEnvironment().getProperty("detach-es.esClientName");
+        this.esClientName = getEnvironment().getProperty("detach-es.es-client-name");
         if (StringUtils.isEmpty(esClientName)) {
             this.esClientName = "esClientName";
         }
-        this.scanPackages = getEnvironment().getProperty("detach-es.scanPackages", String[].class);
+        this.scanPackages = getEnvironment().getProperty("detach-es.scan-packages", String[].class);
         this.processProperty = true;
     }
 

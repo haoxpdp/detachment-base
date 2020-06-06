@@ -2,12 +2,10 @@ package cn.detachment.core.configuration;
 
 import cn.detachment.core.util.AES;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;
 import org.springframework.boot.env.YamlPropertySourceLoader;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
@@ -15,7 +13,6 @@ import org.springframework.core.env.SimpleCommandLinePropertySource;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -40,7 +37,6 @@ public class DecryptedEnvironmentPostProcessor implements EnvironmentPostProcess
             if (ps instanceof SimpleCommandLinePropertySource) {
                 SimpleCommandLinePropertySource source = (SimpleCommandLinePropertySource) ps;
                 detachKey = source.getProperty(KEY);
-                System.out.println(detachKey);
                 break;
             }
         }

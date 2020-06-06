@@ -2,7 +2,6 @@ package cn.detachment.es.factory;
 
 import cn.detachment.es.adapter.EsAdapter;
 import cn.detachment.es.annoation.DesIndex;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,13 +26,17 @@ public class DesExecutorMethod {
 
     private Type entityType;
 
+    private MethodWrapper methodWrapper;
+
     public DesExecutorMethod(Class<?> api, Method method, Type entityType) {
         this.entityClass = api;
         this.method = method;
         this.entityType = entityType;
+        this.methodWrapper = new MethodWrapper(method);
     }
 
     public Object execute(Object[] params, EsAdapter esAdapter, DesIndex desIndex) {
+
         return null;
     }
 

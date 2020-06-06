@@ -35,7 +35,7 @@ public class EsClientConfiguration implements ApplicationContextAware,
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         Environment environment = applicationContext.getEnvironment();
-        this.esClientName = environment.getProperty("detach-es.esClientName");
+        this.esClientName = environment.getProperty("detach-es.es-client-name");
 
         if (StringUtils.isEmpty(this.esClientName)) {
             esClientName = "esClient";

@@ -50,7 +50,7 @@ public class DefaultEsAdapter extends EsClientSupport implements EsAdapter {
         if (list.size() == 1) {
             return list.get(0);
         } else if (list.size() > 1) {
-            throw new DesSearchException("Exepected one or null result to be returned,but found : " + list.size());
+            throw new DesSearchException("Expected one or null result to be returned,but found : " + list.size());
         }
         return null;
     }

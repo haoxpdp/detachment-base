@@ -6,17 +6,17 @@
       "description": "password for detachment-es.userName."
     },
     {
-      "name": "detach-es.properties.userName",
+      "name": "detach-es.properties.user-name",
       "type": "java.lang.String",
       "description": "login account for elasticsearch."
     },
     {
-      "name": "detach-es.esClientName",
+      "name": "detach-es.es-client-name",
       "type": "java.lang.String",
       "description": "elasticsearch restHighLevelClient bean name."
     },
     {
-      "name": "detach-es.scanPackages",
+      "name": "detach-es.scan-packages",
       "description": "base scan packages."
     }
   ]
