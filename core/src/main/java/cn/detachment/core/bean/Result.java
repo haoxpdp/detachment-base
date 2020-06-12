@@ -23,6 +23,11 @@ public class Result<T> {
         this.data = data;
     }
 
+
+    public static <E> Result<E> success() {
+        return Result.success(null);
+    }
+
     public static <E> Result<E> instanceByCodeEnum(ResultCode code, E e) {
         return new Result<>(code.getCode(), e, code.getCodeMessage());
     }
