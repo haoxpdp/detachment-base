@@ -56,7 +56,7 @@
 
         <!-- Boot And Cloud Dependency Versions -->
         <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
-        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
         <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
         <spring-boot-admin.version>2.1.6</spring-boot-admin.version>
         <sleuth.version>2.2.0.RELEASE</sleuth.version>
