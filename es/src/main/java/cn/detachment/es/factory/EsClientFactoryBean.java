@@ -23,7 +23,7 @@ public class EsClientFactoryBean implements FactoryBean<RestHighLevelClient>, In
     private RestHighLevelClient client;
 
     @Autowired
-    private EsProperties esProperties;
+    private final EsProperties esProperties;
 
     public EsClientFactoryBean(EsProperties properties) {
         this.esProperties = properties;
@@ -44,6 +44,9 @@ public class EsClientFactoryBean implements FactoryBean<RestHighLevelClient>, In
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        if (client != null) {
+            return;
+        }
         RestClientBuilder builder = RestClient.builder(esProperties.getHosts())
                 .setRequestConfigCallback(requestConfigBuilder -> {
                     requestConfigBuilder.setConnectTimeout(esProperties.getConnectTimeout());

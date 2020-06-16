@@ -7,6 +7,8 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.core.CountRequest;
+import org.elasticsearch.client.core.CountResponse;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.util.Assert;
 
@@ -56,7 +58,9 @@ public class DefaultEsAdapter extends EsClientSupport implements EsAdapter {
     }
 
     @Override
-    public Long count(SearchRequest request) {
-        return null;
+    public Long count(CountRequest request) throws IOException {
+        CountResponse countResponse = esClient.count(request, RequestOptions.DEFAULT);
+        return countResponse.getCount();
     }
+
 }
