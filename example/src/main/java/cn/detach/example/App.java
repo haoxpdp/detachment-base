@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version v1.0
  * @date 20/6/6 0:48
  */
-
 @SpringBootApplication
 public class App implements CommandLineRunner {
 
