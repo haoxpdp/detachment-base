@@ -116,7 +116,7 @@ public class SnowflakeIdWorker {
         SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
         for (int i = 0; i < 100; i++) {
             long id = idWorker.nextId();
-            System.out.println(id);
+            System.out.println(String.valueOf(id).length());
         }
     }
 }

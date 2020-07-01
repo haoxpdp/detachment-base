@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -62,5 +63,13 @@ public class DefaultEsAdapter extends EsClientSupport implements EsAdapter {
         CountResponse countResponse = esClient.count(request, RequestOptions.DEFAULT);
         return countResponse.getCount();
     }
+
+    @Override
+    public Map<?, ?> aggreagtion(SearchRequest request) throws IOException {
+        SearchResponse searchResponse = esClient.search(request, RequestOptions.DEFAULT);
+
+        return null;
+    }
+
 
 }
