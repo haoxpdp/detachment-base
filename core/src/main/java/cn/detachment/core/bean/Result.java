@@ -53,4 +53,5 @@ public class Result<T> {
         return ResultCode.SUCCESS.getCode().equals(getCode());
     }
 
+
 }
