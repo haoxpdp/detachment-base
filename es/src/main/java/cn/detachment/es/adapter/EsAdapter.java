@@ -59,7 +59,7 @@ public interface EsAdapter {
      * @author haoxp
      * @date 20/7/1 21:43
      */
-    Map<?, ?> aggreagtion(SearchRequest request) throws IOException;
+    Map<?, ?> aggregation(SearchRequest request) throws IOException;
 
 
 }
