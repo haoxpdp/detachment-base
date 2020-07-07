@@ -1,14 +1,17 @@
-package cn.detachment.es.wrapper;
+package cn.detachment.es.condition;
 
-import cn.detachment.es.condition.DesConditionWrapper;
+import cn.detachment.es.util.FiledFunction;
 import cn.detachment.es.util.RefUtils;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.util.CollectionUtils;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T,
         searchRequest = new SearchRequest(index);
         searchSourceBuilder = new SearchSourceBuilder();
         boolQueryBuilder = QueryBuilders.boolQuery();
+        this.aggregationBuilderList = new ArrayList<>();
     }
 
 
@@ -228,6 +232,58 @@ public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T,
     public DesSearchWrapper<T> match(FiledFunction<T, ?> f, Object val) {
         boolQueryBuilder.must(QueryBuilders.matchQuery(RefUtils.getFiledName(f), val));
         return thisType;
+    }
+
+    public DesSearchWrapper<T> sum(FiledFunction<T, ?> f, String name) {
+        aggregationBuilderList.add(AggregationBuilders.sum(name).field(RefUtils.getFiledName(f)));
+        return thisType;
+    }
+
+    public DesSearchWrapper<T> sum(FiledFunction<T, ?> f) {
+        return sum(f, RefUtils.getFiledName(f) + "_sum");
+    }
+
+    public DesSearchWrapper<T> count(FiledFunction<T, ?> f, String name) {
+        aggregationBuilderList.add(AggregationBuilders.count(name).field(RefUtils.getFiledName(f)));
+        return thisType;
+    }
+
+    public DesSearchWrapper<T> count(FiledFunction<T, ?> f) {
+        return count(f, RefUtils.getFiledName(f) + "_count");
+    }
+
+    public DesSearchWrapper<T> avg(FiledFunction<T, ?> f, String name) {
+        aggregationBuilderList.add(
+                AggregationBuilders.avg(name)
+                        .field(RefUtils.getFiledName(f))
+        );
+        return thisType;
+    }
+
+    public DesSearchWrapper<T> avg(FiledFunction<T, ?> f) {
+        return avg(f, RefUtils.getFiledName(f) + "_avg");
+    }
+
+    public DesSearchWrapper<T> min(FiledFunction<T, ?> f, String name) {
+        aggregationBuilderList.add(
+                AggregationBuilders.min(name).field(RefUtils.getFiledName(f))
+        );
+        return thisType;
+    }
+
+    public DesSearchWrapper<T> min(FiledFunction<T, ?> f) {
+        return min(f, RefUtils.getFiledName(f) + "_min");
+    }
+
+    public DesSearchWrapper<T> max(FiledFunction<T, ?> f, String name) {
+        aggregationBuilderList.add(
+                AggregationBuilders.max(name).field(RefUtils.getFiledName(f))
+        );
+        return thisType;
+    }
+
+    public DesSearchWrapper<T> max(FiledFunction<T, ?> f) {
+        return max(f, RefUtils.getFiledName(f) + "_max");
     }
 
     public DesSearchWrapper<T> transferToFilter() {

@@ -1,16 +1,18 @@
 package cn.detachment.es.condition;
 
-import cn.detachment.es.wrapper.FiledFunction;
+import cn.detachment.es.util.FiledFunction;
 import cn.detachment.es.util.RefUtils;
 import lombok.Getter;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * @author haoxp
@@ -23,6 +25,8 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
     protected SearchRequest searchRequest;
 
     protected SearchSourceBuilder searchSourceBuilder;
+
+    protected List<AggregationBuilder> aggregationBuilderList;
 
     @Getter
     protected BoolQueryBuilder boolQueryBuilder;
@@ -50,42 +54,5 @@ public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Chil
         return thisType;
     }
 
-    public SearchRequest finishQuery() {
-        if (this.searchSourceBuilder.query() == null
-                && CollectionUtils.isEmpty(boolQueryBuilder.must())
-                && CollectionUtils.isEmpty(boolQueryBuilder.mustNot())
-                && CollectionUtils.isEmpty(boolQueryBuilder.filter())
-                && CollectionUtils.isEmpty(boolQueryBuilder.should())) {
-            searchSourceBuilder.query(QueryBuilders.matchAllQuery());
-        } else {
-            searchSourceBuilder.query(boolQueryBuilder);
-        }
-        if (logger.isDebugEnabled()) {
-            logger.debug("es search dsl : {}", searchSourceBuilder.toString());
-        }
-        logger.info("es search dsl : {}", searchSourceBuilder.toString());
-        return searchRequest.source(searchSourceBuilder);
-    }
-
-    public SearchRequest finishFilter() {
-        if (this.searchSourceBuilder.query() == null
-                && CollectionUtils.isEmpty(boolQueryBuilder.must())
-                && CollectionUtils.isEmpty(boolQueryBuilder.mustNot())
-                && CollectionUtils.isEmpty(boolQueryBuilder.filter())
-                && CollectionUtils.isEmpty(boolQueryBuilder.should())) {
-            searchSourceBuilder.postFilter(QueryBuilders.matchAllQuery());
-        } else {
-            searchSourceBuilder.postFilter(boolQueryBuilder);
-        }
-
-        if (logger.isDebugEnabled()) {
-            logger.debug("es search dsl : {}", searchSourceBuilder.toString());
-        }
-        return searchRequest.source(searchSourceBuilder);
-    }
-
-    private BoolQueryBuilder boolQueryBuilderInstance() {
-        return QueryBuilders.boolQuery();
-    }
 
 }

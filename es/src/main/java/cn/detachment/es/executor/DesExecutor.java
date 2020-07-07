@@ -1,6 +1,6 @@
 package cn.detachment.es.executor;
 
-import cn.detachment.es.wrapper.DesSearchWrapper;
+import cn.detachment.es.condition.DesSearchWrapper;
 
 import java.util.List;
 

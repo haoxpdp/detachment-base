@@ -1,4 +1,4 @@
-package cn.detachment.es.wrapper;
+package cn.detachment.es.util;
 
 
 import java.io.Serializable;

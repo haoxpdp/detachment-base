@@ -1,7 +1,6 @@
 package cn.detachment.es.util;
 
 
-import cn.detachment.es.wrapper.FiledFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
