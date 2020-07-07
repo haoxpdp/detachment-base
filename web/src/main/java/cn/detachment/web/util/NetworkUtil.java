@@ -2,6 +2,8 @@ package cn.detachment.web.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 客户端ip获取工具
@@ -13,7 +15,7 @@ import java.io.IOException;
 public class NetworkUtil {
 
     public static final String UNKNOWN = "unknown";
-    
+
     /**
      * 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址;
      *
@@ -52,5 +54,6 @@ public class NetworkUtil {
         }
         return ip;
     }
+
 
 }
