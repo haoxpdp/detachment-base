@@ -21,6 +21,7 @@ public class Result<T> {
     public Result(Integer code, T data, String msg) {
         this.code = code;
         this.data = data;
+        this.message = msg;
     }
 
 
