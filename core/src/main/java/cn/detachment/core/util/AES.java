@@ -25,8 +25,9 @@ public class AES {
      * @throws Exception
      */
     public static String encrypt(String str, String key) throws Exception {
-        if (str == null || key == null)
+        if (str == null || key == null) {
             return null;
+        }
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE,
                 new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), algorithm));
