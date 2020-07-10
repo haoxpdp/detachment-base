@@ -1,4 +1,4 @@
-package cn.detachment.web.log;
+package cn.detachment.core.log;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -7,10 +7,10 @@ import java.lang.annotation.Target;
  * @author haoxp
  */
 @Target(ElementType.METHOD)
-public @interface LogIgnore {
+public @interface IgnoreLog {
 
     /**
-     * don't log end response
+     * don't log params and  end response
      */
     boolean value() default true;
 

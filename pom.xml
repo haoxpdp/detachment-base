@@ -68,6 +68,7 @@
         <jackson.version>2.10.0.pr1</jackson.version>
         <redisson.version>3.11.3</redisson.version>
         <es.version>7.4.2</es.version>
+        <aspectj.version>1.5.4</aspectj.version>
     </properties>
 
 
@@ -191,6 +192,11 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
             </dependency>
         </dependencies>
 
