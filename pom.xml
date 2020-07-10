@@ -69,6 +69,7 @@
         <redisson.version>3.11.3</redisson.version>
         <es.version>7.4.2</es.version>
         <aspectj.version>1.5.4</aspectj.version>
+        <hutool.version>5.3.8</hutool.version>
     </properties>
 
 
@@ -198,6 +199,12 @@
                 <artifactId>aspectjrt</artifactId>
                 <version>${aspectj.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>
