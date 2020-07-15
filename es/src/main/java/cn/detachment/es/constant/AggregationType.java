@@ -10,6 +10,7 @@ public interface AggregationType {
     String avg = "avg";
     String min = "min";
     String max = "max";
+    String count = "count";
 
     String cardinality = "cardinality";
 }

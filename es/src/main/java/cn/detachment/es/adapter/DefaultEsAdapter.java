@@ -43,6 +43,7 @@ public class DefaultEsAdapter extends EsClientSupport implements EsAdapter {
         getAggregationResultMap.put(AggregationType.sum, (aggregation -> BigDecimal.valueOf(((Sum) aggregation).getValue())));
         getAggregationResultMap.put(AggregationType.max, (aggregation -> BigDecimal.valueOf(((Max) aggregation).getValue())));
         getAggregationResultMap.put(AggregationType.min, (aggregation -> BigDecimal.valueOf(((Min) aggregation).getValue())));
+        getAggregationResultMap.put(AggregationType.count, (aggregation -> BigDecimal.valueOf(((ValueCount) aggregation).getValue())));
         getAggregationResultMap.put(AggregationType.cardinality, (aggregation -> BigDecimal.valueOf(((Cardinality) aggregation).getValue())));
     }
 
