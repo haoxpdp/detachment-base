@@ -3,7 +3,6 @@ package cn.detachment.core.util;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Base64;
 
 /**
@@ -13,16 +12,16 @@ import java.util.Base64;
  */
 public class AES {
 
-    private static String algorithm = "AES";
+    private static final String AES = "AES";
 
 
     /**
      * 加密
      *
-     * @param str
-     * @param key
-     * @return
-     * @throws Exception
+     * @param str str
+     * @param key key
+     * @return str
+     * @throws Exception exception
      */
     public static String encrypt(String str, String key) throws Exception {
         if (str == null || key == null) {
@@ -30,7 +29,7 @@ public class AES {
         }
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE,
-                new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), algorithm));
+                new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), AES));
         byte[] bytes = cipher.doFinal(str.getBytes(StandardCharsets.UTF_8));
         return Base64.getEncoder().encodeToString(bytes);
     }
@@ -38,10 +37,10 @@ public class AES {
     /**
      * 解密
      *
-     * @param str
-     * @param key
-     * @return
-     * @throws Exception
+     * @param str str
+     * @param key key
+     * @return string
+     * @throws Exception exception
      */
     public static String decrypt(String str, String key) throws Exception {
         if (str == null || key == null) {
@@ -49,7 +48,7 @@ public class AES {
         }
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE,
-                new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), algorithm));
+                new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), AES));
         byte[] bytes = Base64.getDecoder().decode(str);
         bytes = cipher.doFinal(bytes);
         return new String(bytes, StandardCharsets.UTF_8);
