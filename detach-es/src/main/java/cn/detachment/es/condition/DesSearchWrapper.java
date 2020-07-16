@@ -7,8 +7,10 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.util.CollectionUtils;
+import sun.jvm.hotspot.debugger.cdbg.RefType;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -284,6 +286,15 @@ public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T,
 
     public DesSearchWrapper<T> max(FiledFunction<T, ?> f) {
         return max(f, RefUtils.getFiledName(f) + "_max");
+    }
+
+    // todo refix
+    public DesSearchWrapper<T> sumGroup(FiledFunction<T,?> f,String name,int size) {
+        AggregationBuilders.terms(name)
+                .field(RefUtils.getFiledName(f))
+                .subAggregation(AggregationBuilders.terms(name+"_item"))
+                .size(size);
+        return thisType;
     }
 
     public DesSearchWrapper<T> transferToFilter() {
