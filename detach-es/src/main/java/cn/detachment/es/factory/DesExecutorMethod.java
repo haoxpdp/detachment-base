@@ -22,8 +22,6 @@ public class DesExecutorMethod {
 
     private Class<?> entityClass;
 
-    private static Map<Class<?>, Field> fieldCache = new HashMap<>();
-
     private Type entityType;
 
     private MethodWrapper methodWrapper;

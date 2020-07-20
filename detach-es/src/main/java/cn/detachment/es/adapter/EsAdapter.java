@@ -17,6 +17,7 @@ public interface EsAdapter {
      *
      * @param request request
      * @return org.elasticsearch.action.search.SearchResponse
+     * @throws IOException
      * @author haoxp
      * @date 20/7/14 9:40
      */
