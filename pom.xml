@@ -14,7 +14,7 @@
 
 
     <modules>
-        <module>es</module>
+        <module>detach-es</module>
         <module>log</module>
         <module>mysql</module>
         <module>notification</module>
