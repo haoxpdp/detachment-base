@@ -1,24 +1,22 @@
 package cn.detachment.es.adapter;
 
 import cn.detachment.es.constant.AggregationType;
-import cn.detachment.es.exception.DesSearchException;
 import cn.detachment.es.support.EsClientSupport;
 import com.alibaba.fastjson.JSONObject;
-import com.sun.istack.internal.NotNull;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.Aggregation;
-import org.elasticsearch.search.aggregations.AggregationBuilder;
-import org.elasticsearch.search.aggregations.AggregatorFactories;
 import org.elasticsearch.search.aggregations.metrics.*;
-import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -73,7 +71,6 @@ public class DefaultEsAdapter extends EsClientSupport implements EsAdapter {
 
     }
 
-    @NotNull
     private Object getValueFromAggregation(Aggregation aggregation) {
         return aggregation;
     }
