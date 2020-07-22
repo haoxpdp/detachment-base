@@ -2,6 +2,8 @@ package cn.detachment.es.factory;
 
 import cn.detachment.es.adapter.EsAdapter;
 import cn.detachment.es.annoation.DesIndex;
+import cn.detachment.es.condition.DesSearchWrapper;
+import org.elasticsearch.action.search.SearchRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +37,14 @@ public class DesExecutorMethod {
 
     public Object execute(Object[] params, EsAdapter esAdapter, DesIndex desIndex) {
 
+
         return null;
+    }
+
+    private SearchRequest inflateSearchRequest(DesIndex desIndex, DesSearchWrapper<?> searchWrapper) {
+        SearchRequest searchRequest = new SearchRequest(desIndex.value());
+
+        return searchRequest;
     }
 
 

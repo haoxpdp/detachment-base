@@ -5,3 +5,5 @@ detach-es:
     http-host-string: d_pwd:hB7lNCP+X8lTYT3JvqEfYje06yoJ7yrN2QZzLOhDicM=
   es-client-name: esClient
   scan-packages: cn.detachment.web.executor
+server:
+  port: 8081

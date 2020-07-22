@@ -6,13 +6,11 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.util.CollectionUtils;
-import sun.jvm.hotspot.debugger.cdbg.RefType;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,15 +18,25 @@ import java.util.List;
 /**
  * @author haoxp
  */
+@SuppressWarnings("unused")
 public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T, ?>, DesSearchWrapper<T>, DesSearchWrapper<T>> {
 
-    private String index;
+    public DesSearchWrapper() {
+        this.searchSourceBuilder = new SearchSourceBuilder();
+        this.boolQueryBuilder = QueryBuilders.boolQuery();
+        this.aggregationBuilderList = new ArrayList<>();
+    }
 
-    public DesSearchWrapper(String index) {
-        this.index = index;
-        searchRequest = new SearchRequest(index);
-        searchSourceBuilder = new SearchSourceBuilder();
-        boolQueryBuilder = QueryBuilders.boolQuery();
+    public DesSearchWrapper(SearchSourceBuilder searchSourceBuilder) {
+        this.searchSourceBuilder = searchSourceBuilder;
+        this.boolQueryBuilder = QueryBuilders.boolQuery();
+        this.aggregationBuilderList = new ArrayList<>();
+    }
+
+    public DesSearchWrapper(BoolQueryBuilder boolQueryBuilder) {
+
+        this.searchSourceBuilder = new SearchSourceBuilder();
+        this.boolQueryBuilder = boolQueryBuilder;
         this.aggregationBuilderList = new ArrayList<>();
     }
 
@@ -136,31 +144,6 @@ public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T,
         return thisType;
     }
 
-    public DesSearchWrapper<T> in(FiledFunction<T, ?> f, String... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> in(FiledFunction<T, ?> f, long... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> in(FiledFunction<T, ?> f, int... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> in(FiledFunction<T, ?> f, double... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> in(FiledFunction<T, ?> f, float... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
     public DesSearchWrapper<T> in(FiledFunction<T, ?> f, Object... vs) {
         boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
         return thisType;
@@ -168,31 +151,6 @@ public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T,
 
     public DesSearchWrapper<T> in(FiledFunction<T, ?> f, Collection<?> values) {
         boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), values));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> notIn(FiledFunction<T, ?> f, String... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> notIn(FiledFunction<T, ?> f, long... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> notIn(FiledFunction<T, ?> f, int... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> notIn(FiledFunction<T, ?> f, double... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
-        return thisType;
-    }
-
-    public DesSearchWrapper<T> notIn(FiledFunction<T, ?> f, float... vs) {
-        boolQueryBuilder.must(QueryBuilders.termsQuery(RefUtils.getFiledName(f), vs));
         return thisType;
     }
 
@@ -289,11 +247,22 @@ public class DesSearchWrapper<T> extends DesConditionWrapper<T, FiledFunction<T,
     }
 
     // todo refix
-    public DesSearchWrapper<T> sumGroup(FiledFunction<T,?> f,String name,int size) {
+    public DesSearchWrapper<T> sumGroup(FiledFunction<T, ?> f, String name, int size) {
         AggregationBuilders.terms(name)
                 .field(RefUtils.getFiledName(f))
-                .subAggregation(AggregationBuilders.terms(name+"_item"))
+                .subAggregation(AggregationBuilders.terms(name + "_item"))
                 .size(size);
+        return thisType;
+    }
+
+    public DesSearchWrapper<T> aggregation(FiledFunction<T, ?> f, String aggregateName, AggregationBuilder aggregationBuilder) {
+        AggregationBuilders.terms(aggregateName).field(RefUtils.getFiledName(f));
+        this.aggregationBuilderList.add(aggregationBuilder);
+        return thisType;
+    }
+
+    public DesSearchWrapper<T> groupBy() {
+
         return thisType;
     }
 

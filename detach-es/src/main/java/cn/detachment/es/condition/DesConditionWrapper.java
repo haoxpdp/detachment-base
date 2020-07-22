@@ -3,7 +3,6 @@ package cn.detachment.es.condition;
 import cn.detachment.es.util.FiledFunction;
 import cn.detachment.es.util.RefUtils;
 import lombok.Getter;
-import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -17,12 +16,10 @@ import java.util.List;
 /**
  * @author haoxp
  */
-@SuppressWarnings({"serial", "unchecked"})
+@SuppressWarnings({"serial", "unchecked", "unused"})
 public abstract class DesConditionWrapper<T, F extends FiledFunction<T, ?>, Children extends DesConditionWrapper<T, F, Children, Param>, Param> implements Nested<Children, Param> {
 
-    private static Logger logger = LoggerFactory.getLogger(DesConditionWrapper.class);
-
-    protected SearchRequest searchRequest;
+    private static final Logger logger = LoggerFactory.getLogger(DesConditionWrapper.class);
 
     protected SearchSourceBuilder searchSourceBuilder;
 
