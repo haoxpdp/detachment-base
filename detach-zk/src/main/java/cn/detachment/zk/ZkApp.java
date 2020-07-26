@@ -1,5 +1,6 @@
 package cn.detachment.zk;
 
+import cn.detachment.zk.executor.ZkExecutor;
 import org.apache.zookeeper.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +24,9 @@ public class ZkApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Watcher watcher = watchedEvent -> logger.info("zkEvent {} {}", watchedEvent.getType(), watchedEvent.getPath());
+        String[] exec = "line1,line2".split(", ");
 
-
-        ZooKeeper zooKeeper = new ZooKeeper("localhost:2181", 50000, watcher);
-
-        zooKeeper.create("/test", "hwllo".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        new ZkExecutor("localhost:2181", "/t1", "t1c", exec).run();
 
     }
 }
