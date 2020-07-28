@@ -8,11 +8,9 @@ import java.lang.annotation.Target;
 /**
  * @author haoxp
  * @version v1.0
- * @date 20/7/28 10:31
+ * @date 20/7/28 20:51
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-@SuppressWarnings("unused")
-public @interface RemoteParameter {
-    String name();
+public @interface RemoteApiBody {
 }

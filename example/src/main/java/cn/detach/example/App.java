@@ -5,6 +5,8 @@ import cn.detach.example.api.DemoApi;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -27,9 +29,12 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        ParameterNameDiscoverer parameterUtil = new DefaultParameterNameDiscoverer();
+
         HashMap<String, String> header = new HashMap<>();
         header.put("token", "12333");
-        System.out.println(demoApi.getTest(header, "haoxp"));
+
+        System.out.println(demoApi.getTest(header, "8sxf0ZRAzdFyTbXP3H","zichan360Test"));
     }
 
 }

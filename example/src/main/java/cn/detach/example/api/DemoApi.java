@@ -3,6 +3,7 @@ package cn.detach.example.api;
 import cn.detach.api.annoation.ApiSupport;
 import cn.detach.api.annoation.RemoteApi;
 import cn.detach.api.annoation.RemoteHeader;
+import cn.detach.api.annoation.RemoteParameter;
 import cn.detach.api.constant.HttpMethod;
 
 import java.util.Map;
@@ -15,7 +16,9 @@ import java.util.Map;
 @ApiSupport
 public interface DemoApi {
 
-    @RemoteApi(url = "http://www.baidu.com", method = HttpMethod.GET)
-    String getTest(@RemoteHeader Map<String, String> header, String userName);
+    @RemoteApi(
+            url = "http://localhost:9031/account-synchronizer/auth/gettoken?company=${company}&key=${key}",
+            method = HttpMethod.GET)
+    String getTest(@RemoteHeader Map<String, String> header, @RemoteParameter(name = "key") String company, String key);
 
 }

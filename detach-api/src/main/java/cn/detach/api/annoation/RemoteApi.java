@@ -17,4 +17,6 @@ public @interface RemoteApi {
     String url();
 
     HttpMethod method() default HttpMethod.GET;
+
+    int timeout() default -1;
 }

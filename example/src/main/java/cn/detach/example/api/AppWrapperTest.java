@@ -7,4 +7,13 @@ package cn.detach.example.api;
  */
 public class AppWrapperTest {
 
+    public void test(String userName, String password) {
+
+    }
+
+    public static void main(String[] args) {
+
+
+    }
+
 }
