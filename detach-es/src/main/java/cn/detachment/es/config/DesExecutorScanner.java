@@ -93,7 +93,8 @@ public class DesExecutorScanner {
         Assert.notEmpty(scanPackages, "scan packages must not empty!");
         for (String path : scanPackages) {
             String scanPackage = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX
-                    .concat(ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(path)))
+                    .concat(ClassUtils.convertClassNameToResourcePath(
+                            SystemPropertyUtils.resolvePlaceholders(path)))
                     .concat("/**/*.class");
             Resource[] resources;
             try {

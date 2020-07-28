@@ -1,6 +1,7 @@
 package cn.detach.api.support;
 
 import cn.detach.api.annoation.RemoteApi;
+import cn.detach.api.constant.HttpMethod;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -29,6 +30,14 @@ public class RemoteApiWrapper {
     }
 
     public Object execute(Object[] args, HttpApiSupport apiSupport) {
+        String url = remoteApi.url();
+        String response = null;
+        if (remoteApi.method() == HttpMethod.GET) {
+            response = apiSupport.get(url);
+        }
+        if (method.getReturnType().equals(String.class)) {
+            return response;
+        }
 
         return null;
     }
@@ -36,5 +45,6 @@ public class RemoteApiWrapper {
     static class ApiWrapper {
 
     }
+
 
 }

@@ -1,5 +1,6 @@
 package cn.detach.api.factory;
 
+import cn.detach.api.annoation.RemoteApi;
 import cn.detach.api.support.HttpApiSupport;
 import cn.detach.api.support.RemoteApiWrapper;
 
@@ -34,6 +35,9 @@ public class RemoteApiProxyFactory implements InvocationHandler {
             } catch (Throwable t) {
                 throw new RuntimeException(t);
             }
+        }
+        if (method.getAnnotation(RemoteApi.class) == null) {
+            return method.invoke(this, args);
         }
         RemoteApiWrapper remoteApiWrapper = getRemoteApiWrapper(method);
         return remoteApiWrapper.execute(args, httpSupport);

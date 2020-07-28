@@ -7,24 +7,22 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author haoxp
  */
+@SuppressWarnings("unused")
 public class DesExecutorMethod {
 
     private static Logger logger = LoggerFactory.getLogger(DesExecutorMethod.class);
 
-    private Method method;
+    private final Method method;
 
-    private Class<?> entityClass;
+    private final Class<?> entityClass;
 
-    private Type entityType;
+    private final Type entityType;
 
     private MethodWrapper methodWrapper;
 
