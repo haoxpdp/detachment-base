@@ -2,14 +2,13 @@ package cn.detach.api.support;
 
 import cn.hutool.http.HttpUtil;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author haoxp
  * @date 20/7/27
  */
-public class DefaultHttpApiSupport implements HttpApiSupport {
+public class DefaultHttpApiSupport implements HttpUtilApi {
     @Override
     public String get(String url) {
         return HttpUtil.get(url);

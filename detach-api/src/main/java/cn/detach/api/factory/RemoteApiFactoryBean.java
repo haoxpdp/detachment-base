@@ -1,6 +1,6 @@
 package cn.detach.api.factory;
 
-import cn.detach.api.support.HttpApiSupport;
+import cn.detach.api.support.HttpUtilApi;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.FactoryBean;
@@ -18,7 +18,7 @@ public class RemoteApiFactoryBean<T> implements FactoryBean<T> {
 
     @Getter
     @Setter
-    private HttpApiSupport apiSupport;
+    private HttpUtilApi apiSupport;
 
     public RemoteApiFactoryBean(Class<T> remoteApi) {
         this.remoteApi = remoteApi;

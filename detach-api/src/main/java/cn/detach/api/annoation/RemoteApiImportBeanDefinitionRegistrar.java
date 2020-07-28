@@ -2,7 +2,7 @@ package cn.detach.api.annoation;
 
 import cn.detach.api.factory.RemoteApiFactoryBean;
 import cn.detach.api.support.DefaultHttpApiSupport;
-import cn.detach.api.support.HttpApiSupport;
+import cn.detach.api.support.HttpUtilApi;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class RemoteApiImportBeanDefinitionRegistrar implements ImportBeanDefinit
     private MetadataReaderFactory metadataReaderFactory;
 
 
-    private HttpApiSupport httpApiSupport;
+    private HttpUtilApi httpApiSupport;
 
     @Override
     public void setResourceLoader(@NonNull ResourceLoader resourceLoader) {

@@ -1,12 +1,11 @@
 package cn.detach.api.support;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author haoxp
  */
-public interface HttpApiSupport {
+public interface HttpUtilApi {
 
     /**
      * get

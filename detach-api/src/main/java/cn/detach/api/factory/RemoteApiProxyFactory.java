@@ -1,7 +1,7 @@
 package cn.detach.api.factory;
 
 import cn.detach.api.annoation.RemoteApi;
-import cn.detach.api.support.HttpApiSupport;
+import cn.detach.api.support.HttpUtilApi;
 import cn.detach.api.support.RemoteApiWrapper;
 
 import java.lang.reflect.InvocationHandler;
@@ -18,9 +18,9 @@ public class RemoteApiProxyFactory implements InvocationHandler {
 
     private final Class api;
 
-    private final HttpApiSupport httpSupport;
+    private final HttpUtilApi httpSupport;
 
-    public RemoteApiProxyFactory(Class api, HttpApiSupport httpApiSupport) {
+    public RemoteApiProxyFactory(Class api, HttpUtilApi httpApiSupport) {
         this.api = api;
         this.httpSupport = httpApiSupport;
     }

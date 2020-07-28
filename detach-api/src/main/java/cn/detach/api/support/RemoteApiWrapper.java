@@ -16,7 +16,7 @@ public class RemoteApiWrapper {
 
     private Object[] args;
 
-    private HttpApiSupport apiSupport;
+    private HttpUtilApi apiSupport;
 
     private RemoteApi remoteApi;
 
@@ -29,7 +29,7 @@ public class RemoteApiWrapper {
         }
     }
 
-    public Object execute(Object[] args, HttpApiSupport apiSupport) {
+    public Object execute(Object[] args, HttpUtilApi apiSupport) {
         String url = remoteApi.url();
         String response = null;
         if (remoteApi.method() == HttpMethod.GET) {
