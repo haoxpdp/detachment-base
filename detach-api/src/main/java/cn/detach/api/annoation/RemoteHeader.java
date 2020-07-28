@@ -10,11 +10,9 @@ import java.lang.annotation.Target;
  * @version v1.0
  * @date 20/7/27 22:30
  */
-@Target({ElementType.TYPE_PARAMETER})
+@Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @SuppressWarnings("unused")
 public @interface RemoteHeader {
-    String name();
-
-    String method();
+    String name() default "";
 }

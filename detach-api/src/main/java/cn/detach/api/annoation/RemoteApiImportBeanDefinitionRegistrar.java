@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * scan packages and register beanDefinition to spring container
+ *
  * @author haoxp
  * @version v1.0
  * @date 20/7/28 11:33
@@ -65,7 +67,9 @@ public class RemoteApiImportBeanDefinitionRegistrar implements ImportBeanDefinit
         StandardAnnotationMetadata annotationMetadata = (StandardAnnotationMetadata) importingClassMetadata;
         Package basePackage = annotationMetadata.getIntrospectedClass().getPackage();
         System.out.println(basePackage.getClass());
-        Set<Class<?>> classes = getRemoteApiClasses(Objects.requireNonNull(AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(RemoteApiScanner.class.getName()))));
+        Set<Class<?>> classes = getRemoteApiClasses(Objects.requireNonNull(
+                AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(RemoteApiScanner.class.getName())))
+        );
         httpApiSupport = new DefaultHttpApiSupport();
         registerRemoteApi(classes, registry);
     }

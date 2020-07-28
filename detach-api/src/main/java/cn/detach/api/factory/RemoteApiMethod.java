@@ -1,16 +1,19 @@
-package cn.detach.api.support;
+package cn.detach.api.factory;
 
 import cn.detach.api.annoation.RemoteApi;
 import cn.detach.api.constant.HttpMethod;
+import cn.detach.api.support.HttpUtilApi;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Objects;
 
 /**
  * @author haoxp
  * @date 20/7/27
  */
-public class RemoteApiWrapper {
+public class RemoteApiMethod {
 
     private Method method;
 
@@ -20,12 +23,23 @@ public class RemoteApiWrapper {
 
     private RemoteApi remoteApi;
 
-    public RemoteApiWrapper(Method method) {
+
+    public RemoteApiMethod(Method method) {
         this.method = method;
         this.remoteApi = method.getAnnotation(RemoteApi.class);
         if (Objects.isNull(remoteApi)) {
             throw new RuntimeException("remote api must have RemoteApi annotation, "
                     + method.getDeclaringClass() + " " + method.getName());
+        }
+        if (method.getParameterCount() > 0) {
+            Parameter[] parameters = method.getParameters();
+            Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+            for (int i = 0; i < parameters.length; i++) {
+                Parameter parameter = parameters[i];
+                Annotation[] annotations = parameterAnnotations[i];
+                System.out.println(parameter.getName());
+
+            }
         }
     }
 

@@ -2,7 +2,10 @@ package cn.detach.example.api;
 
 import cn.detach.api.annoation.ApiSupport;
 import cn.detach.api.annoation.RemoteApi;
+import cn.detach.api.annoation.RemoteHeader;
 import cn.detach.api.constant.HttpMethod;
+
+import java.util.Map;
 
 /**
  * @author haoxp
@@ -13,6 +16,6 @@ import cn.detach.api.constant.HttpMethod;
 public interface DemoApi {
 
     @RemoteApi(url = "http://www.baidu.com", method = HttpMethod.GET)
-    String getTest();
+    String getTest(@RemoteHeader Map<String, String> header, String userName);
 
 }

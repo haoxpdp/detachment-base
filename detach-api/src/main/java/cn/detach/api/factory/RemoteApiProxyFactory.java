@@ -2,7 +2,7 @@ package cn.detach.api.factory;
 
 import cn.detach.api.annoation.RemoteApi;
 import cn.detach.api.support.HttpUtilApi;
-import cn.detach.api.support.RemoteApiWrapper;
+import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -25,7 +25,7 @@ public class RemoteApiProxyFactory implements InvocationHandler {
         this.httpSupport = httpApiSupport;
     }
 
-    private final Map<Method, RemoteApiWrapper> methodCaches = new HashMap<>();
+    private final Map<Method, RemoteApiMethod> methodCaches = new HashMap<>();
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -39,13 +39,13 @@ public class RemoteApiProxyFactory implements InvocationHandler {
         if (method.getAnnotation(RemoteApi.class) == null) {
             return method.invoke(this, args);
         }
-        RemoteApiWrapper remoteApiWrapper = getRemoteApiWrapper(method);
+        RemoteApiMethod remoteApiWrapper = getRemoteApiWrapper(method);
         return remoteApiWrapper.execute(args, httpSupport);
     }
 
-    private RemoteApiWrapper getRemoteApiWrapper(Method method) {
+    private RemoteApiMethod getRemoteApiWrapper(Method method) {
         if (!methodCaches.containsKey(method)) {
-            methodCaches.put(method, new RemoteApiWrapper(method));
+            methodCaches.put(method, new RemoteApiMethod(method));
         }
         return methodCaches.get(method);
     }

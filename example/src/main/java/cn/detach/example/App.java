@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 
 /**
  * @author haoxp
@@ -26,7 +27,9 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(demoApi.getTest());
+        HashMap<String, String> header = new HashMap<>();
+        header.put("token", "12333");
+        System.out.println(demoApi.getTest(header, "haoxp"));
     }
 
 }
