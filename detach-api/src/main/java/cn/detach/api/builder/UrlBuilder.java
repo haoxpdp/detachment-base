@@ -3,9 +3,10 @@ package cn.detach.api.builder;
 import cn.detach.api.annoation.RemoteHeader;
 import cn.detach.api.annoation.RemoteParameter;
 import cn.detach.api.constant.RemoteParameterType;
+import cn.detach.api.exception.UrlBuildException;
+import lombok.SneakyThrows;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
@@ -34,7 +35,7 @@ public class UrlBuilder {
         return URL_TEMPLATE_CACHE.get(method).get();
     }
 
-    public static String buildUrl(Method method, Object[] args, String originalUrl) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static String buildUrl(Method method, Object[] args, String originalUrl) {
 
         StringBuilder builder = new StringBuilder();
 
@@ -76,15 +77,22 @@ public class UrlBuilder {
         return builder.toString();
     }
 
+    @SneakyThrows
     @SuppressWarnings("unchecked")
-    private static String reflectValue(String key, Object arg) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private static String reflectValue(String key, Object arg) {
         String field = key.substring(key.indexOf(".") + 1);
         if (arg instanceof Map) {
             return ((Map<String, String>) arg).get(field);
         }
         String methodName = getGetterMethod(field);
-        Method method = arg.getClass().getDeclaredMethod(methodName);
-        return String.valueOf(method.invoke(arg));
+        try {
+            Method method = arg.getClass().getDeclaredMethod(methodName);
+            return String.valueOf(method.invoke(arg));
+        } catch (NoSuchMethodException e) {
+            throw new UrlBuildException(e, " can't find get method of [" + field + "] at " + arg.getClass().getName());
+        } catch (IllegalAccessException e) {
+            throw new UrlBuildException(e, "filed [" + field + "] " + arg.getClass().getName());
+        }
     }
 
     public static String getGetterMethod(String name) {

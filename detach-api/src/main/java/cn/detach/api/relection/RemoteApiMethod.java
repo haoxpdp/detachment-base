@@ -51,7 +51,7 @@ public class RemoteApiMethod {
         parseParameters();
     }
 
-    public Object execute(Object[] args, HttpUtilApi apiSupport) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public Object execute(Object[] args, HttpUtilApi apiSupport)  {
         String url = urlTemplate;
         if (url.contains(URL_QUERY_TOKEN)) {
             url = UrlBuilder.buildUrl(method, args, url);

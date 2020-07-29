@@ -35,7 +35,12 @@ public class App implements CommandLineRunner {
 
         AuthParam authParam = new AuthParam("zichan360Test", "8sxf0ZRAzdFyTbXP3H");
 
-        System.out.println(demoApi.getTest(authParam));
+        try {
+
+            System.out.println(demoApi.getTest(authParam));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
