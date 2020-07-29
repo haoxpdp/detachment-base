@@ -6,4 +6,4 @@ detach-es:
   es-client-name: esClient
   scan-packages: cn.detachment.web.executor
 server:
-  port: 8082
+  port: 10003

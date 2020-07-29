@@ -1,6 +1,12 @@
 package cn.detach.api.builder;
 
+import cn.detach.api.constant.RemoteParameterType;
+import lombok.*;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * parser ${} parameter
@@ -11,54 +17,53 @@ import org.springframework.util.StringUtils;
  */
 public class TokenParser {
 
-    private final String startToken;
+    private final static String START_TOKEN = "${";
 
-    private final String endToken;
+    private final static String END_TOKEN = "}";
 
-    private final TokenHandler tokenHandler;
-
-    public TokenParser(String startToken, String endToken, TokenHandler tokenHandler) {
-        this.startToken = startToken;
-        this.endToken = endToken;
-        this.tokenHandler = tokenHandler;
-    }
-
-    public String parseTemplate(String input) {
-        StringBuilder builder = new StringBuilder();
+    public static List<ParameterMap> parseTemplate(String input, Map<String, Object> map) {
+        List<ParameterMap> queryList = new ArrayList<>();
         if (StringUtils.isEmpty(input)) {
-            return builder.toString();
+            return queryList;
         }
         char[] src = input.toCharArray();
 
         int offset = 0;
-        int start = input.indexOf(startToken);
+        int start = input.indexOf(START_TOKEN);
         while (start > -1) {
             if (start > 0 && src[start - 1] == '\\') {
-                builder.append(src, offset, start - offset - 1).append(startToken);
-                offset = start + startToken.length();
+                queryList.add(new ParameterMap(new String(src, offset, start - offset - 1), RemoteParameterType.STRING));
+                offset = start + START_TOKEN.length();
             } else {
-                int end = input.indexOf(endToken, start);
+                int end = input.indexOf(END_TOKEN, start);
                 if (end == -1) {
-                    builder.append(src, offset, src.length - offset);
+                    queryList.add(new ParameterMap(new String(src, offset, src.length - offset), RemoteParameterType.STRING));
                     offset = src.length;
                 } else {
-                    builder.append(src, offset, start - offset);
-                    offset = start + startToken.length();
+                    queryList.add(new ParameterMap(new String(src, offset, start - offset), RemoteParameterType.STRING));
+                    offset = start + START_TOKEN.length();
                     String content = new String(src, offset, end - offset);
-                    builder.append(tokenHandler.handleContent(content));
-                    offset = end + endToken.length();
+                    queryList.add(new ParameterMap(content, map.containsKey(content) ? RemoteParameterType.REMOTE_PARAMETER : RemoteParameterType.PARAMETER));
+                    offset = end + END_TOKEN.length();
                 }
 
             }
-            start = input.indexOf(startToken, offset);
+            start = input.indexOf(START_TOKEN, offset);
         }
 
         if (offset < src.length) {
-            builder.append(src, offset, src.length - offset);
+            queryList.add(new ParameterMap(new String(src, offset, src.length - offset), RemoteParameterType.STRING));
         }
-
-        return builder.toString();
+        return queryList;
     }
 
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class ParameterMap {
+        String value;
+        RemoteParameterType parameterType;
+    }
 
 }

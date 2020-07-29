@@ -19,21 +19,24 @@ import java.util.Objects;
  */
 public class RemoteApiMethod {
 
+    @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(RemoteApiMethod.class);
 
-    private Method method;
+    private final Method method;
 
 
     private int headerArgIndex = -1;
 
-    private String urlTemplate;
+    private final String urlTemplate;
 
+    @SuppressWarnings("unused")
     private Map<String, Object> parameterMap;
 
-    private Parameter[] parameters;
+    private final Parameter[] parameters;
 
+    public static final String URL_QUERY_TOKEN = "?";
 
-    private RemoteApi remoteApi;
+    private final RemoteApi remoteApi;
 
     public RemoteApiMethod(Method method) {
         this.method = method;
@@ -49,8 +52,9 @@ public class RemoteApiMethod {
 
     public Object execute(Object[] args, HttpUtilApi apiSupport) {
         String url = urlTemplate;
-        if (url.contains("?")) {
-            url = new UrlBuilder(urlTemplate, method, args).build();
+        //noinspection AlibabaUndefineMagicConstant
+        if (url.contains(URL_QUERY_TOKEN)) {
+            url = UrlBuilder.buildUrl(method, args, url);
         }
         String response = null;
         if (remoteApi.method() == HttpMethod.GET) {
@@ -68,7 +72,7 @@ public class RemoteApiMethod {
             Parameter parameter = parameters[i];
             if (parameter.getAnnotation(RemoteHeader.class) != null) {
                 if (headerArgIndex != -1) {
-                    throw new IllegalArgumentException("find multiple headers , only need 1");
+                    throw new IllegalArgumentException("find multiple headers , only need one.");
                 }
                 headerArgIndex = i;
             }
