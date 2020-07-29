@@ -2,11 +2,8 @@ package cn.detach.example.api;
 
 import cn.detach.api.annoation.ApiSupport;
 import cn.detach.api.annoation.RemoteApi;
-import cn.detach.api.annoation.RemoteHeader;
 import cn.detach.api.annoation.RemoteParameter;
 import cn.detach.api.constant.HttpMethod;
-
-import java.util.Map;
 
 /**
  * @author haoxp
@@ -17,8 +14,8 @@ import java.util.Map;
 public interface DemoApi {
 
     @RemoteApi(
-            url = "http://localhost:9031/account-synchronizer/auth/gettoken?company=${company}&key=${key}",
+            url = "http://localhost:9031/account-synchronizer/auth/gettoken?company=${auth.company}&key=${auth.key}",
             method = HttpMethod.GET)
-    String getTest(@RemoteHeader Map<String, String> header, String company, @RemoteParameter(name = "company") String key);
+    String getTest(@RemoteParameter(name = "auth") AuthParam auth);
 
 }

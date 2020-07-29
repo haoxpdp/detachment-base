@@ -8,6 +8,7 @@ import cn.detach.api.support.HttpUtilApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Map;
@@ -50,9 +51,8 @@ public class RemoteApiMethod {
         parseParameters();
     }
 
-    public Object execute(Object[] args, HttpUtilApi apiSupport) {
+    public Object execute(Object[] args, HttpUtilApi apiSupport) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         String url = urlTemplate;
-        //noinspection AlibabaUndefineMagicConstant
         if (url.contains(URL_QUERY_TOKEN)) {
             url = UrlBuilder.buildUrl(method, args, url);
         }

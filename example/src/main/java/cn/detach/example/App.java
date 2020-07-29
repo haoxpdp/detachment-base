@@ -1,6 +1,7 @@
 package cn.detach.example;
 
 import cn.detach.api.annoation.RemoteApiScanner;
+import cn.detach.example.api.AuthParam;
 import cn.detach.example.api.DemoApi;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,9 +30,12 @@ public class App implements CommandLineRunner {
     public void run(String... args) {
 
         HashMap<String, String> header = new HashMap<>();
-        header.put("token", "12333");
+        header.put("company", "zichan360Test");
+        header.put("key", "8sxf0ZRAzdFyTbXP3H");
 
-        System.out.println(demoApi.getTest(header, "8sxf0ZRAzdFyTbXP3H","zichan360Test"));
+        AuthParam authParam = new AuthParam("zichan360Test", "8sxf0ZRAzdFyTbXP3H");
+
+        System.out.println(demoApi.getTest(authParam));
     }
 
 }

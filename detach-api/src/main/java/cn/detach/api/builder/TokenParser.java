@@ -43,7 +43,8 @@ public class TokenParser {
                     queryList.add(new ParameterMap(new String(src, offset, start - offset), RemoteParameterType.STRING));
                     offset = start + START_TOKEN.length();
                     String content = new String(src, offset, end - offset);
-                    queryList.add(new ParameterMap(content, map.containsKey(content) ? RemoteParameterType.REMOTE_PARAMETER : RemoteParameterType.PARAMETER));
+                    queryList.add(new ParameterMap(content, map.containsKey(content) || content.contains(".") ?
+                            RemoteParameterType.REMOTE_PARAMETER : RemoteParameterType.PARAMETER));
                     offset = end + END_TOKEN.length();
                 }
 
@@ -57,13 +58,14 @@ public class TokenParser {
         return queryList;
     }
 
+
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     static class ParameterMap {
-        String value;
-        RemoteParameterType parameterType;
+        private String value;
+        private RemoteParameterType parameterType;
     }
 
 }

@@ -5,6 +5,7 @@ import cn.detach.api.annoation.RemoteParameter;
 import cn.detach.api.constant.RemoteParameterType;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
@@ -33,7 +34,7 @@ public class UrlBuilder {
         return URL_TEMPLATE_CACHE.get(method).get();
     }
 
-    public static String buildUrl(Method method, Object[] args, String originalUrl) {
+    public static String buildUrl(Method method, Object[] args, String originalUrl) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
         StringBuilder builder = new StringBuilder();
 
@@ -60,8 +61,9 @@ public class UrlBuilder {
                 continue;
             }
             if (parameterMap.getParameterType().equals(RemoteParameterType.REMOTE_PARAMETER)) {
-                if (parameterMap.getValue().contains(".")) {
-
+                String key = parameterMap.getValue();
+                if (key.contains(".")) {
+                    builder.append(reflectValue(key, paramMap.get(key.substring(0, key.indexOf(".")))));
                 } else {
                     builder.append(paramMap.get(parameterMap.getValue()));
                 }
@@ -72,5 +74,20 @@ public class UrlBuilder {
             }
         }
         return builder.toString();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static String reflectValue(String key, Object arg) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        String field = key.substring(key.indexOf(".") + 1);
+        if (arg instanceof Map) {
+            return ((Map<String, String>) arg).get(field);
+        }
+        String methodName = getGetterMethod(field);
+        Method method = arg.getClass().getDeclaredMethod(methodName);
+        return String.valueOf(method.invoke(arg));
+    }
+
+    public static String getGetterMethod(String name) {
+        return "get" + Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 }
