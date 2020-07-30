@@ -16,12 +16,9 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class RemoteApiProxyFactory implements InvocationHandler {
 
-    private final Class api;
-
     private final HttpUtilApi httpSupport;
 
-    public RemoteApiProxyFactory(Class api, HttpUtilApi httpApiSupport) {
-        this.api = api;
+    public RemoteApiProxyFactory(Class<?> api, HttpUtilApi httpApiSupport) {
         this.httpSupport = httpApiSupport;
     }
 
@@ -49,6 +46,7 @@ public class RemoteApiProxyFactory implements InvocationHandler {
         }
         return methodCaches.get(method);
     }
+
 
 
 }

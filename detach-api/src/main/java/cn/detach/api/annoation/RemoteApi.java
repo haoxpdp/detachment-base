@@ -19,4 +19,9 @@ public @interface RemoteApi {
     HttpMethod method() default HttpMethod.GET;
 
     int timeout() default -1;
+
+    int retry() default 1;
+
+    boolean async() default false;
+
 }

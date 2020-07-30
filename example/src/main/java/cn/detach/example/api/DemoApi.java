@@ -15,7 +15,8 @@ public interface DemoApi {
 
     @RemoteApi(
             url = "http://localhost:9031/account-synchronizer/auth/gettoken?company=${auth.company}&key=${auth.key}",
-            method = HttpMethod.GET)
+            method = HttpMethod.GET
+    )
     String getTest(@RemoteParameter(name = "auth") AuthParam auth);
 
 }

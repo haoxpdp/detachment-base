@@ -7,6 +7,6 @@ package cn.detach.api.constant;
 @SuppressWarnings("all")
 public enum HttpMethod {
 
-    GET, POST;
+    GET, POST, OPTIONS, HEAD, PUT, DELETE, TRACE, CONNECT;
 
 }

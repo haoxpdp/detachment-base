@@ -5,6 +5,7 @@ import java.util.Map;
 /**
  * @author haoxp
  */
+@SuppressWarnings("unused")
 public interface HttpUtilApi {
 
     /**
