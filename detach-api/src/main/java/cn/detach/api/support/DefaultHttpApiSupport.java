@@ -1,6 +1,9 @@
 package cn.detach.api.support;
 
+import cn.detach.api.http.RemoteRequest;
 import cn.hutool.http.HttpUtil;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import java.util.Map;
 
@@ -34,5 +37,17 @@ public class DefaultHttpApiSupport implements HttpUtilApi {
         return HttpUtil.post(url, param, timeout);
     }
 
+
+    public String requestExecute(RemoteRequest remoteRequest) {
+        return "";
+    }
+
+    public String parserRemoteRequest(RemoteRequest remoteRequest) {
+//        HttpUriRequest request = new Http
+        HttpClient client = HttpClients.createDefault();
+
+
+        return "";
+    }
 
 }

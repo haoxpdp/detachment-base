@@ -1,5 +1,6 @@
 package cn.detach.api.builder;
 
+import cn.detach.api.annoation.RemoteFile;
 import cn.detach.api.annoation.RemoteHeader;
 import cn.detach.api.annoation.RemoteParameter;
 import cn.detach.api.constant.RemoteParameterType;
@@ -46,7 +47,8 @@ public class UrlBuilder {
         for (int i = 0; i < args.length; i++) {
             Parameter parameter = parameters[i];
             Object arg = args[i];
-            if (parameter.isAnnotationPresent(RemoteHeader.class)) {
+            if (parameter.isAnnotationPresent(RemoteHeader.class) ||
+                    parameter.isAnnotationPresent(RemoteFile.class)) {
                 continue;
             }
             if (parameter.isAnnotationPresent(RemoteParameter.class)) {

@@ -14,6 +14,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@SuppressWarnings("unused")
 public class RemoteRequest {
 
     private String protocol;

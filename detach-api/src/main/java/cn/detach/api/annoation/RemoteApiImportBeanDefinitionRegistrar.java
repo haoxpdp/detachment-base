@@ -44,8 +44,6 @@ public class RemoteApiImportBeanDefinitionRegistrar implements ImportBeanDefinit
 
     private static final Logger logger = LoggerFactory.getLogger(RemoteApiImportBeanDefinitionRegistrar.class);
 
-    private ResourceLoader resourceLoader;
-
     private ResourcePatternResolver resolver;
 
     private MetadataReaderFactory metadataReaderFactory;
@@ -55,7 +53,6 @@ public class RemoteApiImportBeanDefinitionRegistrar implements ImportBeanDefinit
 
     @Override
     public void setResourceLoader(@NonNull ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
         this.resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
         this.metadataReaderFactory = new CachingMetadataReaderFactory(resolver);
 
@@ -63,10 +60,9 @@ public class RemoteApiImportBeanDefinitionRegistrar implements ImportBeanDefinit
 
     @SneakyThrows
     @Override
-    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,@NonNull BeanDefinitionRegistry registry) {
         StandardAnnotationMetadata annotationMetadata = (StandardAnnotationMetadata) importingClassMetadata;
         Package basePackage = annotationMetadata.getIntrospectedClass().getPackage();
-        System.out.println(basePackage.getClass());
         Set<Class<?>> classes = getRemoteApiClasses(Objects.requireNonNull(
                 AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(RemoteApiScanner.class.getName())))
         );

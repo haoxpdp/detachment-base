@@ -8,8 +8,10 @@ import java.lang.annotation.Target;
 /**
  * @author haoxp
  * @version v1.0
- * @date 20/7/28 20:51
+ * @date 20/7/30 15:49
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RemoteApiBody {}
+public @interface RemoteFile {
+
+}
