@@ -1,5 +1,6 @@
 package cn.detach.api.http;
 
+import cn.detach.api.constant.HttpMethod;
 import lombok.*;
 
 import java.util.Map;
@@ -23,6 +24,8 @@ public class RemoteRequest {
 
     private boolean async;
 
+    private HttpMethod httpMethod;
+
     private String encode = "utf-8";
 
     private String responseEncode = "utf-8";
@@ -34,6 +37,8 @@ public class RemoteRequest {
     private Map<String, String> header;
 
     private Map<String, Object> formData;
+
+    private String bodyType;
 
     private Object requestBody;
 
