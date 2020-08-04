@@ -38,6 +38,8 @@ public class RemoteRequest {
 
     private Map<String, Object> formData;
 
+    private Map<String, Object> urlParams;
+
     private String bodyType;
 
     private Object requestBody;
