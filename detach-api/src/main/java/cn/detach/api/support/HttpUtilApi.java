@@ -1,5 +1,7 @@
 package cn.detach.api.support;
 
+import cn.detach.api.http.RemoteRequest;
+
 import java.util.Map;
 
 /**
@@ -63,4 +65,15 @@ public interface HttpUtilApi {
      * @date 20/7/27 17:05
      */
     String post(String url, Map<String, Object> param, int timeout);
+
+
+    /**
+     * parserRemoteRequest
+     *
+     * @param remoteRequest remoteRequest
+     * @return java.lang.String
+     * @author haoxp
+     * @date 20/8/5
+     */
+    String parserRemoteRequest(RemoteRequest remoteRequest);
 }

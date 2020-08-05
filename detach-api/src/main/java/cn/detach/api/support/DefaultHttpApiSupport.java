@@ -102,6 +102,7 @@ public class DefaultHttpApiSupport implements HttpUtilApi {
         return "";
     }
 
+    @Override
     public String parserRemoteRequest(RemoteRequest remoteRequest) {
 
         if (remoteRequest.getHttpMethod() == null) {

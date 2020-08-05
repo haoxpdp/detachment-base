@@ -7,7 +7,12 @@ package cn.detach.api.exception;
  */
 public class HttpExecuteException extends RuntimeException {
 
+    public HttpExecuteException(String msg) {
+        super(msg);
+    }
+
     public HttpExecuteException(String msg, Throwable e) {
         super(msg, e);
     }
+
 }

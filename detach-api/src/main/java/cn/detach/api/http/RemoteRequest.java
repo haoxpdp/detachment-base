@@ -3,6 +3,7 @@ package cn.detach.api.http;
 import cn.detach.api.constant.HttpMethod;
 import lombok.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -44,5 +45,12 @@ public class RemoteRequest {
 
     private Object requestBody;
 
+
+    public void addFormData(String name, Object val) {
+        if (formData == null) {
+            formData = new HashMap<>();
+        }
+        formData.put(name, val);
+    }
 
 }

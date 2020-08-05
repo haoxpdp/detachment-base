@@ -4,14 +4,20 @@ import cn.detach.api.annoation.RemoteApi;
 import cn.detach.api.annoation.RemoteHeader;
 import cn.detach.api.builder.UrlBuilder;
 import cn.detach.api.constant.HttpMethod;
+import cn.detach.api.exception.HttpExecuteException;
+import cn.detach.api.http.RemoteRequest;
 import cn.detach.api.support.HttpUtilApi;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.rmi.Remote;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author haoxp
@@ -50,20 +56,43 @@ public class RemoteApiMethod {
         parseParameters();
     }
 
-    public Object execute(Object[] args, HttpUtilApi apiSupport)  {
+    public Object execute(Object[] args, HttpUtilApi apiSupport) throws Throwable {
         String url = urlTemplate;
-        if (url.contains(URL_QUERY_TOKEN)) {
-            url = UrlBuilder.buildUrl(method, args, url);
+
+        RemoteRequest remoteRequest = UrlBuilder.buildUrl(method, args, url, remoteApi);
+
+        String response = apiSupport.parserRemoteRequest(remoteRequest);
+
+        if (StringUtils.isEmpty(response)) {
+            throw new HttpExecuteException("url " + remoteRequest.getUrl() + " response is empty");
         }
-        String response = null;
-        if (remoteApi.method() == HttpMethod.GET) {
-            response = apiSupport.get(url);
-        }
-        if (method.getReturnType().equals(String.class)) {
+        Class<?> clzz = method.getReturnType();
+        if (clzz.equals(String.class)) {
             return response;
+        } else {
+            return JSONObject.parseObject(response, clzz);
+        }
+    }
+
+    /**
+     * createRemoteRequest
+     *
+     * @param args      args
+     * @param paramFlag url/form flag
+     * @return cn.detach.api.http.RemoteRequest
+     * @author haoxp
+     * @date 20/8/5
+     */
+    private RemoteRequest createRemoteRequest(Object[] args, boolean paramFlag) {
+        RemoteRequest remoteRequest = new RemoteRequest();
+        Parameter[] parameters = method.getParameters();
+        if (parameters != null && parameters.length > 0) {
+            for (int i = 0; i < parameters.length; i++) {
+
+            }
         }
 
-        return null;
+        return remoteRequest;
     }
 
     private void parseParameters() {

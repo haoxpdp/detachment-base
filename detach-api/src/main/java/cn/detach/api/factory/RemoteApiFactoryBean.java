@@ -25,7 +25,7 @@ public class RemoteApiFactoryBean<T> implements FactoryBean<T> {
     }
 
     @Override
-    public T getObject() throws Exception {
+    public T getObject() {
         return newInstance();
     }
 

@@ -1,4 +1,7 @@
-package cn.detach.api.annoation;
+package cn.detach.api.annoation.api;
+
+import cn.detach.api.annoation.RemoteApi;
+import cn.detach.api.constant.HttpMethod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,11 +10,9 @@ import java.lang.annotation.Target;
 
 /**
  * @author haoxp
- * @version v1.0
- * @date 20/7/28 20:51
  */
-@Target(ElementType.PARAMETER)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RemoteApiBody {
-
+@RemoteApi(method = HttpMethod.POST)
+public @interface RemotePost {
 }

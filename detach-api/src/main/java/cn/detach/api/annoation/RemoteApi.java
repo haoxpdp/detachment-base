@@ -1,20 +1,18 @@
 package cn.detach.api.annoation;
 
+import cn.detach.api.constant.ContentType;
 import cn.detach.api.constant.HttpMethod;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * @author haoxp
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @SuppressWarnings("unused")
 public @interface RemoteApi {
-    String url();
+    String url() default "";
 
     HttpMethod method() default HttpMethod.GET;
 
@@ -24,4 +22,5 @@ public @interface RemoteApi {
 
     boolean async() default false;
 
+    ContentType contentType() default ContentType.JSON;
 }
