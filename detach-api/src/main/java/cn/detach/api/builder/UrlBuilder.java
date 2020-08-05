@@ -40,7 +40,7 @@ public class UrlBuilder {
         return URL_TEMPLATE_CACHE.get(method).get();
     }
 
-    public static RemoteRequest buildUrl(Method method, Object[] args, String originalUrl, RemoteApi remoteApi) {
+    public static RemoteRequest buildRequestInfo(Method method, Object[] args, String originalUrl, RemoteApi remoteApi) {
 
         RemoteRequest remoteRequest = new RemoteRequest();
 
