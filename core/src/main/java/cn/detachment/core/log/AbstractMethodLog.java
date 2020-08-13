@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author haoxp
  */
-public abstract class AopLog implements InitializingBean {
+public abstract class AbstractMethodLog implements InitializingBean {
 
 
     /**
@@ -25,12 +25,11 @@ public abstract class AopLog implements InitializingBean {
     /**
      * init Exclude List
      *
-     * @return
      */
     public abstract List<String> initExcludeList();
 
 
-    private static Logger monitor = LoggerFactory.getLogger(AopLog.class);
+    private static final Logger monitor = LoggerFactory.getLogger(AbstractMethodLog.class);
 
     protected List<String> excludeNames;
 
@@ -41,7 +40,7 @@ public abstract class AopLog implements InitializingBean {
 
     @Around(value = "pointCut()")
     public Object aroundLog(ProceedingJoinPoint point) throws Throwable {
-        Long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
 
         Class<?> targetCls = point.getTarget().getClass();
 

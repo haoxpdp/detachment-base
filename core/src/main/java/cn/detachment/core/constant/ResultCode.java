@@ -15,10 +15,10 @@ public enum ResultCode {
     SUCCESS(200, "success!"), SERVER_ERROR(500, "server_error!");
 
     @Getter
-    private Integer code;
+    private final Integer code;
 
     @Getter
-    private String codeMessage;
+    private final String codeMessage;
 
     ResultCode(Integer code, String codeMessage) {
         this.code = code;

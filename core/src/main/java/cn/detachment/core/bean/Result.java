@@ -10,6 +10,7 @@ import lombok.Data;
  */
 
 @Data
+@SuppressWarnings("unused")
 public class Result<T> {
 
     private T data;

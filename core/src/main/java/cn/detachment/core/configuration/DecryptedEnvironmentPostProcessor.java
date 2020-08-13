@@ -14,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * @author haoxp
@@ -26,8 +25,6 @@ public class DecryptedEnvironmentPostProcessor implements EnvironmentPostProcess
     public static final String DECRYPT_PREFIX = "d_pwd:";
 
     public static final String KEY = "detachKey";
-
-    private final YamlPropertySourceLoader loader = new YamlPropertySourceLoader();
 
     @SneakyThrows
     @Override
@@ -45,9 +42,7 @@ public class DecryptedEnvironmentPostProcessor implements EnvironmentPostProcess
         }
         HashMap<String, Object> decryptMap = new HashMap<>();
 
-        Iterator<PropertySource<?>> iterator = environment.getPropertySources().iterator();
-        while (iterator.hasNext()) {
-            PropertySource<?> propertySource = iterator.next();
+        for (PropertySource<?> propertySource : environment.getPropertySources()) {
             if (propertySource instanceof OriginTrackedMapPropertySource) {
                 OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) propertySource;
                 for (String key : source.getPropertyNames()) {

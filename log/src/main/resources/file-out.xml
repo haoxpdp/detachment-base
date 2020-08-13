@@ -7,8 +7,7 @@
             <fileNamePattern>/data/log/${appName}/info/info%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder>
-            <Pattern>%-100.120(%date{HH:mm:ss.SSS} \t[${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}]\t
-                %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
+            <Pattern>%-70.120(%date{HH:mm:ss.SSS} [${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
             </Pattern>
         </encoder>
         <filter class="cn.detachment.log.filter.LessThanOrEqualToFilter">
@@ -22,8 +21,7 @@
             <fileNamePattern>/data/log/${appName}/error/error%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder>
-            <Pattern>%-100.120(%date{HH:mm:ss.SSS} \t[${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}]\t
-                %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
+            <Pattern>%-70.120(%date{HH:mm:ss.SSS} [${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
             </Pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -37,8 +35,7 @@
             <fileNamePattern>/data/log/${appName}/all/all%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder>
-            <Pattern>%-100.120(%date{HH:mm:ss.SSS} \t[${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}]\t
-                %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
+            <Pattern>%-70.120(%date{HH:mm:ss.SSS} [${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
             </Pattern>
         </encoder>
         <filter class="cn.detachment.log.filter.LessThanOrEqualToFilter">
