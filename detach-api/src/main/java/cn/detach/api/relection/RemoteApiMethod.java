@@ -71,27 +71,6 @@ public class RemoteApiMethod {
         }
     }
 
-    /**
-     * createRemoteRequest
-     *
-     * @param args      args
-     * @param paramFlag url/form flag
-     * @return cn.detach.api.http.RemoteRequest
-     * @author haoxp
-     * @date 20/8/5
-     */
-    private RemoteRequest createRemoteRequest(Object[] args, boolean paramFlag) {
-        RemoteRequest remoteRequest = new RemoteRequest();
-        Parameter[] parameters = method.getParameters();
-        if (parameters != null && parameters.length > 0) {
-            for (int i = 0; i < parameters.length; i++) {
-
-            }
-        }
-
-        return remoteRequest;
-    }
-
     private void parseParameters() {
         for (int i = 0; i < parameters.length; i++) {
             Parameter parameter = parameters[i];
