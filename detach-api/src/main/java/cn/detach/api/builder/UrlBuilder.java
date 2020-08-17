@@ -43,6 +43,7 @@ public class UrlBuilder {
     public static RemoteRequest buildRequestInfo(Method method, Object[] args, String originalUrl, RemoteApi remoteApi) {
 
         RemoteRequest remoteRequest = new RemoteRequest();
+        remoteRequest.setHttpMethod(remoteApi.method());
 
         StringBuilder builder = new StringBuilder();
 

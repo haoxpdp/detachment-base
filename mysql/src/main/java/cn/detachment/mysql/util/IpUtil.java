@@ -45,19 +45,17 @@ public class IpUtil {
                         try {
                             NetworkInterface network = interfaces.nextElement();
                             Enumeration<InetAddress> addresses = network.getInetAddresses();
-                            if (addresses != null) {
-                                while (addresses.hasMoreElements()) {
-                                    try {
-                                        InetAddress address = addresses.nextElement();
-                                        if (!address.isLoopbackAddress()
-                                                && !address.isLinkLocalAddress()
-                                                && address.isSiteLocalAddress()) {
-                                            return address;
-                                        }
-                                    } catch (Throwable e) {
-                                        logger.error(
-                                                "Failed to retriving ip address, " + e.getMessage(), e);
+                            while (addresses.hasMoreElements()) {
+                                try {
+                                    InetAddress address = addresses.nextElement();
+                                    if (!address.isLoopbackAddress()
+                                            && !address.isLinkLocalAddress()
+                                            && address.isSiteLocalAddress()) {
+                                        return address;
                                     }
+                                } catch (Throwable e) {
+                                    logger.error(
+                                            "Failed to retriving ip address, " + e.getMessage(), e);
                                 }
                             }
                         } catch (Throwable e) {
@@ -77,7 +75,6 @@ public class IpUtil {
     /**
      * get address
      *
-     * @return
      */
     private static InetAddress getAddress() {
         if (LOCAL_ADDRESS != null) {
@@ -91,7 +88,6 @@ public class IpUtil {
     /**
      * get ip
      *
-     * @return
      */
     public static String getIp() {
         InetAddress address = getAddress();
@@ -104,8 +100,7 @@ public class IpUtil {
     /**
      * get ip:port
      *
-     * @param port
-     * @return
+     * @param port port
      */
     public static String getIpPort(int port) {
         String ip = getIp();
