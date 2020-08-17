@@ -3,7 +3,6 @@ package cn.detach.api.relection;
 import cn.detach.api.annoation.RemoteApi;
 import cn.detach.api.annoation.RemoteHeader;
 import cn.detach.api.builder.UrlBuilder;
-import cn.detach.api.constant.HttpMethod;
 import cn.detach.api.exception.HttpExecuteException;
 import cn.detach.api.http.RemoteRequest;
 import cn.detach.api.support.HttpUtilApi;
@@ -14,10 +13,8 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.rmi.Remote;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author haoxp
@@ -59,7 +56,7 @@ public class RemoteApiMethod {
     public Object execute(Object[] args, HttpUtilApi apiSupport) throws Throwable {
         String url = urlTemplate;
 
-        RemoteRequest remoteRequest = UrlBuilder.buildUrl(method, args, url, remoteApi);
+        RemoteRequest remoteRequest = UrlBuilder.buildRemoteRequest(method, args, url, remoteApi);
 
         String response = apiSupport.parserRemoteRequest(remoteRequest);
 
