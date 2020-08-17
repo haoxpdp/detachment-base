@@ -4,25 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.detachment</groupId>
-    <artifactId>base</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <artifactId>detach-parent</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>detachment-base</name>
     <description>detachment basic, utils</description>
     <url>https://github.com/haoxpdp/detachment-base.git</url>
-
-
-    <modules>
-        <module>detach-es</module>
-        <module>log</module>
-        <module>mysql</module>
-        <module>notification</module>
-        <module>web</module>
-        <module>core</module>
-        <module>example</module>
-        <module>detach-api</module>
-    </modules>
 
     <licenses>
         <license>
@@ -195,7 +183,7 @@
     </dependencyManagement>
     <profiles>
         <profile>
-            <id>deploy</id>
+            <id>github</id>
             <build>
                 <plugins>
                     <!-- mvn clean deploy -Dmaven.test.skip=true -P deploy -->
@@ -270,63 +258,30 @@
                     </plugin>
 
                     <!-- 生成asc 校验文件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <!-- 必须和配置中的gpg校验id一致 -->
-                                <id>release</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-gpg-plugin</artifactId>-->
+<!--                        <version>1.5</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                &lt;!&ndash; 必须和配置中的gpg校验id一致 &ndash;&gt;-->
+<!--                                <id>release</id>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>sign</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
             <distributionManagement>
-                <snapshotRepository>
-                    <id>sonatype</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-                </snapshotRepository>
                 <repository>
-                    <id>sonatype</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                    <id>github</id>
+                    <name>GitHub OWNER Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/haoxpdp/detachment-base</url>
                 </repository>
             </distributionManagement>
         </profile>
     </profiles>
-    <repositories>
-        <repository>
-            <id>sonatype-snapshot</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>sonatype-release</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-
-        <repository>
-            <id>ali-central</id>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 </project>
