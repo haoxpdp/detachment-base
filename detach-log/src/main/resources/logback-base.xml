@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+
+    <springProperty name="INSTANCE_ID" source="spring.cloud.client.ipAddress" defaultValue="127.0.0.1"/>
+
+    <springProfile name="dev">
+        <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <Pattern>%-70.120(%date{HH:mm:ss.SSS} [${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
+                </Pattern>
+            </encoder>
+        </appender>
+
+
+        <root level="INFO">
+            <appender-ref ref="consoleAppender"/>
+        </root>
+
+    </springProfile>
+    <springProfile name="test">
+        <include resource="file-out.xml"/>
+    </springProfile>
+    <springProfile name="prod">
+        <include resource="file-out.xml"/>
+    </springProfile>
+
+</included>

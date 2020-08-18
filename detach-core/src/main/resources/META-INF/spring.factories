@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.detachment.core.configuration.DecryptedEnvironmentPostProcessor
+
+org.springframework.boot.env.EnvironmentPostProcessor=cn.detachment.core.configuration.DecryptedEnvironmentPostProcessor

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+说明：
+    1. 文件的命名和加载顺序有关
+       logback.xml早于application.yml加载，logback-spring.xml晚于application.yml加载
+       如果logback配置需要使用application.yml中的属性，需要命名为logback-spring.xml
+    2. logback使用application.yml中的属性
+       使用springProperty才可使用application.yml中的值 可以设置默认值
+
+-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="web-app"/>
+    <include resource="logback-base.xml"/>
+</configuration>
