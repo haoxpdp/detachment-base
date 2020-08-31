@@ -1,6 +1,6 @@
 package cn.detachment.core.configuration;
 
-import cn.detachment.core.util.AES;
+import cn.detachment.core.util.AesUtil;
 import lombok.SneakyThrows;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
@@ -53,7 +53,7 @@ public class DecryptedEnvironmentPostProcessor implements EnvironmentPostProcess
                     if (!v.startsWith(DECRYPT_PREFIX)) {
                         continue;
                     }
-                    decryptMap.put(key, AES.decrypt(v.substring(DECRYPT_PREFIX.length()), detachKey));
+                    decryptMap.put(key, AesUtil.decrypt(v.substring(DECRYPT_PREFIX.length()), detachKey));
                 }
 
             }
