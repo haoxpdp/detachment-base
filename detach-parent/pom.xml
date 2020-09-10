@@ -6,6 +6,9 @@
     <groupId>cn.detachment</groupId>
     <artifactId>detach-parent</artifactId>
     <version>2.0.0-RELEASE</version>
+    <modules>
+        <module>../detache-es</module>
+    </modules>
     <packaging>pom</packaging>
 
     <name>detachment-base</name>
@@ -37,9 +40,9 @@
         <main.basedir>${basedir}</main.basedir>
 
         <!-- Build -->
-        <java.version>8</java.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
 
         <java.encoding>UTF-8</java.encoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
@@ -254,7 +257,7 @@
                                     <additionalparam>-Xdoclint:none</additionalparam>
                                     <!-- 解决升级jdk11导致java-doc error -->
                                     <!-- https://www.it1352.com/1608997.html -->
-                                    <source>8</source>
+                                    <source>11</source>
                                 </configuration>
                             </execution>
                         </executions>
