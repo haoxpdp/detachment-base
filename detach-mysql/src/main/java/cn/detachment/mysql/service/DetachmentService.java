@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @author haoxp
  * @version v1.0
@@ -50,6 +52,7 @@ public abstract class DetachmentService<M extends DetachmentMapper<T>, T extends
             return true;
         }
         logger.warn("update with optimistic lock failed {} ", record);
+
         return false;
     }
 }
