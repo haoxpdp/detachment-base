@@ -8,6 +8,7 @@
     <version>2.0.0-RELEASE</version>
     <modules>
         <module>../detache-es</module>
+        <module>../detach-web</module>
     </modules>
     <packaging>pom</packaging>
 

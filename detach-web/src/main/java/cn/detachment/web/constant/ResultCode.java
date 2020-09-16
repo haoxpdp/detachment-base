@@ -1,4 +1,4 @@
-package cn.detachment.core.constant;
+package cn.detachment.web.constant;
 
 import lombok.Getter;
 
