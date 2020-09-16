@@ -8,6 +8,7 @@ import cn.detach.api.exception.UrlBuildException;
 import cn.detach.api.http.RemoteRequest;
 import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
+import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.ref.WeakReference;
@@ -15,6 +16,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 /**
  * url parse and build
@@ -52,43 +54,34 @@ public class UrlBuilder {
         Queue<Object> queue = new LinkedList<>();
         Map<String, Object> paramMap = new HashMap<>();
 
+        // 先遍历请求参数，过滤掉包含注释的参数
         for (int i = 0; i < args.length; i++) {
             Parameter parameter = parameters[i];
             parameter.getAnnotations();
             Object arg = args[i];
-            if (parameter.isAnnotationPresent(RemoteHeader.class)
-                    || parameter.isAnnotationPresent(RemoteFile.class)
-                    || parameter.isAnnotationPresent(RemoteForm.class)) {
-                Annotation[] annotations = parameter.getAnnotations();
-                if (annotations != null) {
-                    for (Annotation annotation :
-                            annotations) {
-                        TransferParamArg transferParamArg = annotationHandler.get(annotation.annotationType());
-                        if (transferParamArg != null) {
-                            transferParamArg.paramArg(parameter, arg, remoteRequest);
-                        }
+            Annotation[] annotations = parameter.getAnnotations();
+            if (annotations != null) {
+                for (Annotation annotation :
+                        annotations) {
+                    TransferParamArg transferParamArg = annotationHandler.get(annotation.annotationType());
+                    if (transferParamArg != null) {
+                        transferParamArg.paramArg(parameter, arg, remoteRequest);
                     }
                 }
-                if (parameter.isAnnotationPresent(RemoteHeader.class)) {
-                    if (arg instanceof Map) {
-                        remoteRequest.setHeader((Map<String, String>) arg);
-                    } else {
-                        remoteRequest.setHeader((Map<String, String>) JSONObject.toJSON(arg));
-                    }
-                } else if (parameter.isAnnotationPresent(RemoteFile.class)) {
-                    throw new UnsupportedFunction("unsupported @RemoteFile Annotation!");
+                if (parameter.isAnnotationPresent(RemoteParameter.class)) {
+                    paramMap.put(parameter.getAnnotation(RemoteParameter.class).name(), arg);
                 }
-                continue;
-            }
-            if (parameter.isAnnotationPresent(RemoteParameter.class)) {
-                paramMap.put(parameter.getAnnotation(RemoteParameter.class).name(), arg);
+                if (parameter.isAnnotationPresent(RemoteUrl.class) && StringUtils.isEmpty(originalUrl)) {
+                    originalUrl = String.valueOf(arg);
+                }
                 continue;
             }
             queue.offer(arg);
         }
-        List<TokenParser.ParameterMap> queryList = getUrlTemplate(method, originalUrl, paramMap);
+        // 解析url模板，获取参数列表
+        List<TokenParser.ParameterMap> queryConditionList = getUrlTemplate(method, originalUrl, paramMap);
 
-        for (TokenParser.ParameterMap parameterMap : queryList) {
+        for (TokenParser.ParameterMap parameterMap : queryConditionList) {
             if (parameterMap.getParameterType().equals(RemoteParameterType.STRING)) {
                 builder.append(parameterMap.getValue());
                 continue;

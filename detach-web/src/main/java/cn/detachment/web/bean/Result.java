@@ -1,7 +1,8 @@
-package cn.detachment.core.bean;
+package cn.detachment.web.bean;
 
-import cn.detachment.core.constant.ResultCode;
+import cn.detachment.web.constant.ResultCode;
 import lombok.Data;
+import org.springframework.util.Assert;
 
 /**
  * @author haoxp
@@ -11,11 +12,11 @@ import lombok.Data;
 
 @Data
 @SuppressWarnings("unused")
-public class Result<T> {
+public class Result<T> implements DetachResponse {
 
     private T data;
 
-    private Integer code;
+    private int code;
 
     private String message;
 
