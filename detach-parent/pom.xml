@@ -236,30 +236,30 @@
                         </executions>
                     </plugin>
                     <!-- Javadoc -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.4</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <show>private</show>
-                                    <nohelp>true</nohelp>
-                                    <charset>UTF-8</charset>
-                                    <encoding>UTF-8</encoding>
-                                    <docencoding>UTF-8</docencoding>
-                                    <additionalparam>-Xdoclint:none</additionalparam>
-                                    <!-- 解决升级jdk11导致java-doc error -->
-                                    <!-- https://www.it1352.com/1608997.html -->
-                                    <source>11</source>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                        <version>2.10.4</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <phase>package</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>jar</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <show>private</show>-->
+<!--                                    <nohelp>true</nohelp>-->
+<!--                                    <charset>UTF-8</charset>-->
+<!--                                    <encoding>UTF-8</encoding>-->
+<!--                                    <docencoding>UTF-8</docencoding>-->
+<!--                                    <additionalparam>-Xdoclint:none</additionalparam>-->
+<!--                                    &lt;!&ndash; 解决升级jdk11导致java-doc error &ndash;&gt;-->
+<!--                                    &lt;!&ndash; https://www.it1352.com/1608997.html &ndash;&gt;-->
+<!--                                    <source>11</source>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
 
                     <!-- 生成asc 校验文件 -->
 <!--                    <plugin>-->
