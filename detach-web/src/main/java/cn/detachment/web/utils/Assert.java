@@ -18,7 +18,7 @@ public interface Assert {
     BaseException newException(Throwable t, String msg);
 
     default void notNull(Object object) {
-        notNull(object, "param mustn't be null");
+        notNull(object, null);
     }
 
     default void notNull(Object obj, String msg) {
@@ -28,7 +28,7 @@ public interface Assert {
     }
 
     default void notEmpty(Collection<?> collection) {
-        notEmpty(collection, "collection param mustn't be empty");
+        notEmpty(collection, null);
     }
 
     default void notEmpty(Collection<?> collection, String msg) {
@@ -38,7 +38,7 @@ public interface Assert {
     }
 
     default void isBlank(String string) {
-        isBlank(string, "param mustn't be blamk");
+        isBlank(string, null);
     }
 
     default void isBlank(String str, String msg) {
@@ -54,12 +54,12 @@ public interface Assert {
     }
 
     default void isEmpty(String string) {
-        isEmpty(string, "param is empty");
+        isEmpty(string, null);
     }
 
 
     default void hasText(String text) {
-        hasText(text, "param must have text!");
+        hasText(text, null);
     }
 
     default void hasText(String text, String msg) {

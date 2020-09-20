@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- *
  * 业务断言异常
  *
  * @author haoxp
@@ -19,24 +18,14 @@ public enum BizAssert implements BizExceptionAssert {
     /**
      * 请求参数错误
      */
-    BAD_ARGUMENTS(403, "bad request argument");
+    BAD_ARGUMENTS(ResultCode.BAD_ARGUMENT);
 
     int code;
     String message;
 
-    Result<?> result;
-
-    BizAssert(int code, String message) {
-        this.code = code;
-        this.message = message;
-        this.result = new Result<>(code, null, message);
+    BizAssert(ResultCode resultCode) {
+        this.code = resultCode.getCode();
+        this.message = resultCode.getCodeMessage();
     }
-
-    BizAssert(Result<?> result) {
-        this.result = result;
-        this.code = result.getCode();
-        this.message = result.getMessage();
-    }
-
 
 }
