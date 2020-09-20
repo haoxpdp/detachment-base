@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @Component
 @ControllerAdvice
 @ConditionalOnWebApplication
-@ConditionalOnMissingBean(ExceptionHandler.class)
-public class ExceptionHandler {
+@ConditionalOnMissingBean(BizExceptionHandler.class)
+public class BizExceptionHandler {
 
     public static final String PROD_ENV = "prod";
 
     @Value("spring.profiles.active:dev")
     private String currentEnv;
+
+    public void test() {
+    }
 
 
 }

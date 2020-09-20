@@ -6,9 +6,6 @@ package cn.detachment.web.exception;
  */
 public class BaseException extends RuntimeException {
 
-    public BaseException(Object... args) {
-    }
-
     public BaseException(String msg) {
         super(msg);
     }
