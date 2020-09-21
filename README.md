@@ -2,6 +2,9 @@
 
 detachment base encapsulates the universal tool, like distributed lock,httpClient utils and so on
 
+
+**github package read token** 21bdadda7e719e5566ce76e68348652189f888cf
+
 ### main module
 * redis
 * mysql-plus
