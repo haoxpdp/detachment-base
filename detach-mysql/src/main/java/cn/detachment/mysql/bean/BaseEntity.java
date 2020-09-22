@@ -21,7 +21,4 @@ public abstract class BaseEntity implements Serializable {
 
     protected Integer optimistic;
 
-    protected LocalDateTime createTime;
-
-    protected LocalDateTime lastUpdateTime;
 }
