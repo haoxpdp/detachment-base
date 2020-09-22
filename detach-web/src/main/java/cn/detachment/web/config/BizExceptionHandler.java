@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @ConditionalOnWebApplication
 @ConditionalOnMissingBean(BizExceptionHandler.class)
-public class BizExceptionHandler {
+public abstract class BizExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(BizExceptionHandler.class);
 

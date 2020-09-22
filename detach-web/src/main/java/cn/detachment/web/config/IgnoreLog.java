@@ -1,4 +1,4 @@
-package cn.detachment.core.log;
+package cn.detachment.web.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
