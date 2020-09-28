@@ -8,6 +8,9 @@ import cn.detach.api.exception.UrlBuildException;
 import cn.detach.api.http.RemoteRequest;
 import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
@@ -27,6 +30,8 @@ import java.util.stream.Stream;
  */
 @SuppressWarnings("unchecked")
 public class UrlBuilder {
+
+    private static final Logger logger = LoggerFactory.getLogger(UrlBuilder.class);
 
     /**
      * url caches
@@ -60,7 +65,8 @@ public class UrlBuilder {
             parameter.getAnnotations();
             Object arg = args[i];
             Annotation[] annotations = parameter.getAnnotations();
-            if (annotations != null) {
+            if (annotations != null && annotations.length > 0) {
+                logger.info("{} {} ", annotations, annotations.length);
                 for (Annotation annotation :
                         annotations) {
                     TransferParamArg transferParamArg = annotationHandler.get(annotation.annotationType());
