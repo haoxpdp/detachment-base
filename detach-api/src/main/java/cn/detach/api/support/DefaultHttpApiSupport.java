@@ -94,7 +94,6 @@ public class DefaultHttpApiSupport implements HttpUtilApi {
         methodInstanceMap.put(HttpMethod.TRACE, RequestBuilder::trace);
         methodInstanceMap.put(HttpMethod.HEAD, RequestBuilder::head);
 
-
     }
 
 

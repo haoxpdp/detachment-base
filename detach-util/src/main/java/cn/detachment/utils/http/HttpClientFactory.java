@@ -31,7 +31,7 @@ public class HttpClientFactory extends HttpClientBuilder {
 
     }
 
-    public HttpClientFactory newInstance() {
+    public static HttpClientFactory newInstance() {
         return new HttpClientFactory();
     }
 
