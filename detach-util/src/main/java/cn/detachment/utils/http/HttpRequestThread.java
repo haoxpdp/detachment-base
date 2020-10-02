@@ -1,7 +1,6 @@
 package cn.detachment.utils.http;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
@@ -9,7 +8,6 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
@@ -70,7 +68,7 @@ public class HttpRequestThread implements Callable<String>, ResponseHandler<Stri
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CloseableHttpClient client = HttpClients.custom().setConnectionManager(HttpManager.getConnectionManager()).build();
+        CloseableHttpClient client = HttpClients.custom().setConnectionManager(HttpPoolManager.getDefaultSimpleConnectionPool()).build();
         HttpUriRequest request = new HttpGet("https://www.baidu.com");
 
         Future<String> submit = executorService.submit(new HttpRequestThread(client, request));
