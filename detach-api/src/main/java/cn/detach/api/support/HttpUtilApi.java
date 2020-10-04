@@ -2,6 +2,7 @@ package cn.detach.api.support;
 
 import cn.detach.api.http.RemoteRequest;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -9,62 +10,6 @@ import java.util.Map;
  */
 @SuppressWarnings("unused")
 public interface HttpUtilApi {
-
-    /**
-     * get
-     *
-     * @param url url
-     * @return java.lang.String
-     * @author haoxp
-     * @date 20/7/27 16:09
-     */
-    String get(String url);
-
-    /**
-     * post
-     *
-     * @param url  url
-     * @param body body
-     * @return java.lang.String
-     * @author haoxp
-     * @date 20/7/27 16:10
-     */
-    String post(String url, String body);
-
-    /**
-     * post
-     *
-     * @param url     url
-     * @param body    body
-     * @param timeout timeout
-     * @return java.lang.String
-     * @author haoxp
-     * @date 20/7/27 17:04
-     */
-    String post(String url, String body, int timeout);
-
-    /**
-     * post
-     *
-     * @param url   url
-     * @param param param
-     * @return java.lang.String
-     * @author haoxp
-     * @date 20/7/27 17:04
-     */
-    String post(String url, Map<String, Object> param);
-
-    /**
-     * post
-     *
-     * @param url     url
-     * @param param   param
-     * @param timeout timeout
-     * @return java.lang.String
-     * @author haoxp
-     * @date 20/7/27 17:05
-     */
-    String post(String url, Map<String, Object> param, int timeout);
 
 
     /**
@@ -75,5 +20,5 @@ public interface HttpUtilApi {
      * @author haoxp
      * @date 20/8/5
      */
-    String parserRemoteRequest(RemoteRequest remoteRequest);
+    String parserRemoteRequest(RemoteRequest remoteRequest) throws IOException;
 }

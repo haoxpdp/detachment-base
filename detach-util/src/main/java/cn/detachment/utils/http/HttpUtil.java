@@ -20,7 +20,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
@@ -219,7 +218,7 @@ public class HttpUtil {
 
     }
 
-    interface HttpMethodApi {
+    public interface HttpMethodApi {
 
         /**
          * instanceByHttpMethod

@@ -3,6 +3,8 @@ package cn.detach.api.http;
 import cn.detach.api.constant.HttpMethod;
 import lombok.*;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,12 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class RemoteRequest {
 
+    public static final int DEFAULT_TIMEOUT = 3000;
+
+    public static final int DEFAULT_CONNECTION_TIME = 3000;
+
+    public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+
     private String protocol;
 
     private String url;
@@ -27,11 +35,13 @@ public class RemoteRequest {
 
     private HttpMethod httpMethod;
 
-    private String encode = "utf-8";
+    private Charset encode = DEFAULT_CHARSET;
 
-    private String responseEncode = "utf-8";
+    private Charset responseCharset = DEFAULT_CHARSET;
 
-    private Integer timeout = 3000;
+    private Integer socketTimeout = DEFAULT_TIMEOUT;
+
+    private Integer connectTimeout = DEFAULT_CONNECTION_TIME;
 
     private Integer retryCount = 0;
 
