@@ -120,6 +120,10 @@ public class HttpUtil {
         }
     }
 
+    public static String get(String url) {
+        return get(url, null);
+    }
+
     public static String get(String url, final Map<String, Objects> params, Map<String, String> header) {
         return get(url, params, header);
     }
