@@ -3,11 +3,13 @@
 
     <springProperty name="INSTANCE_ID" source="spring.cloud.client.ipAddress" defaultValue="127.0.0.1"/>
 
-    <springProfile name="dev">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProfile name="dev,default">
         <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
-                <Pattern>%-70.120(%date{HH:mm:ss.SSS} [${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
-                </Pattern>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+                <charset>UTF-8</charset>
             </encoder>
         </appender>
 
@@ -17,6 +19,7 @@
         </root>
 
     </springProfile>
+
     <springProfile name="test">
         <include resource="file-out.xml"/>
     </springProfile>

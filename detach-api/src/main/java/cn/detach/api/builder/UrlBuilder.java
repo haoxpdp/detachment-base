@@ -60,29 +60,32 @@ public class UrlBuilder {
         Map<String, Object> paramMap = new HashMap<>();
 
         // 先遍历请求参数，过滤掉包含注释的参数
-        for (int i = 0; i < args.length; i++) {
-            Parameter parameter = parameters[i];
-            parameter.getAnnotations();
-            Object arg = args[i];
-            Annotation[] annotations = parameter.getAnnotations();
-            if (annotations != null && annotations.length > 0) {
-                logger.info("{} {} ", annotations, annotations.length);
-                for (Annotation annotation :
-                        annotations) {
-                    TransferParamArg transferParamArg = annotationHandler.get(annotation.annotationType());
-                    if (transferParamArg != null) {
-                        transferParamArg.paramArg(parameter, arg, remoteRequest);
+        if (args != null) {
+
+            for (int i = 0; i < args.length; i++) {
+                Parameter parameter = parameters[i];
+                parameter.getAnnotations();
+                Object arg = args[i];
+                Annotation[] annotations = parameter.getAnnotations();
+                if (annotations != null && annotations.length > 0) {
+                    logger.info("{} {} ", annotations, annotations.length);
+                    for (Annotation annotation :
+                            annotations) {
+                        TransferParamArg transferParamArg = annotationHandler.get(annotation.annotationType());
+                        if (transferParamArg != null) {
+                            transferParamArg.paramArg(parameter, arg, remoteRequest);
+                        }
                     }
+                    if (parameter.isAnnotationPresent(RemoteParameter.class)) {
+                        paramMap.put(parameter.getAnnotation(RemoteParameter.class).name(), arg);
+                    }
+                    if (parameter.isAnnotationPresent(RemoteUrl.class) && StringUtils.isEmpty(originalUrl)) {
+                        originalUrl = String.valueOf(arg);
+                    }
+                    continue;
                 }
-                if (parameter.isAnnotationPresent(RemoteParameter.class)) {
-                    paramMap.put(parameter.getAnnotation(RemoteParameter.class).name(), arg);
-                }
-                if (parameter.isAnnotationPresent(RemoteUrl.class) && StringUtils.isEmpty(originalUrl)) {
-                    originalUrl = String.valueOf(arg);
-                }
-                continue;
+                queue.offer(arg);
             }
-            queue.offer(arg);
         }
         // 解析url模板，获取参数列表
         List<TokenParser.ParameterMap> queryConditionList = getUrlTemplate(method, originalUrl, paramMap);
