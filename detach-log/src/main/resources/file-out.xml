@@ -29,22 +29,8 @@
         </filter>
     </appender>
 
-    <appender name="allAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/data/log/${appName}/all.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/data/log/${appName}/all/all%d{yyyy-MM-dd}.log</fileNamePattern>
-        </rollingPolicy>
-        <encoder>
-            <Pattern>%-70.120(%date{HH:mm:ss.SSS} [${INSTANCE_ID},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] %-25.50(%logger{15}:%L) [%-5.5level] ): %msg %n
-            </Pattern>
-        </encoder>
-        <filter class="cn.detachment.log.filter.LessThanOrEqualToFilter">
-            <level>ERROR</level>
-        </filter>
-    </appender>
     <root level="INFO">
         <appender-ref ref="infoAppender"/>
         <appender-ref ref="errorAppender"/>
-        <appender-ref ref="allAppender"/>
     </root>
 </included>
