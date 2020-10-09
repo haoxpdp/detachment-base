@@ -2,7 +2,6 @@ package cn.detachment.example.api;
 
 import cn.detach.api.annoation.ApiSupport;
 import cn.detach.api.annoation.RemoteApi;
-import cn.detach.api.annoation.RemoteUrl;
 
 /**
  * @author haoxp
@@ -11,7 +10,10 @@ import cn.detach.api.annoation.RemoteUrl;
 @ApiSupport
 public interface TestApi {
 
+    @RemoteApi(
+            url = "https://ip.sb/"
+    )
+    String testIpSb();
 
-    @RemoteApi
-    String baidu(@RemoteUrl String url);
+
 }

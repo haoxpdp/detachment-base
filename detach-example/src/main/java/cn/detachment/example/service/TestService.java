@@ -13,7 +13,4 @@ public class TestService {
 
     private static final Logger logger = LoggerFactory.getLogger(TestService.class);
 
-    public void test() {
-        logger.info("service test()!!!");
-    }
 }

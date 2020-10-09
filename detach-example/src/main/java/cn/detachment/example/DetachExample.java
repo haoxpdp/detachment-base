@@ -2,15 +2,15 @@ package cn.detachment.example;
 
 import cn.detach.api.annoation.RemoteApiScanner;
 import cn.detachment.example.api.TestApi;
-import cn.detachment.example.service.TestService;
 import cn.detachment.web.bean.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -30,21 +30,22 @@ public class DetachExample implements CommandLineRunner {
         SpringApplication.run(DetachExample.class, args);
     }
 
+
+    @Value("${spring.profiles.active:}")
+    String active;
+
     @Resource
     private TestApi testApi;
 
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println(testApi.baidu("https://www.baidu.com"));
-    }
-
-    @Resource
-    private TestService testService;
-
     @GetMapping("/test")
     public Result<?> test() {
-        logger.info("test!!!!!!!!!!!!!!!!");
-        testService.test();
+        logger.info("test");
         return Result.success();
     }
+
+    @Override
+    public void run(String... args) throws Exception {
+        logger.info("{}", 123);
+    }
+
 }
