@@ -8,4 +8,5 @@
 
 ### 2.0.1(doing)
 
-* [ ]  get增加`get(String url)`方法
+* [x] httpUtil增加`get(String url)`方法
+* [ ] 增加Collector增强类(实现对BigDecimal的分组求和等)
