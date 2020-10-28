@@ -8,4 +8,6 @@
 
 ### 2.0.1(doing)
 
-* [ ]  get增加`get(String url)`方法
+* [ ]  完善httpUtil方法
+    * [ ] get增加`get(String url)`方法
+* [ ] 
