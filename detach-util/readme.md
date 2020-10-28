@@ -8,6 +8,6 @@
 
 ### 2.0.1(doing)
 
-* [ ]  完善httpUtil方法
+* [ ] 完善httpUtil方法
     * [ ] get增加`get(String url)`方法
-* [ ] 
+* [ ] 扩展Collectors，增加对BigDecimal支持
