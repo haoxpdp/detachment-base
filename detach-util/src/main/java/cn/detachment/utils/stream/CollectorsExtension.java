@@ -8,6 +8,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * 仿照Collectors类
@@ -17,13 +18,14 @@ import java.util.stream.Collector;
  *  Map<String, BigDecimal> collect = beans.stream().collect(
  *      Collectors.groupingBy(
  *           Bean::getXxxx,
- *           CollectorUtils.toBigDecimalFunction(Bean::getValue)
+ *           CollectorsExtension.toBigDecimalFunction(Bean::getValue)
  *  ));
  * </pre>
  *
  * @author haoxp
  * @date 20/10/28
  */
+@SuppressWarnings("all")
 public class CollectorsExtension {
 
     static final Set<Collector.Characteristics> CH_NOID = Collections.emptySet();
