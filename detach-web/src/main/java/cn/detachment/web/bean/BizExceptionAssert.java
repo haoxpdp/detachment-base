@@ -11,11 +11,24 @@ import org.springframework.util.StringUtils;
  */
 public interface BizExceptionAssert extends DetachResponse, Assert {
 
+    /**
+     * newException
+     *
+     * @param msg msg
+     * @return exception
+     */
     @Override
     default BaseException newException(String msg) {
         return new BizException(getCode(), StringUtils.isEmpty(msg) ? getMessage() : msg);
     }
 
+    /**
+     * newException
+     *
+     * @param t t
+     * @param msg msg
+     * @return exception
+     */
     @Override
     default BaseException newException(Throwable t, String msg) {
         return new BizException(t, getCode(), StringUtils.isEmpty(msg) ? getMessage() : msg);

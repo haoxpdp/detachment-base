@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * @author haoxp
  */
 @Target(ElementType.METHOD)
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface IgnoreLog {
 
     /**
