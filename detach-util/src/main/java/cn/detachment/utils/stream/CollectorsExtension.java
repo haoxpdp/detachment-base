@@ -8,7 +8,6 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * 仿照Collectors类
@@ -100,6 +99,49 @@ public class CollectorsExtension {
                 },
                 a -> a[0], CH_NOID);
     }
+
+
+    public static <T> Collector<T, ?, BigDecimal>
+    summingLong(ToBigDecimalFunction<? super T> mapper) {
+        return new CollectorImpl<>(
+                () -> new BigDecimal[1],
+                (a, t) -> {
+                    a[0].add(mapper.applyAsBigDecimal(t));
+                },
+                (a, b) -> {
+                    a[0].add(b[0]);
+                    return a;
+                },
+                a -> a[0], CH_NOID);
+    }
+
+
+    /**
+     * Returns a {@code Collector} that produces the arithmetic mean of an integer-valued
+     * function applied to the input elements.  If no elements are present,
+     * the result is 0.
+     *
+     * @param <T>    the type of the input elements
+     * @param mapper a function extracting the property to be averaged
+     * @return a {@code Collector} that produces the arithmetic mean of a
+     * derived property
+     */
+    public static <T> Collector<T, ?, Double>
+    averagingBigDecimal(ToBigDecimalFunction<? super T> mapper) {
+        return new CollectorImpl<>(
+                () -> new BigDecimal[2],
+                (a, t) -> {
+                    a[0].add(mapper.applyAsBigDecimal(t));
+                    a[1] = a[1].add(BigDecimal.ONE);
+                },
+                (a, b) -> {
+                    a[0].add(b[0]);
+                    a[1] = a[1].add(b[1]);
+                    return a;
+                },
+                a -> (a[1].equals(BigDecimal.ZERO)) ? 0.0d : (double) a[0].intValue() / a[1].intValue(), CH_NOID);
+    }
+
 
     public interface ToBigDecimalFunction<T> {
         BigDecimal applyAsBigDecimal(T t);
