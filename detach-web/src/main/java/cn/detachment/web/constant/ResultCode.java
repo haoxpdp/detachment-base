@@ -14,7 +14,7 @@ public enum ResultCode {
      */
     SUCCESS(200, "success!"),
     BAD_ARGUMENT(400, "bad request args!"),
-    SERVER_ERROR(500, "server_error!");
+    SERVER_ERROR(500, "server error!");
 
     @Getter
     private final Integer code;
