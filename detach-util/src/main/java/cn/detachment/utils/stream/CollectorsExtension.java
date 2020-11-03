@@ -102,14 +102,14 @@ public class CollectorsExtension {
 
 
     public static <T> Collector<T, ?, BigDecimal>
-    summingLong(ToBigDecimalFunction<? super T> mapper) {
+    summingBigdecimal(ToBigDecimalFunction<? super T> mapper) {
         return new CollectorImpl<>(
-                () -> new BigDecimal[1],
+                () -> new BigDecimal[]{BigDecimal.ZERO},
                 (a, t) -> {
-                    a[0].add(mapper.applyAsBigDecimal(t));
+                    a[0] = a[0].add(mapper.applyAsBigDecimal(t));
                 },
                 (a, b) -> {
-                    a[0].add(b[0]);
+                    a[0] = a[0].add(b[0]);
                     return a;
                 },
                 a -> a[0], CH_NOID);

@@ -21,10 +21,12 @@ public class TestDownload {
             HttpEntity entity = response.getEntity();
             File file = new File("h:\\a.png");
             try (InputStream inputStream = entity.getContent();
-                 FileOutputStream fos = new FileOutputStream(file); FileChannel channel = fos.getChannel()) {
-                ReadableByteChannel source = Channels.newChannel(inputStream);
+                 FileOutputStream fos = new FileOutputStream(file); FileChannel channel = fos.getChannel();
+                 ReadableByteChannel source = Channels.newChannel(inputStream)) {
+
                 System.out.println(entity.getContentLength());
                 channel.transferFrom(source, 0, entity.getContentLength());
+
 
             }
             return null;
