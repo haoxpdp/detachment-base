@@ -1,6 +1,6 @@
 package cn.detachment.web.utils;
 
-import cn.detachment.web.exception.BaseException;
+import cn.detachment.web.exception.ServiceException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -13,9 +13,9 @@ import java.util.Collection;
 @SuppressWarnings("all")
 public interface Assert {
 
-    BaseException newException(String msg);
+    ServiceException newException(String msg);
 
-    BaseException newException(Throwable t, String msg);
+    ServiceException newException(Throwable t, String msg);
 
     default void notNull(Object object) {
         notNull(object, null);

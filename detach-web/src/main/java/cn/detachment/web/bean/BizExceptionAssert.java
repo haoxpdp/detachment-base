@@ -2,7 +2,7 @@ package cn.detachment.web.bean;
 
 import cn.detachment.web.exception.BizException;
 import cn.detachment.web.utils.Assert;
-import cn.detachment.web.exception.BaseException;
+import cn.detachment.web.exception.ServiceException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -18,7 +18,7 @@ public interface BizExceptionAssert extends DetachResponse, Assert {
      * @return exception
      */
     @Override
-    default BaseException newException(String msg) {
+    default ServiceException newException(String msg) {
         return new BizException(getCode(), StringUtils.isEmpty(msg) ? getMessage() : msg);
     }
 
@@ -30,7 +30,7 @@ public interface BizExceptionAssert extends DetachResponse, Assert {
      * @return exception
      */
     @Override
-    default BaseException newException(Throwable t, String msg) {
+    default ServiceException newException(Throwable t, String msg) {
         return new BizException(t, getCode(), StringUtils.isEmpty(msg) ? getMessage() : msg);
     }
 }

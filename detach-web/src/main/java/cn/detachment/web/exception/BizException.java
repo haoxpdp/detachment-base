@@ -4,7 +4,7 @@ package cn.detachment.web.exception;
  * @author haoxp
  * @date 20/9/20
  */
-public class BizException extends BaseException {
+public class BizException extends ServiceException {
 
     public BizException(String msg) {
         super(msg);
