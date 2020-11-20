@@ -9,7 +9,6 @@ import lombok.Setter;
  * @date 20/9/16
  */
 public class ServiceException extends RuntimeException {
-
     @Getter
     @Setter
     private int code;
