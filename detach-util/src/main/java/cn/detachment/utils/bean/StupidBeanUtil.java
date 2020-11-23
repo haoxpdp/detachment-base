@@ -1,4 +1,4 @@
-package cn.detachment.core.util;
+package cn.detachment.utils.bean;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
@@ -22,7 +22,7 @@ public class StupidBeanUtil extends BeanUtils {
 
     public static void copy(Class<?> sourceClass, Class<?> targetClass, @Nullable String... ignoreProperties) throws BeansException {
 
-        PropertyDescriptor[] targetPds = getPropertyDescriptors(targetClass);
+        PropertyDescriptor[] targetPds = BeanUtils.getPropertyDescriptors(targetClass);
         List<String> ignoreList = (ignoreProperties != null ? Arrays.asList(ignoreProperties) : null);
 
         String resourceName = getObjectName(sourceClass);
@@ -34,10 +34,10 @@ public class StupidBeanUtil extends BeanUtils {
 
                 String sourcePropertyName = targetPd.getName();
                 sourcePropertyName = formatNameToHump(sourcePropertyName);
-                PropertyDescriptor sourcePd = getPropertyDescriptor(sourceClass, sourcePropertyName);
+                PropertyDescriptor sourcePd = BeanUtils.getPropertyDescriptor(sourceClass, sourcePropertyName);
                 if (sourcePd == null) {
                     sourcePropertyName = formatNameToDb(sourcePropertyName);
-                    sourcePd = getPropertyDescriptor(sourceClass, sourcePropertyName);
+                    sourcePd = BeanUtils.getPropertyDescriptor(sourceClass, sourcePropertyName);
                 }
                 if (sourcePd != null) {
                     Method readMethod = sourcePd.getReadMethod();
