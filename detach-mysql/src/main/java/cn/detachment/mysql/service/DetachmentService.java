@@ -24,7 +24,7 @@ public abstract class DetachmentService<M extends DetachmentMapper<T>, T extends
     protected static final SnowflakeIdWorker ID_MAKER;
 
     static {
-        String ip = IpUtil.getIp();
+        String ip = IpUtil.getIp() == null ? "127.0.0.1" : IpUtil.getIp();
         int id = Integer.parseInt(ip.split("\\.")[3]) % 32;
         ID_MAKER = new SnowflakeIdWorker(id, Integer.parseInt("0"));
     }

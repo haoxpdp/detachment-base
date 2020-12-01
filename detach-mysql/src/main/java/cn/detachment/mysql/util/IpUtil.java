@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.UnknownHostException;
 import java.util.Enumeration;
 
 /**
@@ -29,13 +30,13 @@ public class IpUtil {
                 return localAddress;
             }
         } catch (Throwable e) {
-            logger.error("Failed to retriving ip address, " + e.getMessage(), e);
+            logger.error("Failed to retrieving ip address, " + e.getMessage(), e);
         }
         return localAddress;
     }
 
 
-    private static InetAddress getFirstValidAddress() {
+    private static InetAddress getFirstValidAddress() throws UnknownHostException {
         InetAddress localAddress = getValidAddressByInetAddress();
         if (localAddress == null) {
             try {
@@ -55,28 +56,30 @@ public class IpUtil {
                                     }
                                 } catch (Throwable e) {
                                     logger.error(
-                                            "Failed to retriving ip address, " + e.getMessage(), e);
+                                            "Failed to retrieving ip address, " + e.getMessage(), e);
                                 }
                             }
                         } catch (Throwable e) {
-                            logger.error("Failed to retriving ip address, " + e.getMessage(), e);
+                            logger.error("Failed to retrieving ip address, " + e.getMessage(), e);
                         }
                     }
                 }
             } catch (Throwable e) {
-                logger.error("Failed to retriving ip address, " + e.getMessage(), e);
+                logger.error("Failed to retrieving ip address, " + e.getMessage(), e);
             }
         }
 
-        logger.error("Could not get local host ip address, will use 127.0.0.1 instead.");
+        if (localAddress == null) {
+            logger.error("Could not get local host ip address, will use 127.0.0.1 instead.");
+            localAddress = InetAddress.getByName("127.0.0.1");
+        }
         return localAddress;
     }
 
     /**
      * get address
-     *
      */
-    private static InetAddress getAddress() {
+    private static InetAddress getAddress() throws UnknownHostException {
         if (LOCAL_ADDRESS != null) {
             return LOCAL_ADDRESS;
         }
@@ -87,10 +90,14 @@ public class IpUtil {
 
     /**
      * get ip
-     *
      */
     public static String getIp() {
-        InetAddress address = getAddress();
+        InetAddress address = null;
+        try {
+            address = getAddress();
+        } catch (UnknownHostException e) {
+            logger.error("获取ip失败！");
+        }
         if (address == null) {
             return null;
         }
