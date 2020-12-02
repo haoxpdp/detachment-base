@@ -11,9 +11,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author haoxp
@@ -42,6 +48,16 @@ public class DetachExample implements CommandLineRunner {
         logger.info("test");
         return Result.success();
     }
+
+    @PostMapping("/uploadFile")
+    public Result<?> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+
+        File f = new File("H:\\Desktop\\tmp");
+        file.transferTo(f);
+
+        return Result.success();
+    }
+
 
     @Override
     public void run(String... args) throws Exception {

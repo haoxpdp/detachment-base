@@ -1,3 +1,10 @@
 server:
   port: 9382
-
+  tomcat:
+    max-swallow-size: 2000MB
+spring:
+  servlet:
+    multipart:
+      max-file-size: 2000MB
+      enabled: true
+      max-request-size: 2000MB
