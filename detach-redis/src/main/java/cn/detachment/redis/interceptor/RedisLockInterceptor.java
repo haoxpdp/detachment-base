@@ -10,12 +10,14 @@ import org.aopalliance.intercept.MethodInvocation;
  */
 public class RedisLockInterceptor implements MethodInterceptor {
 
-    private Lock redisLock;
+    private Lock redisLock = new Lock();
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        System.out.println("---RedisLockInterceptor---");
-        return invocation.proceed();
+        String lockVal = redisLock.lock("fasdfasdf", 123123L);
+        Object returnVal = invocation.proceed();
+        redisLock.release("fasdfasdf",lockVal);
+        return returnVal;
     }
 
     public Lock getRedisLock() {

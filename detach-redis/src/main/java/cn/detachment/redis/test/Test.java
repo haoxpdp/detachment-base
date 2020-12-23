@@ -17,7 +17,6 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 public class Test {
 
     public static void main(String[] args) {
-        String pointcutExpression = "execution( int cn.detachment.redis.test.Test.run())";
         ProxyFactoryBean factory = new ProxyFactoryBean();
         factory.setTarget(new Test());
         Pointcut cut = new AnnotationMethodPointcut(DetachLock.class);

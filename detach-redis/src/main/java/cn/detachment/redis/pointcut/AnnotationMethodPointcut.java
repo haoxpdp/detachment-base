@@ -23,7 +23,7 @@ public class AnnotationMethodPointcut extends StaticMethodMatcherPointcut {
 
     public AnnotationMethodPointcut(Class<? extends Annotation> annotationType) {
         this.methodResolver = new AnnotationMethodMatcher(annotationType);
-        setClassFilter(new AnnotationClassOrMethodFilter(annotationType));
+//        setClassFilter(new AnnotationClassOrMethodFilter(annotationType));
     }
 
     /**
@@ -38,7 +38,7 @@ public class AnnotationMethodPointcut extends StaticMethodMatcherPointcut {
 
     @Override
     public boolean matches(Method method, Class<?> targetClass) {
-        return getClassFilter().matches(targetClass) || this.methodResolver.matches(method, targetClass);
+        return this.methodResolver.matches(method, targetClass);
     }
 
     private final class AnnotationClassOrMethodFilter extends AnnotationClassFilter {
