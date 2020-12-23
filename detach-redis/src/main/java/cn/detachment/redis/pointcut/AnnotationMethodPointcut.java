@@ -23,6 +23,7 @@ public class AnnotationMethodPointcut extends StaticMethodMatcherPointcut {
 
     public AnnotationMethodPointcut(Class<? extends Annotation> annotationType) {
         this.methodResolver = new AnnotationMethodMatcher(annotationType);
+        setClassFilter(new AnnotationClassOrMethodFilter(annotationType));
     }
 
     /**
@@ -37,6 +38,48 @@ public class AnnotationMethodPointcut extends StaticMethodMatcherPointcut {
 
     @Override
     public boolean matches(Method method, Class<?> targetClass) {
-        return this.methodResolver.matches(method, targetClass);
+        return getClassFilter().matches(targetClass) && this.methodResolver.matches(method, targetClass);
+    }
+
+    private final class AnnotationClassOrMethodFilter extends AnnotationClassFilter {
+
+        private final AnnotationMethodsResolver methodResolver;
+
+        public AnnotationClassOrMethodFilter(Class<? extends Annotation> annotationType) {
+            super(annotationType, true);
+            methodResolver = new AnnotationMethodsResolver(annotationType);
+        }
+
+        @Override
+        public boolean matches(Class<?> clazz) {
+            return super.matches(clazz) || this.methodResolver.hasAnnotatedMethods(clazz);
+        }
+    }
+
+    private static class AnnotationMethodsResolver {
+
+        private Class<? extends Annotation> annotationType;
+
+        public AnnotationMethodsResolver(Class<? extends Annotation> annotationType) {
+            this.annotationType = annotationType;
+        }
+
+        public boolean hasAnnotatedMethods(Class<?> clazz) {
+            final AtomicBoolean found = new AtomicBoolean(false);
+            ReflectionUtils.doWithMethods(clazz, new ReflectionUtils.MethodCallback() {
+                @Override
+                public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
+                    if (found.get()) {
+                        return;
+                    }
+                    Annotation annotation = AnnotationUtils.findAnnotation(method, annotationType);
+                    if (annotation != null) {
+                        found.set(true);
+                    }
+                }
+            });
+            return found.get();
+        }
+
     }
 }
