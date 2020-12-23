@@ -35,7 +35,7 @@ public class TestIntroductionInterceptor implements IntroductionInterceptor, Tes
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         if (implementsInterface(invocation.getMethod().getDeclaringClass())) {
-            System.out.println("我是引介增强的方法体~~~invoke");
+            System.out.println("introduction invocation");
             return invocation.getMethod().invoke(this, invocation.getArguments());
         }
         return invocation.proceed();
