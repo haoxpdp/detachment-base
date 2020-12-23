@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * @author haoxp
  * @date 20/12/23
  */
-public class RedisLock {
+public class Lock {
 
     public String lock(String key, Long expire) {
         String val = UUID.randomUUID().toString();

@@ -1,9 +1,12 @@
 package cn.detachment.redis.test;
 
+import cn.detachment.redis.annoatation.DetachLock;
+import cn.detachment.redis.interceptor.RedisLockInterceptor;
+import cn.detachment.redis.pointcut.AnnotationMethodPointcut;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Advisor;
-import org.springframework.aop.aspectj.AspectJExpressionPointcut;
+import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 
@@ -17,21 +20,15 @@ public class Test {
         String pointcutExpression = "execution( int cn.detachment.redis.test.Test.run())";
         ProxyFactoryBean factory = new ProxyFactoryBean();
         factory.setTarget(new Test());
-        AspectJExpressionPointcut cut = new AspectJExpressionPointcut();
-        cut.setExpression(pointcutExpression);
-        Advice advice = (MethodInterceptor) methodInvocation -> {
-            System.out.println("----before proceed");
-            Object returnVal = methodInvocation.proceed();
-            System.out.println("----after proceed");
-            return returnVal;
-        };
+        Pointcut cut = new AnnotationMethodPointcut(DetachLock.class);
+        Advice advice = new RedisLockInterceptor();
         Advisor advisor = new DefaultPointcutAdvisor(cut, advice);
         factory.addAdvisor(advisor);
         Test test = (Test) factory.getObject();
         test.run();
         test.tests();
     }
-
+    @DetachLock
     public int run() {
         System.out.println("run");
         return 1;
