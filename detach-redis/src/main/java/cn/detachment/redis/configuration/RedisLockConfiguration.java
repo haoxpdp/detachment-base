@@ -2,6 +2,7 @@ package cn.detachment.redis.configuration;
 
 import cn.detachment.redis.annoatation.DetachLock;
 import cn.detachment.redis.interceptor.AnnotationAwareRedisLockInterceptor;
+import cn.detachment.redis.interceptor.RedisLockInterceptor;
 import cn.detachment.redis.pointcut.AnnotationMethodPointcut;
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.Pointcut;
@@ -31,8 +32,7 @@ public class RedisLockConfiguration extends AbstractPointcutAdvisor implements B
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        this.advice = new AnnotationAwareRedisLockInterceptor();
-        ((BeanFactoryAware) advice).setBeanFactory(beanFactory);
+        this.advice = new RedisLockInterceptor();
         this.pointcut = AnnotationMethodPointcut.buildPointCut(DetachLock.class);
 
     }

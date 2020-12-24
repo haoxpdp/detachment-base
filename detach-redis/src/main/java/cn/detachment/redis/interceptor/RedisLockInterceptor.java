@@ -1,5 +1,6 @@
 package cn.detachment.redis.interceptor;
 
+import cn.detachment.redis.annoatation.DetachLock;
 import cn.detachment.redis.lock.Lock;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -14,6 +15,7 @@ public class RedisLockInterceptor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
+
         String lockVal = redisLock.lock("fasdfasdf", 123123L);
         Object returnVal = invocation.proceed();
         redisLock.release("fasdfasdf",lockVal);

@@ -9,11 +9,14 @@ import org.springframework.aop.Advisor;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.stereotype.Component;
 
 /**
  * @author haoxp
  * @date 20/12/22
  */
+@Component
 public class Test {
 
     public static void main(String[] args) {
@@ -24,7 +27,6 @@ public class Test {
         Advisor advisor = new DefaultPointcutAdvisor(cut, advice);
         factory.addAdvisor(advisor);
         Test test = (Test) factory.getObject();
-        test.run();
         test.tests();
     }
     @DetachLock
@@ -34,6 +36,15 @@ public class Test {
     }
 
     public void tests() {
+        run();
         System.out.println("test");
+    }
+    public void A() {
+        B();
+    }
+
+    @Retryable(Exception.class)
+    public void B() {
+        throw new RuntimeException("retry...");
     }
 }
