@@ -59,7 +59,7 @@ public class UrlBuilder {
         Queue<Object> queue = new LinkedList<>();
         Map<String, Object> paramMap = new HashMap<>();
 
-        // 先遍历请求参数，过滤掉包含注释的参数
+        // 先遍历请求参数，处理包含注释的参数
         if (args != null) {
 
             for (int i = 0; i < args.length; i++) {
@@ -82,8 +82,12 @@ public class UrlBuilder {
                     if (parameter.isAnnotationPresent(RemoteUrl.class) && StringUtils.isEmpty(originalUrl)) {
                         originalUrl = String.valueOf(arg);
                     }
+                    if (parameter.isAnnotationPresent(RemoteApiBody.class)) {
+                        remoteRequest.setRequestBody(arg);
+                    }
                     continue;
                 }
+                // 其他参数
                 queue.offer(arg);
             }
         }
@@ -184,7 +188,7 @@ public class UrlBuilder {
     static {
         contentTypeHandler = new HashMap<>();
 
-        contentTypeHandler.put(ContentType.JSON, ((arg, request) -> request.setRequestBody(JSONObject.toJSONString(arg))));
+        contentTypeHandler.put(ContentType.JSON, ((arg, request) -> request.setRequestBody(arg)));
 
         contentTypeHandler.put(ContentType.FORM, ((arg, request) -> request.setFormData((Map<String, Object>) JSONObject.toJSON(arg))));
     }

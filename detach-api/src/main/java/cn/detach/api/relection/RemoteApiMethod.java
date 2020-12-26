@@ -63,11 +63,11 @@ public class RemoteApiMethod {
         if (StringUtils.isEmpty(response)) {
             throw new HttpExecuteException("url " + remoteRequest.getUrl() + " response is empty");
         }
-        Class<?> clzz = method.getReturnType();
-        if (clzz.equals(String.class)) {
+        Class<?> clazz = method.getReturnType();
+        if (clazz.equals(String.class)) {
             return response;
         } else {
-            return JSONObject.parseObject(response, clzz);
+            return JSONObject.parseObject(response, clazz);
         }
     }
 
