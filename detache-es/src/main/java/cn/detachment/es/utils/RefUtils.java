@@ -25,7 +25,7 @@ public class RefUtils {
 
     public static final String PREFIX_IS = "is";
 
-    public static <T> String getFiledName(FiledFunction<T, ?> filedFunction) {
+    public static <T> String getFieldName(FieldFunction<T, ?> filedFunction) {
         SerializedLambda lambda = getSerializedLambda(filedFunction);
         String methodName = lambda.getImplMethodName();
         String prefix = null;

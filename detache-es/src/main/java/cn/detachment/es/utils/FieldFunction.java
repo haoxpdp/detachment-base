@@ -9,5 +9,5 @@ import java.util.function.Function;
  * @author haoxp
  */
 @FunctionalInterface
-public interface FiledFunction<T, R> extends Function<T, R>, Serializable {
+public interface FieldFunction<T, R> extends Function<T, R>, Serializable {
 }
