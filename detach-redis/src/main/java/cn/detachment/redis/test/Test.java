@@ -12,12 +12,17 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 /**
  * @author haoxp
  * @date 20/12/22
  */
 @Component
 public class Test {
+
+    @Resource
+    private Test test;
 
     public static void main(String[] args) {
         ProxyFactoryBean factory = new ProxyFactoryBean();
@@ -29,6 +34,7 @@ public class Test {
         Test test = (Test) factory.getObject();
         test.tests();
     }
+
     @DetachLock
     public int run() {
         System.out.println("run");
@@ -36,9 +42,10 @@ public class Test {
     }
 
     public void tests() {
-        run();
+        test.run();
         System.out.println("test");
     }
+
     public void A() {
         B();
     }

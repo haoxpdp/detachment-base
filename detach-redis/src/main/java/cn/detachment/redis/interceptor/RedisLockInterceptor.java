@@ -1,7 +1,6 @@
 package cn.detachment.redis.interceptor;
 
-import cn.detachment.redis.annoatation.DetachLock;
-import cn.detachment.redis.lock.Lock;
+import cn.detachment.redis.lock.RedisLock;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
@@ -11,7 +10,7 @@ import org.aopalliance.intercept.MethodInvocation;
  */
 public class RedisLockInterceptor implements MethodInterceptor {
 
-    private Lock redisLock = new Lock();
+    private RedisLock redisLock = new RedisLock();
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -22,11 +21,11 @@ public class RedisLockInterceptor implements MethodInterceptor {
         return returnVal;
     }
 
-    public Lock getRedisLock() {
+    public RedisLock getRedisLock() {
         return redisLock;
     }
 
-    public void setRedisLock(Lock redisLock) {
+    public void setRedisLock(RedisLock redisLock) {
         this.redisLock = redisLock;
     }
 }
