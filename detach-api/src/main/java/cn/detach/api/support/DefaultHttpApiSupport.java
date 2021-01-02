@@ -13,6 +13,12 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.boot.env.OriginTrackedMapPropertySource;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertySource;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
@@ -27,7 +33,7 @@ import java.util.stream.Collectors;
  * @date 20/7/27
  */
 @SuppressWarnings("unused")
-public class DefaultHttpApiSupport implements HttpUtilApi {
+public class DefaultHttpApiSupport implements HttpUtilApi, EnvironmentPostProcessor {
 
     public static volatile RequestConfig DEFAULT_REQUEST = RequestConfig.custom()
             .setConnectionRequestTimeout(RemoteRequest.DEFAULT_TIMEOUT)
@@ -55,6 +61,11 @@ public class DefaultHttpApiSupport implements HttpUtilApi {
 
         return HttpUtil.request(createRequestBuilderByRemoteRequest(remoteRequest), remoteRequest.getHeader(),
                 DefaultStringHandler.getInstanceByCharset(remoteRequest.getResponseCharset()), getRequestConfig(remoteRequest));
+    }
+
+    @Override
+    public String getParamFromEnv(String expression) {
+        return null;
     }
 
     public RequestBuilder createRequestBuilderByRemoteRequest(RemoteRequest remoteRequest) throws IOException {
@@ -116,4 +127,16 @@ public class DefaultHttpApiSupport implements HttpUtilApi {
     }
 
 
+    @Override
+    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+        MutablePropertySources propertySources = environment.getPropertySources();
+        for (PropertySource<?> propertySource : propertySources) {
+
+            if (propertySource instanceof OriginTrackedMapPropertySource) {
+                OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) propertySource;
+                for (String key : source.getPropertyNames()) {
+                }
+            }
+        }
+    }
 }

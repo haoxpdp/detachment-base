@@ -21,4 +21,6 @@ public interface HttpUtilApi {
      * @date 20/8/5
      */
     String parserRemoteRequest(RemoteRequest remoteRequest) throws IOException;
+
+    String getParamFromEnv(String expression);
 }
