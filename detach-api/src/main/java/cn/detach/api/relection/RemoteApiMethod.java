@@ -30,8 +30,6 @@ public class RemoteApiMethod {
 
     private int headerArgIndex = -1;
 
-    private final String urlTemplate;
-
     @SuppressWarnings("unused")
     private Map<String, Object> parameterMap;
 
@@ -49,14 +47,12 @@ public class RemoteApiMethod {
                     + method.getDeclaringClass() + " " + method.getName());
         }
         this.parameters = method.getParameters();
-        this.urlTemplate = remoteApi.url();
         parseParameters();
     }
 
     public Object execute(Object[] args, HttpUtilApi apiSupport) throws Throwable {
-        String url = urlTemplate;
 
-        RemoteRequest remoteRequest = UrlBuilder.buildRemoteRequest(method, args, url, remoteApi);
+        RemoteRequest remoteRequest = UrlBuilder.buildRemoteRequest(method, args, remoteApi, apiSupport);
 
         String response = apiSupport.parserRemoteRequest(remoteRequest);
 

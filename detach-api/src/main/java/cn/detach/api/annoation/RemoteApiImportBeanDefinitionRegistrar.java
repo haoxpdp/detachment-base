@@ -3,10 +3,12 @@ package cn.detach.api.annoation;
 import cn.detach.api.factory.RemoteApiFactoryBean;
 import cn.detach.api.support.DefaultHttpApiSupport;
 import cn.detach.api.support.HttpUtilApi;
+import cn.detach.api.support.HttpUtilSupportFactoryBean;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -32,6 +34,8 @@ import org.springframework.util.SystemPropertyUtils;
 import java.io.IOException;
 import java.util.*;
 
+import static org.springframework.beans.factory.support.AbstractBeanDefinition.AUTOWIRE_BY_TYPE;
+
 /**
  * scan packages and register beanDefinition to spring container
  *
@@ -49,7 +53,7 @@ public class RemoteApiImportBeanDefinitionRegistrar implements ImportBeanDefinit
     private MetadataReaderFactory metadataReaderFactory;
 
 
-    private HttpUtilApi httpApiSupport;
+//    private HttpUtilApi httpApiSupport;
 
     @Override
     public void setResourceLoader(@NonNull ResourceLoader resourceLoader) {
@@ -66,8 +70,18 @@ public class RemoteApiImportBeanDefinitionRegistrar implements ImportBeanDefinit
         Set<Class<?>> classes = getRemoteApiClasses(Objects.requireNonNull(
                 AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(RemoteApiScanner.class.getName())))
         );
-        httpApiSupport = new DefaultHttpApiSupport();
+        registerHttpUtil(registry);
         registerRemoteApi(classes, registry);
+    }
+
+    private void registerHttpUtil(BeanDefinitionRegistry registry) {
+        BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(DefaultHttpApiSupport.class);
+        GenericBeanDefinition bd = (GenericBeanDefinition) beanDefinitionBuilder.getBeanDefinition();
+        bd.setBeanClass(HttpUtilSupportFactoryBean.class);
+        bd.setBeanClassName(DefaultHttpApiSupport.class.getName());
+        bd.setAutowireMode(AUTOWIRE_BY_TYPE);
+        registry.registerBeanDefinition("httpApiSupport",bd);
+
     }
 
     private Set<Class<?>> getRemoteApiClasses(@NonNull AnnotationAttributes annotationAttributes) throws IOException, ClassNotFoundException {
@@ -87,10 +101,10 @@ public class RemoteApiImportBeanDefinitionRegistrar implements ImportBeanDefinit
             GenericBeanDefinition bd = (GenericBeanDefinition) beanDefinitionBuilder.getBeanDefinition();
             bd.setBeanClass(RemoteApiFactoryBean.class);
             bd.setBeanClassName(RemoteApiFactoryBean.class.getName());
-            bd.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
+            bd.setAutowireMode(AUTOWIRE_BY_TYPE);
             bd.setLazyInit(true);
             bd.getConstructorArgumentValues().addGenericArgumentValue(api);
-            bd.getPropertyValues().addPropertyValue("apiSupport", httpApiSupport);
+            bd.getPropertyValues().addPropertyValue("apiSupport", new RuntimeBeanReference("httpApiSupport"));
             registry.registerBeanDefinition(getRemoteApiBeanName(api), bd);
         }
     }

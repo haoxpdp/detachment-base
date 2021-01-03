@@ -1,7 +1,10 @@
 package cn.detachment.example;
 
 import cn.detach.api.annoation.RemoteApiScanner;
+import cn.detach.api.support.HttpUtilApi;
+import cn.detach.api.support.HttpUtilSupportFactoryBean;
 import cn.detachment.example.api.TestApi;
+import cn.detachment.utils.http.HttpUtil;
 import cn.detachment.web.bean.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,10 +61,12 @@ public class DetachExample implements CommandLineRunner {
         return Result.success();
     }
 
+    @Resource
+    private HttpUtilApi httpUtilApi;
 
     @Override
     public void run(String... args) throws Exception {
-        logger.info("{}", 123);
+        System.out.println(testApi.testIpSb());
     }
 
 }

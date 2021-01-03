@@ -11,7 +11,7 @@ import cn.detach.api.annoation.RemoteApi;
 public interface TestApi {
 
     @RemoteApi(
-            url = "https://ip.sb/"
+            url = "https://ip.sb?key=${test.key}"
     )
     String testIpSb();
 

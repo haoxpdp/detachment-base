@@ -4,7 +4,9 @@ import cn.detach.api.constant.HttpMethod;
 import cn.detach.api.http.RemoteRequest;
 import cn.detachment.utils.http.DefaultStringHandler;
 import cn.detachment.utils.http.HttpUtil;
+import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -13,13 +15,9 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.env.EnvironmentPostProcessor;
-import org.springframework.boot.env.OriginTrackedMapPropertySource;
-import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.MutablePropertySources;
-import org.springframework.core.env.PropertySource;
+import org.springframework.context.EmbeddedValueResolverAware;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringValueResolver;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +31,8 @@ import java.util.stream.Collectors;
  * @date 20/7/27
  */
 @SuppressWarnings("unused")
-public class DefaultHttpApiSupport implements HttpUtilApi, EnvironmentPostProcessor {
+@Slf4j
+public class DefaultHttpApiSupport implements HttpUtilApi, EmbeddedValueResolverAware {
 
     public static volatile RequestConfig DEFAULT_REQUEST = RequestConfig.custom()
             .setConnectionRequestTimeout(RemoteRequest.DEFAULT_TIMEOUT)
@@ -51,6 +50,7 @@ public class DefaultHttpApiSupport implements HttpUtilApi, EnvironmentPostProces
 
     private static final String REDIRECT_HEADER = "location";
 
+    private StringValueResolver stringValueResolver;
 
     public String requestExecute(RemoteRequest remoteRequest) {
         return "";
@@ -65,7 +65,8 @@ public class DefaultHttpApiSupport implements HttpUtilApi, EnvironmentPostProces
 
     @Override
     public String getParamFromEnv(String expression) {
-        return null;
+        Assert.notBlank(expression);
+        return stringValueResolver.resolveStringValue(expression);
     }
 
     public RequestBuilder createRequestBuilderByRemoteRequest(RemoteRequest remoteRequest) throws IOException {
@@ -128,15 +129,7 @@ public class DefaultHttpApiSupport implements HttpUtilApi, EnvironmentPostProces
 
 
     @Override
-    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        MutablePropertySources propertySources = environment.getPropertySources();
-        for (PropertySource<?> propertySource : propertySources) {
-
-            if (propertySource instanceof OriginTrackedMapPropertySource) {
-                OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) propertySource;
-                for (String key : source.getPropertyNames()) {
-                }
-            }
-        }
+    public void setEmbeddedValueResolver(StringValueResolver stringValueResolver) {
+        this.stringValueResolver = stringValueResolver;
     }
 }

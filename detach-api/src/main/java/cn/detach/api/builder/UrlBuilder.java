@@ -6,6 +6,7 @@ import cn.detach.api.constant.RemoteParameterType;
 import cn.detach.api.exception.UnsupportedFunction;
 import cn.detach.api.exception.UrlBuildException;
 import cn.detach.api.http.RemoteRequest;
+import cn.detach.api.support.HttpUtilApi;
 import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
@@ -47,8 +48,8 @@ public class UrlBuilder {
         return URL_TEMPLATE_CACHE.get(method).get();
     }
 
-    public static RemoteRequest buildRemoteRequest(Method method, Object[] args, String originalUrl, RemoteApi remoteApi) {
-
+    public static RemoteRequest buildRemoteRequest(Method method, Object[] args, RemoteApi remoteApi, HttpUtilApi httpUtilApi) {
+        String originalUrl = remoteApi.url();
         RemoteRequest remoteRequest = new RemoteRequest();
 
         remoteRequest.setHttpMethod(remoteApi.method());
@@ -102,9 +103,13 @@ public class UrlBuilder {
             if (parameterMap.getParameterType().equals(RemoteParameterType.REMOTE_PARAMETER)) {
                 String key = parameterMap.getValue();
                 if (key.contains(".")) {
-                    builder.append(reflectValue(key, paramMap.get(key.substring(0, key.indexOf(".")))));
+                    builder.append(reflectValue(key, paramMap.get(key.substring(0, key.indexOf("."))), httpUtilApi));
                 } else {
-                    builder.append(paramMap.get(parameterMap.getValue()));
+                    if (paramMap.containsKey(parameterMap.getValue())) {
+                        builder.append(paramMap.get(parameterMap.getValue()));
+                    } else {
+                        builder.append(httpUtilApi.getParamFromEnv("${" + parameterMap.getValue() + "}"));
+                    }
                 }
                 continue;
             }
@@ -122,15 +127,19 @@ public class UrlBuilder {
 
     @SneakyThrows
     @SuppressWarnings("unchecked")
-    private static String reflectValue(String key, Object arg) {
+    private static String reflectValue(String key, Object arg, HttpUtilApi httpUtilApi) {
         String field = key.substring(key.indexOf(".") + 1);
         if (arg instanceof Map) {
             return ((Map<String, String>) arg).get(field);
         }
         String methodName = getGetterMethod(field);
         try {
+            if (arg == null) {
+                return httpUtilApi.getParamFromEnv("${" + key + "}");
+            }
             Method method = arg.getClass().getDeclaredMethod(methodName);
             return String.valueOf(method.invoke(arg));
+
         } catch (NoSuchMethodException e) {
             throw new UrlBuildException(e, " can't find get method of [" + field + "] at " + arg.getClass().getName());
         } catch (IllegalAccessException e) {

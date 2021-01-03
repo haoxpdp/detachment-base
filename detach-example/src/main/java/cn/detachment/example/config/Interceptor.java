@@ -32,9 +32,6 @@ public class Interceptor implements MethodInterceptor {
         return proceed;
     }
 
-    @Bean
-    public DefaultPointcutAdvisor TestAop() {
 
-    }
 
 }

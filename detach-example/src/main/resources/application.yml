@@ -8,3 +8,5 @@ spring:
       max-file-size: 2000MB
       enabled: true
       max-request-size: 2000MB
+test:
+  key: asdf
