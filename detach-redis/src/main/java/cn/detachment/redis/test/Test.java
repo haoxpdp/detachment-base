@@ -25,6 +25,7 @@ public class Test {
     private Test test;
 
     public static void main(String[] args) {
+        System.out.println(Float.valueOf("0.1"));
         ProxyFactoryBean factory = new ProxyFactoryBean();
         factory.setTarget(new Test());
         Pointcut cut = new AnnotationMethodPointcut(DetachLock.class);
