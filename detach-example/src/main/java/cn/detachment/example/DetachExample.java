@@ -2,13 +2,10 @@ package cn.detachment.example;
 
 import cn.detach.api.annoation.RemoteApiScanner;
 import cn.detach.api.support.HttpUtilApi;
-import cn.detach.api.support.HttpUtilSupportFactoryBean;
 import cn.detachment.example.api.TestApi;
-import cn.detachment.utils.http.HttpUtil;
 import cn.detachment.web.bean.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author haoxp

@@ -1,6 +1,7 @@
 package cn.detachment.example.config;
 
 import cn.detachment.example.annoation.TAop;
+import cn.detachment.utils.http.HttpUtil;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -33,5 +34,8 @@ public class Interceptor implements MethodInterceptor {
     }
 
 
+    public static void main(String[] args) {
+        System.out.println(HttpUtil.get("https://github.com.ipaddress.com/"));
+    }
 
 }
