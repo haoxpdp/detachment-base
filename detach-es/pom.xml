@@ -10,7 +10,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>detache-es</artifactId>
+    <artifactId>detach-es</artifactId>
+    <version>2.0.1-SNAPSHOT</version>
 
 
     <dependencies>
