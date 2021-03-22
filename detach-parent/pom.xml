@@ -7,7 +7,19 @@
     <artifactId>detach-parent</artifactId>
     <version>2.0.0-RELEASE</version>
     <modules>
+        <module>../detach-api</module>
+        <module>../detach-core</module>
+        <module>../detach-es</module>
+        <module>../detach-example</module>
+        <module>../detach-gateway</module>
+        <module>../detach-gateway</module>
+        <module>../detach-log</module>
+        <module>../detach-mysql</module>
+        <module>../detach-oss</module>
         <module>../detach-redis</module>
+        <module>../detach-util</module>
+        <module>../detach-web</module>
+
     </modules>
 
     <packaging>pom</packaging>
@@ -194,18 +206,18 @@
             <build>
                 <plugins>
                     <!-- mvn clean deploy -Dmaven.test.skip=true -P deploy -->
-<!--                    <plugin>-->
-<!--                        <groupId>org.sonatype.plugins</groupId>-->
-<!--                        <artifactId>nexus-staging-maven-plugin</artifactId>-->
-<!--                        <version>1.6.3</version>-->
-<!--                        <extensions>true</extensions>-->
-<!--                        <configuration>-->
-<!--                            &lt;!&ndash; 和settings.xml中配置的server id 一样 &ndash;&gt;-->
-<!--                            <serverId>sonatype</serverId>-->
-<!--                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
-<!--                            <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
-<!--                        </configuration>-->
-<!--                    </plugin>-->
+                    <!--                    <plugin>-->
+                    <!--                        <groupId>org.sonatype.plugins</groupId>-->
+                    <!--                        <artifactId>nexus-staging-maven-plugin</artifactId>-->
+                    <!--                        <version>1.6.3</version>-->
+                    <!--                        <extensions>true</extensions>-->
+                    <!--                        <configuration>-->
+                    <!--                            &lt;!&ndash; 和settings.xml中配置的server id 一样 &ndash;&gt;-->
+                    <!--                            <serverId>sonatype</serverId>-->
+                    <!--                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+                    <!--                            <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+                    <!--                        </configuration>-->
+                    <!--                    </plugin>-->
                     <!-- mvn versions:set -DnewVersion=1.0.3-RELEASE -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -239,47 +251,47 @@
                         </executions>
                     </plugin>
                     <!-- Javadoc -->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                        <version>2.10.4</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <phase>package</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>jar</goal>-->
-<!--                                </goals>-->
-<!--                                <configuration>-->
-<!--                                    <show>private</show>-->
-<!--                                    <nohelp>true</nohelp>-->
-<!--                                    <charset>UTF-8</charset>-->
-<!--                                    <encoding>UTF-8</encoding>-->
-<!--                                    <docencoding>UTF-8</docencoding>-->
-<!--                                    <additionalparam>-Xdoclint:none</additionalparam>-->
-<!--                                    &lt;!&ndash; 解决升级jdk11导致java-doc error &ndash;&gt;-->
-<!--                                    &lt;!&ndash; https://www.it1352.com/1608997.html &ndash;&gt;-->
-<!--                                    <source>11</source>-->
-<!--                                </configuration>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
+                    <!--                    <plugin>-->
+                    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
+                    <!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
+                    <!--                        <version>2.10.4</version>-->
+                    <!--                        <executions>-->
+                    <!--                            <execution>-->
+                    <!--                                <phase>package</phase>-->
+                    <!--                                <goals>-->
+                    <!--                                    <goal>jar</goal>-->
+                    <!--                                </goals>-->
+                    <!--                                <configuration>-->
+                    <!--                                    <show>private</show>-->
+                    <!--                                    <nohelp>true</nohelp>-->
+                    <!--                                    <charset>UTF-8</charset>-->
+                    <!--                                    <encoding>UTF-8</encoding>-->
+                    <!--                                    <docencoding>UTF-8</docencoding>-->
+                    <!--                                    <additionalparam>-Xdoclint:none</additionalparam>-->
+                    <!--                                    &lt;!&ndash; 解决升级jdk11导致java-doc error &ndash;&gt;-->
+                    <!--                                    &lt;!&ndash; https://www.it1352.com/1608997.html &ndash;&gt;-->
+                    <!--                                    <source>11</source>-->
+                    <!--                                </configuration>-->
+                    <!--                            </execution>-->
+                    <!--                        </executions>-->
+                    <!--                    </plugin>-->
 
                     <!-- 生成asc 校验文件 -->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-gpg-plugin</artifactId>-->
-<!--                        <version>1.5</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                &lt;!&ndash; 必须和配置中的gpg校验id一致 &ndash;&gt;-->
-<!--                                <id>release</id>-->
-<!--                                <phase>verify</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>sign</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
+                    <!--                    <plugin>-->
+                    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
+                    <!--                        <artifactId>maven-gpg-plugin</artifactId>-->
+                    <!--                        <version>1.5</version>-->
+                    <!--                        <executions>-->
+                    <!--                            <execution>-->
+                    <!--                                &lt;!&ndash; 必须和配置中的gpg校验id一致 &ndash;&gt;-->
+                    <!--                                <id>release</id>-->
+                    <!--                                <phase>verify</phase>-->
+                    <!--                                <goals>-->
+                    <!--                                    <goal>sign</goal>-->
+                    <!--                                </goals>-->
+                    <!--                            </execution>-->
+                    <!--                        </executions>-->
+                    <!--                    </plugin>-->
                 </plugins>
             </build>
             <distributionManagement>
