@@ -12,7 +12,6 @@
         <module>../detach-es</module>
         <module>../detach-example</module>
         <module>../detach-gateway</module>
-        <module>../detach-gateway</module>
         <module>../detach-log</module>
         <module>../detach-mysql</module>
         <module>../detach-oss</module>
@@ -76,6 +75,7 @@
         <es.version>7.4.2</es.version>
         <aspectj.version>1.5.4</aspectj.version>
         <hutool.version>5.3.8</hutool.version>
+        <gateway.version>2.2.7.RELEASE</gateway.version>
     </properties>
 
 
@@ -96,7 +96,11 @@
 
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+                <version>${gateway.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
