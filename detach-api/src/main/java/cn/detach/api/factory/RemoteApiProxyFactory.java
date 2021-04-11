@@ -1,13 +1,18 @@
 package cn.detach.api.factory;
 
 import cn.detach.api.annoation.RemoteApi;
+import cn.detach.api.annoation.api.RemotePost;
+import cn.detach.api.constant.ContentType;
+import cn.detach.api.constant.HttpMethod;
 import cn.detach.api.relection.RemoteApiMethod;
 import cn.detach.api.support.HttpUtilApi;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author haoxp
@@ -33,7 +38,15 @@ public class RemoteApiProxyFactory implements InvocationHandler {
                 throw new RuntimeException(t);
             }
         }
-        if (method.getAnnotation(RemoteApi.class) == null) {
+        Annotation[] annotations = method.getAnnotations();
+        RemoteApi remoteApi = method.getAnnotation(RemoteApi.class);
+        if (remoteApi == null) {
+
+            if (method.getAnnotation(RemotePost.class) != null) {
+                remoteApi = (RemoteApi) method.getAnnotation(RemotePost.class);
+            }
+        }
+        if (remoteApi == null) {
             return method.invoke(this, args);
         }
         RemoteApiMethod remoteApiWrapper = getRemoteApiWrapper(method);
@@ -46,7 +59,6 @@ public class RemoteApiProxyFactory implements InvocationHandler {
         }
         return methodCaches.get(method);
     }
-
 
 
 }
