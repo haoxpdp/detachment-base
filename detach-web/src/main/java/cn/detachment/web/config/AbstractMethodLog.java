@@ -1,5 +1,6 @@
 package cn.detachment.web.config;
 
+import cn.detachment.web.bean.Result;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -24,7 +25,6 @@ public abstract class AbstractMethodLog implements InitializingBean {
 
     /**
      * init Exclude List
-     *
      */
     public abstract List<String> initExcludeList();
 
@@ -65,7 +65,13 @@ public abstract class AbstractMethodLog implements InitializingBean {
 
         if (exception != null) {
             monitor.error(exception.getMessage(), exception);
-            throw exception;
+            if (THREAD_LOCAL.get().equals(INDEX_INIT_VALUE)) {
+                logger.error(exception.getMessage(),exception);
+                return Result.error("服务器异常");
+            } else {
+
+                throw exception;
+            }
         }
 
         logResponse(ignoreLog, returnVal, logger, System.currentTimeMillis() - start, targetCls, targetMethod);
