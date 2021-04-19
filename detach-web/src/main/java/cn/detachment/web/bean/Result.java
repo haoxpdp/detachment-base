@@ -2,7 +2,6 @@ package cn.detachment.web.bean;
 
 import cn.detachment.web.constant.ResultCode;
 import lombok.Data;
-import org.springframework.util.Assert;
 
 /**
  * @author haoxp

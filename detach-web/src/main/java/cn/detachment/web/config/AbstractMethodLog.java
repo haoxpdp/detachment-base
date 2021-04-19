@@ -128,7 +128,7 @@ public abstract class AbstractMethodLog implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         excludeNames = initExcludeList();
     }
 }
