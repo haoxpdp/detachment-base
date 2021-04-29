@@ -6,6 +6,9 @@
     <groupId>cn.detachment</groupId>
     <artifactId>detach-parent</artifactId>
     <version>2.0.0-RELEASE</version>
+
+
+    <packaging>pom</packaging>
     <modules>
         <module>../detach-api</module>
         <module>../detach-core</module>
@@ -18,10 +21,9 @@
         <module>../detach-redis</module>
         <module>../detach-util</module>
         <module>../detach-web</module>
+        <module>../detach-zk</module>
 
     </modules>
-
-    <packaging>pom</packaging>
 
     <name>detachment-base</name>
     <description>detachment basic, utils</description>
