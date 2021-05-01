@@ -2,8 +2,6 @@ package cn.detach.api.factory;
 
 import cn.detach.api.annoation.RemoteApi;
 import cn.detach.api.annoation.api.RemotePost;
-import cn.detach.api.constant.ContentType;
-import cn.detach.api.constant.HttpMethod;
 import cn.detach.api.relection.RemoteApiMethod;
 import cn.detach.api.support.HttpUtilApi;
 
@@ -12,7 +10,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author haoxp

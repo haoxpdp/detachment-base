@@ -10,6 +10,7 @@ import java.util.Base64;
  * @version v1.0
  * @date 20/6/5 23:55
  */
+@SuppressWarnings("unused")
 public class AesUtil {
 
     private static final String AES = "AES";

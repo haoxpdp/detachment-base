@@ -1,9 +1,13 @@
 package cn.detach.api.builder;
 
-import cn.detach.api.annoation.*;
+import cn.detach.api.annoation.RemoteApi;
+import cn.detach.api.annoation.RemoteApiBody;
+import cn.detach.api.annoation.RemoteForm;
+import cn.detach.api.annoation.RemoteHeader;
+import cn.detach.api.annoation.RemoteParameter;
+import cn.detach.api.annoation.RemoteUrl;
 import cn.detach.api.constant.ContentType;
 import cn.detach.api.constant.RemoteParameterType;
-import cn.detach.api.exception.UnsupportedFunction;
 import cn.detach.api.exception.UrlBuildException;
 import cn.detach.api.http.RemoteRequest;
 import cn.detach.api.support.HttpUtilApi;
@@ -11,16 +15,18 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
 
 /**
  * url parse and build
@@ -184,7 +190,6 @@ public class UrlBuilder {
          * @param parameter parameter
          * @param arg       arg
          * @param request   request
-         * @return void
          * @author haoxp
          * @date 20/8/5
          */
@@ -208,7 +213,6 @@ public class UrlBuilder {
          *
          * @param arg     arg
          * @param request request
-         * @return void
          * @author haoxp
          * @date 20/8/5
          */

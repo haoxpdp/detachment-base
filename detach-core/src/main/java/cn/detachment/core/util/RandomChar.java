@@ -5,6 +5,7 @@ package cn.detachment.core.util;
  *
  * @author haoxp
  */
+@SuppressWarnings("unused")
 public class RandomChar {
     /**
      * getRandom
@@ -18,14 +19,15 @@ public class RandomChar {
         return (int) Math.round(Math.random() * (count));
     }
 
-    public static final String string = "abcdefghijklmnopqrstuvwxyz0123456789-=[];',./";
-    public static final String simpleString = "abcdefghijklmnopqrstuvwxyz0123456789";
+    public static final String STRING = "abcdefghijklmnopqrstuvwxyz0123456789-=[];',./";
+
+    public static final String SIMPLE_STRING = "abcdefghijklmnopqrstuvwxyz0123456789";
 
     public static String getRandomString(int length) {
-        StringBuffer sb = new StringBuffer();
-        int len = simpleString.length();
+        StringBuilder sb = new StringBuilder();
+        int len = SIMPLE_STRING.length();
         for (int i = 0; i < length; i++) {
-            sb.append(simpleString.charAt(getRandom(len - 1)));
+            sb.append(SIMPLE_STRING.charAt(getRandom(len - 1)));
         }
         return sb.toString();
     }

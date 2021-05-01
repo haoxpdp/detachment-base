@@ -35,6 +35,7 @@ public class RemoteApiMethod {
 
     private final Parameter[] parameters;
 
+    @SuppressWarnings("unused")
     public static final String URL_QUERY_TOKEN = "?";
 
     private final RemoteApi remoteApi;
