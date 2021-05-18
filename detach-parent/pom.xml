@@ -7,8 +7,10 @@
     <artifactId>detach-parent</artifactId>
     <version>2.0.0-RELEASE</version>
 
-
+    <name>detachment-base</name>
     <packaging>pom</packaging>
+
+
     <modules>
         <module>../detach-api</module>
         <module>../detach-core</module>
@@ -25,7 +27,6 @@
 
     </modules>
 
-    <name>detachment-base</name>
     <description>detachment basic, utils</description>
     <url>https://github.com/haoxpdp/detachment-base.git</url>
 
