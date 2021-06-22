@@ -58,7 +58,7 @@ public class StupidBeanUtil extends BeanUtils {
                     }
                 } else {
 
-                    System.out.println(String.format("%s.%s(null);", targetName, writeMethod.getName()));
+                    System.out.printf("%s.%s(null);%n", targetName, writeMethod.getName());
                 }
             }
         }
