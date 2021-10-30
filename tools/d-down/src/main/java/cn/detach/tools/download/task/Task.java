@@ -1,33 +1,22 @@
 package cn.detach.tools.download.task;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 /**
  * @author haoxp
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-public class Task {
+public interface Task {
 
-    private String taskName;
+    String tmpFile = ".d-down.tmp";
 
-    private Integer taskNo;
+    void start();
 
-    private Integer order;
+    void pause();
 
-    private String progress;
+    void finished();
 
-    private Long totalSize;
+    void delete();
 
-    private Long currentSize;
+    void deleteWithFile();
 
-    private String location;
+    void saveDownInfo();
 
 }
