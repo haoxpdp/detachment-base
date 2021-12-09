@@ -2,6 +2,7 @@
 
 ### 2.0.3(doing)
 * [ ] @RemotePost，@RemoteGet支持等注解
+* [ ] 接口监控信息
 
 ### 2.0.2
 
