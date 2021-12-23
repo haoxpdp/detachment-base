@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TaskInfo {
+public class TaskInfo implements Serializable {
+
+    private static final long serialVersionUID = -7133378543625237289L;
 
     private String taskNo;
 
@@ -45,12 +48,10 @@ public class TaskInfo {
 
     private Date endTime;
 
-    private Integer threadCount;
+    private Integer threadCount = 4;
 
     public void setThreadCount(Integer threadCount) {
-        if (threadCount > 50) {
-            throw new TaskInitException("设置线程数过多");
-        }
+        if (threadCount > 50) throw new TaskInitException("设置线程数过多");
         this.threadCount = threadCount;
     }
 
