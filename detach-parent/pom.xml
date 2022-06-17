@@ -69,7 +69,7 @@
         <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
         <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
         <lombok.version>1.18.8</lombok.version>
-        <fastJson.version>1.2.58</fastJson.version>
+        <fastJson.version>1.2.83</fastJson.version>
         <httpClient.version>4.5.5</httpClient.version>
         <mybatis-plus.version>3.1.0</mybatis-plus.version>
         <rocketmq.version>4.5.1</rocketmq.version>
