@@ -8,5 +8,9 @@ spring:
       max-file-size: 2000MB
       enabled: true
       max-request-size: 2000MB
+  datasource:
+    url: jdbc:mysql://192.168.232.137:3306/detach_exam?characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: haoxp
+    password: 940330
 test:
   key: asdf
