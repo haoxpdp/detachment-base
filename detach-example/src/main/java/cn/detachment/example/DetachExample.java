@@ -5,7 +5,6 @@ import cn.detach.api.support.HttpUtilApi;
 import cn.detachment.example.api.TestApi;
 import cn.detachment.example.beans.db.DUser;
 import cn.detachment.example.dao.DUserMapper;
-import cn.detachment.example.dao.DetachUserMapper;
 import cn.detachment.web.bean.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
