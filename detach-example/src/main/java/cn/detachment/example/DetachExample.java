@@ -3,6 +3,9 @@ package cn.detachment.example;
 import cn.detach.api.annoation.RemoteApiScanner;
 import cn.detach.api.support.HttpUtilApi;
 import cn.detachment.example.api.TestApi;
+import cn.detachment.example.beans.db.DUser;
+import cn.detachment.example.dao.DUserMapper;
+import cn.detachment.example.dao.DetachUserMapper;
 import cn.detachment.web.bean.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +45,9 @@ public class DetachExample implements CommandLineRunner {
     @Resource
     private TestApi testApi;
 
+    @Resource
+    private DUserMapper userMapper;
+
     @GetMapping("/test")
     public Result<?> test() {
         logger.info("test");
@@ -62,7 +68,9 @@ public class DetachExample implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(testApi.testIpSb());
+//        System.out.println(testApi.testIpSb());
+        DUser dUser = userMapper.selectById(1);
+        System.out.println(dUser);
     }
 
 }
