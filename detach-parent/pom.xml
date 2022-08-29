@@ -77,7 +77,7 @@
         <redisson.version>3.11.3</redisson.version>
         <es.version>7.4.2</es.version>
         <aspectj.version>1.5.4</aspectj.version>
-        <hutool.version>5.3.8</hutool.version>
+        <hutool.version>5.8.5</hutool.version>
         <gateway.version>2.2.7.RELEASE</gateway.version>
 
 
@@ -206,6 +206,11 @@
                 <version>${hutool.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-crypto</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
