@@ -14,7 +14,7 @@
 
 
     <modules>
-
+        <module>detach-web</module>
     </modules>
 
     <licenses>
