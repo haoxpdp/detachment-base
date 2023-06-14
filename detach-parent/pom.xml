@@ -77,7 +77,7 @@
         <redisson.version>3.11.3</redisson.version>
         <es.version>7.4.2</es.version>
         <aspectj.version>1.5.4</aspectj.version>
-        <hutool.version>5.8.5</hutool.version>
+        <hutool.version>5.8.19</hutool.version>
         <gateway.version>2.2.7.RELEASE</gateway.version>
 
 
